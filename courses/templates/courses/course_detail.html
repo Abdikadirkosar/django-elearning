@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }} | E-Learn{% endblock %}
+
+{% block content %}
+<!-- Course Header Banner -->
+<div class="course-header-banner">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <span class="category-tag">{{ course.category }}</span>
+      <h1 style="font-size: 2.2rem; font-weight: 800; margin: 0.5rem 0;">{{ course.title }}</h1>
+      <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 800px; margin-bottom: 1rem;">
+        {{ course.description }}
+      </p>
+
+      <div style="display: flex; gap: 1.5rem; color: var(--text-main); font-weight: 500; flex-wrap: wrap;">
+        <span>👨‍🏫 Instructor: <strong>{{ course.instructor }}</strong></span>
+        <span>⏱️ Duration: <strong>{{ course.duration }}</strong></span>
+        <span>📚 Lessons: <strong>{{ course.total_lessons }}</strong></span>
+      </div>
+    </div>
+
+    <!-- Actions / Enrollment Card -->
+    <div style="min-width: 260px; background-color: var(--bg-main); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: center;">
+      {% if is_enrolled %}
+        <div style="margin-bottom: 1rem;">
+          <span style="background-color: var(--success-bg); color: var(--success); font-weight: 700; padding: 0.3rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.9rem;">
+            ✓ Enrolled
+          </span>
+        </div>
+
+        <div class="progress-container" style="text-align: left;">
+          <div class="progress-header">
+            <span>Course Progress</span>
+            <span>{{ progress }}%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: {{ progress }}%;"></div>
+          </div>
+        </div>
+
+        {% if lessons.first %}
+          <a href="{% url 'lesson_detail' lessons.first.id %}" class="btn btn-primary btn-block" style="margin-top: 1rem;">
+            Continue Learning &rarr;
+          </a>
+        {% endif %}
+
+      {% else %}
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Start Learning Today</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">Get full access to all {{ course.total_lessons }} interactive lessons.</p>
+
+        {% if user.is_authenticated %}
+          <form method="POST" action="{% url 'enroll_course' course.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-block">Enroll Now</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}?next={% url 'course_detail' course.id %}" class="btn btn-primary btn-block">
+            Login to Enroll
+          </a>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Course Syllabus / Lessons List -->
+<div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem;">
+  <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+    Course Syllabus ({{ lessons.count }} Lessons)
+  </h2>
+
+  <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+    {% for lesson in lessons %}
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <span style="width: 32px; height: 32px; border-radius: 50%; background-color: #e0e7ff; color: var(--primary); font-weight: 700; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
+            {{ lesson.order }}
+          </span>
+          <span style="font-weight: 600; font-size: 1rem;">{{ lesson.title }}</span>
+        </div>
+
+        <div>
+          {% if is_enrolled %}
+            <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.875rem;">
+              View Lesson
+            </a>
+          {% else %}
+            <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">🔒 Enrolled Only</span>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p style="color: var(--text-muted);">No lessons have been added to this course yet.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

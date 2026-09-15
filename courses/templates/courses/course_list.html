@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Courses Catalog | E-Learn{% endblock %}
+
+{% block content %}
+<div class="section-header">
+  <h2>Explore All Courses</h2>
+  <p>Browse our collection of software engineering and computer science courses.</p>
+</div>
+
+<!-- Search and Category Filter Bar -->
+<form method="GET" action="{% url 'course_list' %}" class="filter-bar">
+  <input
+    type="text"
+    name="q"
+    id="clientSearchInput"
+    value="{{ search_query }}"
+    placeholder="🔍 Search courses by title, instructor, or keywords..."
+    class="form-input filter-input"
+  >
+
+  <select name="category" class="filter-select" onchange="this.form.submit()">
+    <option value="">All Categories</option>
+    {% for cat in categories %}
+      <option value="{{ cat }}" {% if selected_category|lower == cat|lower %}selected{% endif %}>
+        {{ cat }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <button type="submit" class="btn btn-primary">Search</button>
+  {% if search_query or selected_category %}
+    <a href="{% url 'course_list' %}" class="btn btn-secondary">Clear Filters</a>
+  {% endif %}
+</form>
+
+<!-- Courses Grid -->
+<div class="cards-grid" id="coursesGrid">
+  {% for course in courses %}
+    <div
+      class="course-card course-card-item"
+      data-title="{{ course.title|lower }}"
+      data-category="{{ course.category|lower }}"
+    >
+      <div class="course-card-body">
+        <span class="category-tag">{{ course.category }}</span>
+        <h3 class="course-card-title">{{ course.title }}</h3>
+        <p class="course-card-desc">{{ course.description|truncatewords:20 }}</p>
+
+        <div class="course-card-meta">
+          <span>👨‍🏫 {{ course.instructor }}</span>
+          <span>⏱️ {{ course.duration }}</span>
+          <span>📚 {{ course.total_lessons }} Lessons</span>
+        </div>
+
+        <a href="{% url 'course_detail' course.id %}" class="btn btn-primary btn-block">
+          View Course
+        </a>
+      </div>
+    </div>
+  {% empty %}
+    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+      <h3 style="color: var(--text-muted); margin-bottom: 0.5rem;">No courses found matching your criteria.</h3>
+      <a href="{% url 'course_list' %}" class="btn btn-secondary" style="margin-top: 1rem;">View All Courses</a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

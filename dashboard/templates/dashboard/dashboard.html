@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard | E-Learn{% endblock %}
+
+{% block content %}
+<div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <div>
+    <h2>Welcome, {{ user.username }}! 👋</h2>
+    <p>Track your enrolled courses, view lesson completion status, and continue learning.</p>
+  </div>
+  <div>
+    <a href="{% url 'course_list' %}" class="btn btn-secondary">+ Browse More Courses</a>
+  </div>
+</div>
+
+<!-- Dashboard Stats Cards -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon" style="background-color: #e0e7ff; color: var(--primary);">📚</div>
+    <div>
+      <div class="stat-number">{{ enrolled_count }}</div>
+      <div class="stat-label">Enrolled Courses</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon" style="background-color: #d1fae5; color: var(--success);">✅</div>
+    <div>
+      <div class="stat-number">{{ completed_lessons_count }}</div>
+      <div class="stat-label">Completed Lessons</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon" style="background-color: #cff4fc; color: var(--secondary);">📈</div>
+    <div>
+      <div class="stat-number">{{ overall_progress }}%</div>
+      <div class="stat-label">Overall Progress</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon" style="background-color: #fef3c7; color: var(--accent);">🏆</div>
+    <div>
+      <div class="stat-number">{{ certificates_count }}</div>
+      <div class="stat-label">Certificates Earned</div>
+    </div>
+  </div>
+</div>
+
+<!-- My Enrolled Courses Section -->
+<section style="margin-top: 2rem;">
+  <div class="section-header">
+    <h3>My Courses</h3>
+    <p>Resume your active learning paths.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+    {% for item in enrolled_courses_data %}
+      <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: var(--shadow-sm);">
+        <div style="flex: 1; min-width: 280px;">
+          <span class="category-tag">{{ item.course.category }}</span>
+          <h4 style="font-size: 1.3rem; font-weight: 700; margin: 0.3rem 0;">{{ item.course.title }}</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.8rem;">
+            Instructor: {{ item.course.instructor }} &bull; Enrolled on {{ item.enrolled_at|date:"M d, Y" }}
+          </p>
+
+          <div class="progress-container" style="max-width: 450px;">
+            <div class="progress-header">
+              <span>Course Completion</span>
+              <span>{{ item.progress }}%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: {{ item.progress }}%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end;">
+          {% if item.next_lesson %}
+            <a href="{% url 'lesson_detail' item.next_lesson.id %}" class="btn btn-primary">
+              Continue Learning &rarr;
+            </a>
+          {% endif %}
+          <a href="{% url 'course_detail' item.course.id %}" class="btn btn-secondary" style="font-size: 0.85rem;">
+            Course Details
+          </a>
+        </div>
+      </div>
+    {% empty %}
+      <div style="text-align: center; padding: 3.5rem 1.5rem; background-color: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">📖</div>
+        <h3 style="margin-bottom: 0.5rem;">You haven't enrolled in any courses yet.</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Explore our course catalog and start learning now.</p>
+        <a href="{% url 'course_list' %}" class="btn btn-primary">Explore Courses</a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
