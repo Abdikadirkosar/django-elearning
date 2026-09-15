@@ -3,47 +3,47 @@
 {% block title %}Quiz Result | {{ quiz.title }} | E-Learn{% endblock %}
 
 {% block content %}
-<div class="container" style="max-width: 750px; margin: 2rem auto; padding: 0 1rem; text-align: center;">
+<div class="result-container">
 
-  <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem 2rem; box-shadow: var(--shadow-md);">
+  <div class="result-card">
     
-    <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">
+    <div class="result-icon">
       {% if passed %}🏆{% else %}📚{% endif %}
     </div>
 
-    <h1 style="font-size: 2rem; margin-bottom: 0.5rem; color: {% if passed %}#16a34a{% else %}#dc2626{% endif %};">
+    <h1 class="result-title {% if passed %}result-pass{% else %}result-fail{% endif %}">
       {% if passed %}Congratulations! You Passed!{% else %}Don't Give Up! Keep Learning!{% endif %}
     </h1>
 
-    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
+    <p class="result-subtitle">
       You scored <strong>{{ score }}%</strong> ({{ correct_q }} out of {{ total_q }} questions correct).<br>
       Passing mark required: {{ quiz.pass_percentage }}%
     </p>
 
     <!-- Score Card -->
-    <div style="background: var(--bg-alt); border-radius: var(--radius-md); padding: 1.5rem; max-width: 400px; margin: 0 auto 2rem auto; border: 1px solid var(--border);">
-      <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Final Result</div>
-      <div style="font-size: 2.5rem; font-weight: 800; color: {% if passed %}#16a34a{% else %}#dc2626{% endif %};">
+    <div class="result-score-box">
+      <div class="result-score-label">Final Result</div>
+      <div class="result-score-val {% if passed %}result-pass{% else %}result-fail{% endif %}">
         {{ score }}%
       </div>
-      <div style="font-size: 0.95rem; font-weight: 600; margin-top: 0.25rem;">
-        Status: {% if passed %}<span style="color: #16a34a;">PASSED</span>{% else %}<span style="color: #dc2626;">FAILED</span>{% endif %}
+      <div class="result-score-status">
+        Status: {% if passed %}<span class="result-pass">PASSED</span>{% else %}<span class="result-fail">FAILED</span>{% endif %}
       </div>
     </div>
 
     <!-- Actions -->
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+    <div class="result-actions">
       {% if passed %}
-        <a href="{% url 'view_certificate' course.id %}" class="btn btn-primary" style="padding: 0.75rem 1.75rem; font-size: 1rem;">
+        <a href="{% url 'view_certificate' course.id %}" class="btn btn-primary">
           🎓 View Your Official Certificate
         </a>
       {% else %}
-        <a href="{% url 'take_quiz' course.id %}" class="btn btn-primary" style="padding: 0.75rem 1.75rem; font-size: 1rem;">
+        <a href="{% url 'take_quiz' course.id %}" class="btn btn-primary">
           🔄 Retake Quiz
         </a>
       {% endif %}
 
-      <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary" style="padding: 0.75rem 1.5rem;">
+      <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">
         Back to Course Overview
       </a>
     </div>

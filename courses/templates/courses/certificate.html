@@ -3,88 +3,88 @@
 {% block title %}Certificate of Completion - {{ course.title }} | E-Learn{% endblock %}
 
 {% block content %}
-<div class="container" style="max-width: 960px; margin: 2rem auto; padding: 0 1rem;">
+<div class="cert-page-container">
   
   <!-- Action Bar (Hidden on Print) -->
-  <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+  <div class="cert-actions-bar no-print">
     <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">
       ← Back to Course
     </a>
 
-    <div style="display: flex; gap: 0.75rem;">
-      <button onclick="window.print()" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem;">
+    <div>
+      <button onclick="window.print()" class="btn btn-primary">
         🖨️ Print / Save as PDF
       </button>
     </div>
   </div>
 
-  <!-- Certificate Canvas -->
-  <div class="certificate-container" style="background: #ffffff; color: #1e293b; padding: 3rem 2.5rem; border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border: 8px solid #1e3a8a; position: relative; overflow: hidden; text-align: center;">
+  <!-- Certificate Sheet -->
+  <div class="certificate-sheet">
     
     <!-- Inner Decorative Gold Border -->
-    <div style="border: 2px solid #d97706; padding: 2.5rem 2rem; position: relative;">
+    <div class="cert-inner-border">
       
       <!-- Top Brand -->
-      <div style="font-size: 1.25rem; font-weight: 800; letter-spacing: 2px; color: #1e3a8a; text-transform: uppercase; margin-bottom: 0.5rem;">
+      <div class="cert-brand">
         📚 E-LEARN ACADEMY
       </div>
-      <div style="font-size: 0.85rem; color: #64748b; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.5rem;">
+      <div class="cert-subbrand">
         Verified Certificate of Achievement
       </div>
 
       <!-- Main Heading -->
-      <h1 style="font-size: 2.75rem; font-family: 'Georgia', serif; color: #0f172a; margin: 0.5rem 0 1rem 0; font-weight: 700; text-transform: uppercase; letter-spacing: 3px;">
+      <h1 class="cert-title">
         Certificate of Completion
       </h1>
 
-      <p style="font-size: 1.1rem; color: #475569; font-style: italic; margin-bottom: 1.25rem;">
+      <p class="cert-presented-text">
         This is proudly presented to
       </p>
 
       <!-- Student Name -->
-      <div style="font-size: 2.25rem; font-family: 'Georgia', serif; font-weight: 700; color: #1e3a8a; border-bottom: 2px solid #d97706; display: inline-block; padding-bottom: 0.5rem; margin-bottom: 1.5rem; min-width: 320px;">
+      <div class="cert-recipient-name">
         {{ certificate.user.get_full_name|default:certificate.user.username }}
       </div>
 
-      <p style="font-size: 1.05rem; color: #475569; max-width: 680px; margin: 0 auto 1.5rem auto; line-height: 1.6;">
+      <p class="cert-desc">
         for successfully mastering the curriculum, completing all rigorous lessons, and passing the final examinations for the accredited online course:
       </p>
 
       <!-- Course Title -->
-      <h2 style="font-size: 1.75rem; color: #0f172a; font-weight: 700; margin-bottom: 2.5rem; font-family: 'Georgia', serif;">
+      <h2 class="cert-course-title">
         "{{ course.title }}"
       </h2>
 
       <!-- Bottom Signatures & Seal Grid -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; align-items: flex-end; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+      <div class="cert-footer-grid">
         
         <!-- Left: Instructor Signature -->
-        <div style="text-align: center;">
-          <div style="font-family: 'Brush Script MT', cursive, sans-serif; font-size: 1.75rem; color: #1e3a8a; margin-bottom: 0.25rem;">
+        <div class="cert-sign-col">
+          <div class="cert-sign-name">
             {{ course.instructor }}
           </div>
-          <div style="border-top: 1px solid #94a3b8; width: 80%; margin: 0 auto 0.25rem auto;"></div>
-          <div style="font-size: 0.85rem; font-weight: 600; color: #475569;">Course Instructor</div>
-          <div style="font-size: 0.75rem; color: #94a3b8;">{{ course.instructor }}</div>
+          <div class="cert-sign-line"></div>
+          <div class="cert-sign-title">Course Instructor</div>
+          <div class="cert-sign-sub">{{ course.instructor }}</div>
         </div>
 
         <!-- Center: Official Seal -->
-        <div style="text-align: center;">
-          <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 2px solid #b45309;">
-            <span style="font-size: 1.5rem;">★</span>
-            <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px;">OFFICIAL</span>
-            <span style="font-size: 0.55rem;">SEAL</span>
+        <div class="cert-sign-col">
+          <div class="cert-seal">
+            <span class="cert-seal-star">★</span>
+            <span class="cert-seal-text">OFFICIAL</span>
+            <span class="cert-seal-subtext">SEAL</span>
           </div>
         </div>
 
         <!-- Right: Date & Verification ID -->
-        <div style="text-align: center;">
-          <div style="font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 0.25rem;">
+        <div class="cert-sign-col">
+          <div class="cert-date-val">
             {{ certificate.issued_at|date:"F j, Y" }}
           </div>
-          <div style="border-top: 1px solid #94a3b8; width: 80%; margin: 0 auto 0.25rem auto;"></div>
-          <div style="font-size: 0.85rem; font-weight: 600; color: #475569;">Issue Date</div>
-          <div style="font-size: 0.7rem; color: #94a3b8; word-break: break-all; margin-top: 0.2rem;">
+          <div class="cert-sign-line"></div>
+          <div class="cert-sign-title">Issue Date</div>
+          <div class="cert-id-text">
             ID: {{ certificate.certificate_code }}
           </div>
         </div>
@@ -96,26 +96,4 @@
   </div>
 
 </div>
-
-<style>
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .certificate-container, .certificate-container * {
-    visibility: visible;
-  }
-  .certificate-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100% !important;
-    box-shadow: none !important;
-    border-width: 6px !important;
-  }
-  .no-print, .navbar, .footer {
-    display: none !important;
-  }
-}
-</style>
 {% endblock %}

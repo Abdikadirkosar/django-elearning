@@ -3,37 +3,37 @@
 {% block title %}My Profile | E-Learn{% endblock %}
 
 {% block content %}
-<div class="container" style="max-width: 850px; margin: 2rem auto; padding: 0 1rem;">
+<div class="profile-container">
   
-  <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md);">
+  <div class="profile-card">
     
     <!-- Profile Header / Banner -->
-    <div style="display: flex; align-items: center; gap: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap;">
-      <div style="width: 90px; height: 90px; border-radius: 50%; overflow: hidden; background: var(--primary-light, #e0e7ff); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: var(--primary); border: 3px solid var(--primary);">
+    <div class="profile-header">
+      <div class="profile-avatar-placeholder">
         {% if profile.avatar %}
-          <img src="{{ profile.avatar.url }}" alt="{{ user.username }}" style="width: 100%; height: 100%; object-fit: cover;">
+          <img src="{{ profile.avatar.url }}" alt="{{ user.username }}" class="profile-avatar-img">
         {% else %}
           {{ user.username|slice:":1"|upper }}
         {% endif %}
       </div>
 
-      <div style="flex: 1; min-width: 220px;">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <h2 style="margin: 0; font-size: 1.6rem;">{{ user.get_full_name|default:user.username }}</h2>
-          <span style="background: var(--primary); color: white; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">
+      <div class="profile-info">
+        <div class="profile-name-row">
+          <h2 class="profile-name">{{ user.get_full_name|default:user.username }}</h2>
+          <span class="profile-role-badge">
             {{ profile.get_role_display }}
           </span>
         </div>
-        <p style="color: var(--text-muted); margin: 0.25rem 0 0 0; font-size: 0.95rem;">
+        <p class="profile-headline">
           {{ profile.headline|default:"Student at E-Learn Platform" }}
         </p>
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0 0 0;">
+        <p class="profile-meta">
           Member since: {{ user.date_joined|date:"F Y" }}
         </p>
       </div>
 
       <div>
-        <a href="{% url 'dashboard' %}" class="btn btn-secondary" style="font-size: 0.9rem;">
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">
           ← Back to Dashboard
         </a>
       </div>
@@ -43,11 +43,11 @@
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
-      <h3 style="margin-bottom: 1.25rem; font-size: 1.2rem; color: var(--text-main);">
+      <h3 class="profile-form-section-title">
         Edit Profile Information
       </h3>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+      <div class="profile-form-grid">
         <div class="form-group">
           <label for="{{ u_form.first_name.id_for_label }}">First Name</label>
           {{ u_form.first_name }}
@@ -65,7 +65,7 @@
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+      <div class="profile-form-grid">
         <div class="form-group">
           <label for="{{ u_form.email.id_for_label }}">Email Address</label>
           {{ u_form.email }}
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+      <div class="profile-form-grid">
         <div class="form-group">
           <label for="{{ p_form.role.id_for_label }}">Account Role</label>
           {{ p_form.role }}
@@ -101,7 +101,7 @@
         </div>
       </div>
 
-      <div class="form-group" style="margin-bottom: 1rem;">
+      <div class="form-group">
         <label for="{{ p_form.avatar.id_for_label }}">Profile Picture (Avatar)</label>
         {{ p_form.avatar }}
         {% if p_form.avatar.errors %}
@@ -109,7 +109,7 @@
         {% endif %}
       </div>
 
-      <div class="form-group" style="margin-bottom: 1.5rem;">
+      <div class="form-group">
         <label for="{{ p_form.bio.id_for_label }}">Biography</label>
         {{ p_form.bio }}
         {% if p_form.bio.errors %}
@@ -117,8 +117,8 @@
         {% endif %}
       </div>
 
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem;">
+      <div class="profile-form-actions">
+        <button type="submit" class="btn btn-primary">
           Save Profile Changes
         </button>
         <a href="{% url 'dashboard' %}" class="btn btn-secondary">

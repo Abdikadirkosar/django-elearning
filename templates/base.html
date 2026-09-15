@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -20,18 +20,7 @@
         ☰
       </button>
 
-      <ul class="navbar-links" id="navLinks">
-        <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
-        <li><a href="{% url 'course_list' %}" class="{% if request.resolver_match.url_name == 'course_list' %}active{% endif %}">Courses</a></li>
-        {% if user.is_authenticated %}
-          <li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a></li>
-          <li><a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">👤 Profile</a></li>
-          <li><a href="{% url 'logout' %}" class="nav-btn nav-btn-secondary">Logout ({{ user.username }})</a></li>
-        {% else %}
-          <li><a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a></li>
-          <li><a href="{% url 'register' %}" class="nav-btn">Register</a></li>
-        {% endif %}
-      </ul>
+      <ul class="navbar-links" id="navLinks"><li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li><li><a href="{% url 'course_list' %}" class="{% if request.resolver_match.url_name == 'course_list' %}active{% endif %}">Courses</a></li>{% if user.is_authenticated %}<li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a></li><li><a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">👤 Profile</a></li><li><a href="{% url 'logout' %}" class="nav-btn nav-btn-secondary">Logout ({{ user.username }})</a></li>{% else %}<li><a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a></li><li><a href="{% url 'register' %}" class="nav-btn">Register</a></li>{% endif %}</ul>
     </div>
   </nav>
 
@@ -57,11 +46,10 @@
   <footer class="footer">
     <div class="footer-container">
       <p>&copy; 2026 E-Learn LMS. Designed for Computer Science Academic Presentation.</p>
-      <p style="font-size: 0.8rem; margin-top: 0.4rem; color: var(--text-muted);">Built with Python, Django, HTML5, CSS3, & Vanilla JavaScript.</p>
+      <p class="footer-subtext">Built with Python, Django, HTML5, CSS3, & Vanilla JavaScript.</p>
     </div>
   </footer>
 
   <script src="{% static 'js/main.js' %}"></script>
-  {% block extra_js %}{% endblock %}
 </body>
 </html>

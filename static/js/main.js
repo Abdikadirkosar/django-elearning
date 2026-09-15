@@ -51,4 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // 4. Dynamic Progress Bars
+  document.querySelectorAll('.progress-bar-fill[data-progress]').forEach(bar => {
+    bar.style.width = (bar.getAttribute('data-progress') || '0') + '%';
+  });
 });
+

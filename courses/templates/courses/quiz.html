@@ -3,27 +3,27 @@
 {% block title %}Quiz: {{ quiz.title }} | E-Learn{% endblock %}
 
 {% block content %}
-<div class="container" style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+<div class="quiz-container">
   
-  <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md);">
+  <div class="quiz-card">
     
     <!-- Quiz Header -->
-    <div style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem;">
-      <a href="{% url 'course_detail' course.id %}" style="color: var(--primary); font-size: 0.9rem; text-decoration: none; display: inline-block; margin-bottom: 0.5rem;">
+    <div class="quiz-header">
+      <a href="{% url 'course_detail' course.id %}" class="quiz-back-link">
         ← Back to {{ course.title }}
       </a>
-      <h1 style="font-size: 1.75rem; margin: 0.25rem 0;">📝 {{ quiz.title }}</h1>
-      <p style="color: var(--text-muted); margin: 0.25rem 0 0.75rem 0;">{{ quiz.description|default:"Test your knowledge and pass to earn your official Course Certificate." }}</p>
+      <h1 class="quiz-title">📝 {{ quiz.title }}</h1>
+      <p class="quiz-desc">{{ quiz.description|default:"Test your knowledge and pass to earn your official Course Certificate." }}</p>
       
-      <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; font-size: 0.85rem;">
-        <span style="background: var(--bg-alt); padding: 0.35rem 0.75rem; border-radius: 9999px; border: 1px solid var(--border);">
+      <div class="quiz-meta-row">
+        <span class="quiz-badge">
           <strong>Total Questions:</strong> {{ questions|length }}
         </span>
-        <span style="background: var(--bg-alt); padding: 0.35rem 0.75rem; border-radius: 9999px; border: 1px solid var(--border);">
+        <span class="quiz-badge">
           <strong>Pass Mark:</strong> {{ quiz.pass_percentage }}%
         </span>
         {% if latest_attempt %}
-          <span style="background: {% if latest_attempt.passed %}#dcfce7; color: #166534;{% else %}#fee2e2; color: #991b1b;{% endif %} padding: 0.35rem 0.75rem; border-radius: 9999px; font-weight: 600;">
+          <span class="{% if latest_attempt.passed %}quiz-badge-pass{% else %}quiz-badge-fail{% endif %}">
             Latest Score: {{ latest_attempt.score }}% ({% if latest_attempt.passed %}PASSED{% else %}FAILED{% endif %})
           </span>
         {% endif %}
@@ -35,24 +35,24 @@
       {% csrf_token %}
 
       {% for question in questions %}
-        <div style="background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
-          <h3 style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--text-main);">
-            <span style="color: var(--primary); font-weight: 700;">Question {{ forloop.counter }}:</span> {{ question.text }}
+        <div class="quiz-question-box">
+          <h3 class="quiz-question-title">
+            <span class="quiz-question-num">Question {{ forloop.counter }}:</span> {{ question.text }}
           </h3>
 
-          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <div class="quiz-choices-list">
             {% for choice in question.choices.all %}
-              <label style="display: flex; align-items: center; gap: 0.75rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; cursor: pointer; transition: all 0.2s;">
-                <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}" required style="width: 18px; height: 18px; accent-color: var(--primary);">
-                <span style="font-size: 0.95rem; color: var(--text-main);">{{ choice.text }}</span>
+              <label class="quiz-choice-label">
+                <input type="radio" name="question_{{ question.id }}" value="{{ choice.id }}" required class="quiz-choice-radio">
+                <span class="quiz-choice-text">{{ choice.text }}</span>
               </label>
             {% endfor %}
           </div>
         </div>
       {% endfor %}
 
-      <div style="display: flex; gap: 1rem; align-items: center; margin-top: 2rem;">
-        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1rem;">
+      <div class="quiz-actions">
+        <button type="submit" class="btn btn-primary">
           Submit Quiz Answers 🚀
         </button>
         <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">
