@@ -64,3 +64,38 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password', 'class': 'form-input'})
     )
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={'placeholder': 'Email address', 'class': 'form-input'})
+    )
+    first_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'First Name', 'class': 'form-input'})
+    )
+    last_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'class': 'form-input'})
+    )
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+
+
+from .models import UserProfile
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['role', 'headline', 'bio', 'phone', 'avatar']
+        widgets = {
+            'role': forms.Select(attrs={'class': 'form-input'}),
+            'headline': forms.TextInput(attrs={'placeholder': 'e.g. Computer Science Student', 'class': 'form-input'}),
+            'bio': forms.Textarea(attrs={'placeholder': 'Tell us about your learning journey...', 'class': 'form-input', 'rows': 4}),
+            'phone': forms.TextInput(attrs={'placeholder': '+252 61 XXX XXXX', 'class': 'form-input'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-input'}),
+        }
+

@@ -25,6 +25,7 @@
         <li><a href="{% url 'course_list' %}" class="{% if request.resolver_match.url_name == 'course_list' %}active{% endif %}">Courses</a></li>
         {% if user.is_authenticated %}
           <li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a></li>
+          <li><a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">👤 Profile</a></li>
           <li><a href="{% url 'logout' %}" class="nav-btn nav-btn-secondary">Logout ({{ user.username }})</a></li>
         {% else %}
           <li><a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a></li>

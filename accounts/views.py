@@ -55,3 +55,36 @@ def logout_view(request):
         logout(request)
         messages.info(request, "You have been logged out successfully.")
     return redirect('home')
+
+
+from django.contrib.auth.decorators import login_required
+from .forms import UserUpdateForm, ProfileUpdateForm
+from .models import UserProfile
+
+@login_required
+def profile_view(request):
+    # Ensure profile exists
+    profile, _ = UserProfile.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, "Your profile has been updated successfully!")
+            return redirect('profile')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+        'profile': profile,
+    }
+    return render(request, 'accounts/profile.html', context)
+

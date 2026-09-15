@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q, Count
 from django.contrib.auth.models import User
-from .models import Course, Lesson, Enrollment, LessonProgress
+from .models import Course, Lesson, Enrollment, LessonProgress, Review, Quiz, Question, Choice, QuizAttempt, Certificate
+
 
 
 def home(request):
@@ -50,21 +51,158 @@ def course_list(request):
 def course_detail(request, pk):
     course = get_object_or_404(Course, pk=pk, is_published=True)
     lessons = course.lessons.all()
+    reviews = course.reviews.select_related('user').all()
     
     is_enrolled = False
     progress = 0
+    user_review = None
+    certificate = None
+    quiz = getattr(course, 'quiz', None)
+    latest_attempt = None
+
     if request.user.is_authenticated:
         is_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
         if is_enrolled:
             progress = course.get_user_progress(request.user)
+            user_review = reviews.filter(user=request.user).first()
+            certificate = Certificate.objects.filter(user=request.user, course=course).first()
+            if quiz:
+                latest_attempt = QuizAttempt.objects.filter(user=request.user, quiz=quiz).first()
 
     context = {
         'course': course,
         'lessons': lessons,
+        'reviews': reviews,
         'is_enrolled': is_enrolled,
         'progress': progress,
+        'user_review': user_review,
+        'certificate': certificate,
+        'quiz': quiz,
+        'latest_attempt': latest_attempt,
     }
     return render(request, 'courses/course_detail.html', context)
+
+
+@login_required
+def submit_review(request, pk):
+    if request.method != 'POST':
+        return redirect('course_detail', pk=pk)
+
+    course = get_object_or_404(Course, pk=pk, is_published=True)
+
+    if not Enrollment.objects.filter(user=request.user, course=course).exists():
+        messages.error(request, "You must be enrolled in this course to leave a review.")
+        return redirect('course_detail', pk=course.id)
+
+    try:
+        rating = int(request.POST.get('rating', 5))
+        if rating < 1 or rating > 5:
+            rating = 5
+    except (ValueError, TypeError):
+        rating = 5
+
+    comment = request.POST.get('comment', '').strip()
+    if not comment:
+        messages.error(request, "Please write a comment for your review.")
+        return redirect('course_detail', pk=course.id)
+
+    Review.objects.update_or_create(
+        course=course,
+        user=request.user,
+        defaults={'rating': rating, 'comment': comment}
+    )
+
+    messages.success(request, "Thank you! Your course review has been submitted.")
+    return redirect('course_detail', pk=course.id)
+
+
+@login_required
+def take_quiz(request, pk):
+    course = get_object_or_404(Course, pk=pk, is_published=True)
+
+    if not Enrollment.objects.filter(user=request.user, course=course).exists():
+        messages.error(request, "You must enroll in this course to take the quiz.")
+        return redirect('course_detail', pk=course.id)
+
+    quiz = getattr(course, 'quiz', None)
+    if not quiz:
+        messages.info(request, "No quiz has been added to this course yet.")
+        return redirect('course_detail', pk=course.id)
+
+    questions = quiz.questions.prefetch_related('choices').all()
+
+    if request.method == 'POST':
+        total_q = questions.count()
+        correct_q = 0
+
+        for q in questions:
+            choice_id = request.POST.get(f'question_{q.id}')
+            if choice_id:
+                if Choice.objects.filter(id=choice_id, question=q, is_correct=True).exists():
+                    correct_q += 1
+
+        score = int((correct_q / total_q) * 100) if total_q > 0 else 0
+        passed = score >= quiz.pass_percentage
+
+        attempt = QuizAttempt.objects.create(
+            user=request.user,
+            quiz=quiz,
+            score=score,
+            passed=passed
+        )
+
+        if passed:
+            cert, created = Certificate.objects.get_or_create(user=request.user, course=course)
+            if created:
+                messages.success(request, f"🎉 Congratulations! You scored {score}% and earned your Certificate of Completion!")
+            else:
+                messages.success(request, f"Great job! You passed the quiz with {score}%.")
+        else:
+            messages.warning(request, f"You scored {score}%. The passing mark is {quiz.pass_percentage}%. You can retake the quiz anytime.")
+
+        return render(request, 'courses/quiz_result.html', {
+            'course': course,
+            'quiz': quiz,
+            'attempt': attempt,
+            'score': score,
+            'passed': passed,
+            'total_q': total_q,
+            'correct_q': correct_q,
+        })
+
+    latest_attempt = QuizAttempt.objects.filter(user=request.user, quiz=quiz).first()
+    return render(request, 'courses/quiz.html', {
+        'course': course,
+        'quiz': quiz,
+        'questions': questions,
+        'latest_attempt': latest_attempt,
+    })
+
+
+@login_required
+def view_certificate(request, pk):
+    course = get_object_or_404(Course, pk=pk, is_published=True)
+
+    if not Enrollment.objects.filter(user=request.user, course=course).exists():
+        messages.error(request, "You must be enrolled to view certificates.")
+        return redirect('course_detail', pk=course.id)
+
+    cert = Certificate.objects.filter(user=request.user, course=course).first()
+    
+    # If not yet awarded, award it if course progress is 100%
+    if not cert:
+        if course.get_user_progress(request.user) >= 100:
+            cert = Certificate.objects.create(user=request.user, course=course)
+            messages.success(request, "🎉 Congratulations! Course completed and certificate generated!")
+        else:
+            messages.info(request, "Complete all lessons or pass the course quiz to earn your Certificate.")
+            return redirect('course_detail', pk=course.id)
+
+    return render(request, 'courses/certificate.html', {
+        'course': course,
+        'certificate': cert,
+    })
+
 
 
 @login_required

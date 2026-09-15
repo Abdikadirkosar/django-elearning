@@ -66,3 +66,41 @@ class CoursesModelAndViewsTestCase(TestCase):
 
         # Progress should now be 50%
         self.assertEqual(self.course.get_user_progress(self.user), 50)
+
+    def test_submit_review(self):
+        Enrollment.objects.create(user=self.user, course=self.course)
+        self.client.login(username='teststudent', password='Password123')
+
+        response = self.client.post(reverse('submit_review', kwargs={'pk': self.course.id}), {
+            'rating': '5',
+            'comment': 'Exceptional course!'
+        })
+        self.assertRedirects(response, reverse('course_detail', kwargs={'pk': self.course.id}))
+        self.assertEqual(self.course.average_rating, 5.0)
+        self.assertEqual(self.course.total_reviews, 1)
+
+    def test_quiz_and_certificate(self):
+        from .models import Quiz, Question, Choice, Certificate
+        Enrollment.objects.create(user=self.user, course=self.course)
+        self.client.login(username='teststudent', password='Password123')
+
+        quiz = Quiz.objects.create(course=self.course, title='Test Quiz', pass_percentage=70)
+        q1 = Question.objects.create(quiz=quiz, text='Question 1', order=1)
+        c1 = Choice.objects.create(question=q1, text='Correct Choice', is_correct=True)
+        c2 = Choice.objects.create(question=q1, text='Wrong Choice', is_correct=False)
+
+        # Submit quiz
+        response = self.client.post(reverse('take_quiz', kwargs={'pk': self.course.id}), {
+            f'question_{q1.id}': c1.id
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'PASSED')
+
+        # Certificate should be created
+        self.assertTrue(Certificate.objects.filter(user=self.user, course=self.course).exists())
+
+        # View Certificate
+        cert_response = self.client.get(reverse('view_certificate', kwargs={'pk': self.course.id}))
+        self.assertEqual(cert_response.status_code, 200)
+        self.assertContains(cert_response, 'Certificate of Completion')
+
