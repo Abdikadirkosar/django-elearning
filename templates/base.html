@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}AQOONPLUS — Barashada Online ee Heer Sare{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.2">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.3">
 </head>
 <body>
 
@@ -62,9 +62,10 @@
               <a href="{% url 'profile' %}" class="nav-profile-pill {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
                 👤 {{ user.username }}
               </a>
-              <a href="{% url 'logout' %}" class="nav-btn-logout">
-                Ka Bax
-              </a>
+              <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-btn-logout">Ka Bax</button>
+              </form>
             {% else %}
               <a href="{% url 'login' %}" class="nav-btn-login {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
                 Login
@@ -121,7 +122,10 @@
 
         <div class="mobile-auth">
           {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="mobile-btn-logout">Ka Bax (Logout)</a>
+            <form method="POST" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="mobile-btn-logout">Ka Bax (Logout)</button>
+            </form>
           {% else %}
             <a href="{% url 'login' %}" class="mobile-btn-login">Login</a>
             <a href="{% url 'register' %}" class="mobile-btn-signup">Sign Up</a>

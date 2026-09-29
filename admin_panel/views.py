@@ -9,6 +9,23 @@ from functools import wraps
 
 from courses.models import Course, Enrollment, LessonProgress, Certificate, QuizAttempt, Quiz
 from accounts.models import UserProfile, Notification
+from accounts.forms import UserLoginForm
+
+
+# ─── Admin Login Page ─────────────────────────────────────────────────────────
+def admin_login_view(request):
+    """Dedicated beautiful admin login page."""
+    if request.user.is_authenticated:
+        try:
+            if request.user.is_superuser or request.user.profile.role == 'admin':
+                return redirect('admin_panel_dashboard')
+        except Exception:
+            if request.user.is_superuser:
+                return redirect('admin_panel_dashboard')
+        return redirect('dashboard')
+    form = UserLoginForm()
+    return render(request, 'admin_panel/admin_login.html', {'form': form})
+
 
 
 # ─── Admin Required Decorator ────────────────────────────────────────────────

@@ -314,6 +314,11 @@ a:hover {
   background: #ffffff;
   transition: var(--transition);
   white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1.5;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .nav-btn-logout:hover {
@@ -417,6 +422,12 @@ a:hover {
   color: var(--danger);
   border-radius: var(--radius-full);
   font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: transparent;
+  width: 100%;
+  display: block;
 }
 
 /* Legacy buttons for compatibility */

@@ -17,3 +17,4 @@ if settings.DEBUG:
 
 handler404 = 'courses.views.custom_404_view'
 handler500 = 'courses.views.custom_500_view'
+handler403 = 'courses.views.custom_403_view'

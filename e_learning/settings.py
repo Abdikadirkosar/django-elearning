@@ -113,3 +113,8 @@ LOGOUT_REDIRECT_URL = 'home'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'AQOONPLUS Academy <noreply@aqoonplus.so>'
 
+# CSRF Configuration
+CSRF_COOKIE_HTTPONLY = False   # Must be False so JS can read it if needed
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_FAILURE_VIEW = 'courses.views.custom_403_view'

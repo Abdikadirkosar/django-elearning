@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="so">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>403 — Gelitaanka Waa Diidmay | AQOONPLUS</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #0f1117;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(239,68,68,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .error-card {
+      background: rgba(26,29,46,0.95);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 20px;
+      padding: 60px 50px;
+      max-width: 520px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .error-icon {
+      font-size: 5rem;
+      margin-bottom: 16px;
+      display: block;
+      animation: shake 0.5s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .error-code {
+      font-size: 6rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ef4444, #f87171);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .error-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 12px;
+    }
+    .error-desc {
+      color: #64748b;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .error-reason {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 10px;
+      padding: 14px 20px;
+      color: #fca5a5;
+      font-size: 0.82rem;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+    .error-reason strong { display: block; margin-bottom: 6px; color: #f87171; }
+    .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 24px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary { background: linear-gradient(135deg,#6366f1,#818cf8); color: white; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-ghost { background: transparent; border: 1px solid rgba(99,102,241,0.3); color: #818cf8; }
+    .btn-ghost:hover { background: rgba(99,102,241,0.1); }
+  </style>
+</head>
+<body>
+  <div class="error-card">
+    <span class="error-icon">🚫</span>
+    <div class="error-code">403</div>
+    <h1 class="error-title">Gelitaanka Waa Diidmay</h1>
+    <p class="error-desc">
+      Xaqiijinta CSRF way fashilantay ama aad u baahan tahay rukhsad gaara si aad u gasho boggan.
+      Fadlan dib u gal oo isku day mar kale.
+    </p>
+
+    <div class="error-reason">
+      <strong>⚠️ Sababta:</strong>
+      Adigoo gali kara boggan, waxaa suurtogal ah in token-ka badbaadada la waayay.
+      Ku dhufo badhanka hoose si aad u dib u bilaabdo.
+    </div>
+
+    <div class="btn-group">
+      <a href="/" class="btn btn-primary">🏠 Bogga Hore</a>
+      <a href="{% url 'login' %}" class="btn btn-ghost">🔐 Gal</a>
+    </div>
+  </div>
+</body>
+</html>

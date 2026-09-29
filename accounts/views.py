@@ -94,9 +94,11 @@ def login_view(request):
 
 
 def logout_view(request):
-    if request.user.is_authenticated:
+    if request.method == 'POST':
         logout(request)
         messages.info(request, "Si guul leh ayaad uga baxday akoonkaaga.")
+        return redirect('home')
+    # GET request - redirect to home or login
     return redirect('home')
 
 

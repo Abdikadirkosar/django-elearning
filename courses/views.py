@@ -503,3 +503,8 @@ def custom_404_view(request, exception):
 
 def custom_500_view(request):
     return render(request, '500.html', status=500)
+
+
+def custom_403_view(request, reason=''):
+    """Custom CSRF 403 Forbidden page."""
+    return render(request, '403.html', {'reason': reason}, status=403)
