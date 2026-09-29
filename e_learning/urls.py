@@ -3,6 +3,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# ── Customize Django Admin Branding ──────────────────────────────────────────
+admin.site.site_header  = "🛡️ AQOONPLUS — Xafiiska Maamulka"
+admin.site.site_title   = "AQOONPLUS Admin"
+admin.site.index_title  = "⚙️ Maareeyaha Nidaamka | E-Learning Platform"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('courses.urls')),

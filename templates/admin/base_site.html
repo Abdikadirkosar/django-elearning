@@ -1,0 +1,351 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | AQOONPLUS Admin{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  /* ═══════════════════════════════════════════════════
+     AQOONPLUS — Custom Django Admin Theme
+  ═══════════════════════════════════════════════════ */
+
+  /* Import font */
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --primary:   #6366f1;
+    --primary-d: #4f46e5;
+    --accent:    #818cf8;
+    --bg-dark:   #0f1117;
+    --bg-card:   #1a1d2e;
+    --bg-sidebar:#12151f;
+    --text:      #e2e8f0;
+    --text-muted:#64748b;
+    --border:    rgba(99,102,241,0.2);
+    --success:   #22c55e;
+    --danger:    #ef4444;
+    --warning:   #f59e0b;
+  }
+
+  * { font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important; }
+
+  /* ── Body ── */
+  body, #container {
+    background: var(--bg-dark) !important;
+    color: var(--text) !important;
+  }
+
+  /* ── Header / Branding Bar ── */
+  #header {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e1b4b 100%) !important;
+    color: #e0e7ff !important;
+    padding: 14px 28px !important;
+    box-shadow: 0 2px 20px rgba(99,102,241,0.3) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+  #branding h1 { color: #e0e7ff !important; font-size: 1.2rem !important; font-weight: 800 !important; }
+  #branding h1 a { color: #e0e7ff !important; text-decoration: none !important; }
+  #user-tools { color: rgba(199,210,254,0.8) !important; font-size: 0.82rem !important; }
+  #user-tools a { color: #c7d2fe !important; }
+  #user-tools a:hover { color: #fff !important; }
+
+  /* ── Navigation ── */
+  .module, .module caption {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    margin-bottom: 16px !important;
+  }
+  .module caption, .module h2 {
+    background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(99,102,241,0.1)) !important;
+    color: #818cf8 !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    padding: 12px 18px !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  /* ── App Index Links ── */
+  .app-accounts th, .app-courses th { background: transparent !important; }
+  table td, table th { color: var(--text) !important; border-color: var(--border) !important; }
+  th a, td a { color: #818cf8 !important; }
+  th a:hover, td a:hover { color: #c7d2fe !important; }
+
+  /* ── Breadcrumbs ── */
+  div.breadcrumbs {
+    background: rgba(26,29,46,0.9) !important;
+    color: var(--text-muted) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 10px 28px !important;
+    font-size: 0.82rem !important;
+  }
+  div.breadcrumbs a { color: var(--accent) !important; }
+
+  /* ── Content area ── */
+  #content, #content-main {
+    background: transparent !important;
+    color: var(--text) !important;
+  }
+  #content h1 {
+    color: var(--text) !important;
+    font-size: 1.4rem !important;
+    font-weight: 800 !important;
+    border-bottom: 2px solid var(--border) !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* ── Result Table ── */
+  #result_list {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+  }
+  #result_list thead th {
+    background: rgba(99,102,241,0.15) !important;
+    color: #818cf8 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    font-weight: 700 !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 12px 16px !important;
+  }
+  #result_list thead th a { color: #818cf8 !important; }
+  #result_list tbody tr td {
+    border-top: 1px solid rgba(99,102,241,0.08) !important;
+    padding: 11px 16px !important;
+    color: #cbd5e1 !important;
+    background: transparent !important;
+  }
+  #result_list tbody tr:hover td {
+    background: rgba(99,102,241,0.06) !important;
+  }
+  #result_list tbody tr.selected td {
+    background: rgba(99,102,241,0.12) !important;
+  }
+  .row1 td { background: transparent !important; }
+  .row2 td { background: rgba(99,102,241,0.03) !important; }
+
+  /* ── Sidebar / Filters ── */
+  #changelist-filter {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+  }
+  #changelist-filter h2 {
+    background: rgba(99,102,241,0.15) !important;
+    color: #818cf8 !important;
+    font-size: 0.75rem !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    padding: 12px 16px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  #changelist-filter h3 {
+    color: #94a3b8 !important;
+    font-size: 0.78rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 12px 16px 6px !important;
+    margin: 0 !important;
+  }
+  #changelist-filter li { padding: 2px 16px !important; }
+  #changelist-filter li a { color: #94a3b8 !important; font-size: 0.85rem !important; }
+  #changelist-filter li a:hover, #changelist-filter li.selected a {
+    color: #818cf8 !important;
+  }
+
+  /* ── Search Bar ── */
+  #toolbar {
+    background: rgba(26,29,46,0.8) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    margin-bottom: 16px !important;
+    padding: 10px 16px !important;
+  }
+  #searchbar {
+    background: rgba(15,17,23,0.8) !important;
+    border: 1px solid rgba(99,102,241,0.3) !important;
+    border-radius: 8px !important;
+    color: #e2e8f0 !important;
+    padding: 8px 14px !important;
+    font-size: 0.88rem !important;
+    min-width: 300px !important;
+    outline: none !important;
+  }
+  #searchbar:focus { border-color: #818cf8 !important; }
+  #searchbar::placeholder { color: #475569 !important; }
+
+  /* ── Buttons ── */
+  .button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: linear-gradient(135deg, #6366f1, #818cf8) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: opacity 0.2s !important;
+  }
+  .button:hover, input[type=submit]:hover { opacity: 0.85 !important; }
+  .button.default, input[type=submit].default { background: linear-gradient(135deg, #22c55e, #16a34a) !important; }
+  .deletelink, a.deletelink {
+    background: rgba(239,68,68,0.15) !important;
+    color: #f87171 !important;
+    border: 1px solid rgba(239,68,68,0.3) !important;
+  }
+  .deletelink:hover { background: rgba(239,68,68,0.3) !important; }
+
+  /* ── Forms ── */
+  .form-row, fieldset.module {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+  }
+  fieldset.module {
+    border-radius: 12px !important;
+    margin-bottom: 20px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  fieldset.module h2 {
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+  .form-row { border-bottom: 1px solid var(--border) !important; padding: 14px 18px !important; }
+  label { color: #94a3b8 !important; font-size: 0.82rem !important; font-weight: 600 !important; }
+  input[type=text], input[type=password], input[type=email], input[type=url],
+  input[type=number], textarea, select {
+    background: rgba(15,17,23,0.8) !important;
+    border: 1px solid rgba(99,102,241,0.25) !important;
+    border-radius: 8px !important;
+    color: #e2e8f0 !important;
+    padding: 9px 12px !important;
+    font-size: 0.88rem !important;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: #818cf8 !important;
+    outline: none !important;
+  }
+
+  /* ── Submit Row ── */
+  .submit-row {
+    background: rgba(26,29,46,0.9) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    padding: 14px 18px !important;
+    margin-top: 20px !important;
+  }
+
+  /* ── Messages ── */
+  .messagelist li {
+    border-radius: 8px !important;
+    padding: 12px 18px !important;
+    font-size: 0.88rem !important;
+    margin-bottom: 8px !important;
+  }
+  .messagelist .success { background: rgba(34,197,94,0.12) !important; color: #86efac !important; border: 1px solid rgba(34,197,94,0.3) !important; }
+  .messagelist .error   { background: rgba(239,68,68,0.12) !important;  color: #fca5a5 !important; border: 1px solid rgba(239,68,68,0.3) !important; }
+  .messagelist .warning { background: rgba(245,158,11,0.12) !important; color: #fde68a !important; border: 1px solid rgba(245,158,11,0.3) !important; }
+
+  /* ── Inline Tables ── */
+  .inline-group {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    margin-bottom: 20px !important;
+  }
+  .inline-group h2 {
+    background: rgba(99,102,241,0.15) !important;
+    color: #818cf8 !important;
+    font-size: 0.78rem !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    padding: 12px 16px !important;
+    margin: 0 !important;
+  }
+
+  /* ── Pagination ── */
+  .paginator a, .paginator span {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    color: #818cf8 !important;
+    padding: 4px 10px !important;
+    margin: 0 2px !important;
+    font-size: 0.83rem !important;
+  }
+  .paginator a:hover { background: rgba(99,102,241,0.15) !important; }
+  .paginator .this-page { background: rgba(99,102,241,0.2) !important; color: #c7d2fe !important; }
+
+  /* ── Actions ── */
+  .actions {
+    background: rgba(26,29,46,0.8) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+    padding: 8px 14px !important;
+    margin-bottom: 10px !important;
+  }
+  select[name=action] {
+    background: rgba(15,17,23,0.9) !important;
+    border: 1px solid rgba(99,102,241,0.3) !important;
+    border-radius: 8px !important;
+    color: #e2e8f0 !important;
+    padding: 7px 12px !important;
+    min-width: 260px !important;
+  }
+
+  /* ── Recent actions sidebar ── */
+  #recent-actions-module {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  #recent-actions-module h2 { margin: 0 !important; border-radius: 0 !important; }
+  #recent-actions-module ul { list-style: none !important; padding: 8px 0 !important; margin: 0 !important; }
+  #recent-actions-module ul li {
+    padding: 8px 16px !important;
+    font-size: 0.83rem !important;
+    color: #94a3b8 !important;
+    border-bottom: 1px solid rgba(99,102,241,0.06) !important;
+  }
+  #recent-actions-module ul li a { color: #818cf8 !important; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #0f1117; }
+  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.4); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+  /* ── App list links on index ── */
+  .app-accounts a, .app-courses a, .app-auth a {
+    color: #818cf8 !important;
+    font-weight: 500 !important;
+  }
+  .addlink::before  { content: '＋ '; }
+  .changelink::before { content: '✏️ '; }
+  .viewlink::before { content: '👁️ '; }
+
+  /* Responsive */
+  @media (max-width: 767px) {
+    #header { flex-direction: column; gap: 8px; }
+  }
+</style>
+{% endblock %}
