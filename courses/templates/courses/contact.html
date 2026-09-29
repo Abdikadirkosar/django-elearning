@@ -1,73 +1,87 @@
 {% extends 'base.html' %}
 
-{% block title %}Contact Us | AQOONPLUS{% endblock %}
+{% block title %}Nala Soo Xiriir (Contact Us) | AQOONPLUS Academy{% endblock %}
 
 {% block content %}
-<div class="contact-page-container" style="max-width: 1050px; margin: 2rem auto; padding: 0 1.5rem;">
+<div class="contact-page-container" style="max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem;">
 
   <!-- Contact Header -->
   <div style="text-align: center; margin-bottom: 2.5rem;">
-    <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem;">
+    <div style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; background: #e0e7ff; color: var(--primary); border-radius: 16px; font-size: 1.8rem; margin-bottom: 1rem;">
+      📞
+    </div>
+    <h1 style="font-size: 2.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.75rem;">
       Nala Soo Xiriir / <span class="highlight">Contact Us</span>
     </h1>
-    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
-      Ma qabtaa su'aal, talo, ama ma doonaysaa macluumaad dheeraad ah oo ku saabsan koorsooyinka AQOONPLUS? Fadlan fariintaada noo soo dir.
+    <p style="color: var(--text-muted); max-width: 650px; margin: 0 auto; font-size: 1.08rem; line-height: 1.7;">
+      Ma qabtaa su'aal, talo, ama ma doonaysaa macluumaad ku saabsan koorsooyinka iyo shahaadooyinka AQOONPLUS? Waxaan diyaar kuu nahay 24/7.
     </p>
   </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 2rem; align-items: start;">
 
     <!-- Contact Info Cards -->
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <div style="display: flex; flex-direction: column; gap: 1.35rem;">
       
-      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.75rem;">
-        <div style="font-size: 2rem; background: #e0e7ff; width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+      <!-- Location Card -->
+      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.6rem; border-left: 4px solid var(--primary);">
+        <div style="font-size: 1.9rem; background: #e0e7ff; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
           📍
         </div>
         <div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Xarunta Guud</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-            Muqdisho, Soomaaliya<br>
-            Online Learning Campus & Tech Hub
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Xarunta Guud (Location)</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            <strong style="color: var(--text-main);">Arabsiyo, Somaliland</strong><br>
+            <span>Online Learning Campus &amp; Tech Hub</span><br>
+            <small style="color: #6366f1; font-weight: 600;">🌐 Waxbarasho Online ah oo caalamka oo dhan laga heli karo</small>
           </p>
         </div>
       </div>
 
-      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.75rem;">
-        <div style="font-size: 2rem; background: #d1fae5; width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+      <!-- Email Card -->
+      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.6rem; border-left: 4px solid #10b981;">
+        <div style="font-size: 1.9rem; background: #d1fae5; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
           📧
         </div>
         <div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Email</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-            support@aqoonplus.so<br>
-            contact@aqoonplus.so
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Email-yada Rasmiga ah</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            <a href="mailto:Abdikadirkosara@gmail.com" style="color: var(--primary); font-weight: 600; text-decoration: none;">Abdikadirkosara@gmail.com</a><br>
+            <a href="mailto:contact@aqoonplus.so" style="color: var(--primary); font-weight: 600; text-decoration: none;">contact@aqoonplus.so</a><br>
+            <small style="color: var(--text-muted);">Waxaan kuugu soo jawaabaynaa muddo 24 saacadood gudahood ah.</small>
           </p>
         </div>
       </div>
 
-      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.75rem;">
-        <div style="font-size: 2rem; background: #fef3c7; width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+      <!-- Phone & WhatsApp Card -->
+      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.6rem; border-left: 4px solid #25d366;">
+        <div style="font-size: 1.9rem; background: #dcfce7; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
           📞
         </div>
-        <div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Telefoon & WhatsApp</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-            +252 61 000 0000<br>
-            Isniin - Sabti: 8:00 AM - 6:00 PM
+        <div style="width: 100%;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Telefoon &amp; WhatsApp</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0 0 0.75rem 0;">
+            <a href="tel:+252634812030" style="color: var(--text-main); font-weight: 700; font-size: 1.05rem; text-decoration: none;">+252 634812030</a><br>
+            <span>Isniin - Sabti: <strong>8:00 AM - 6:00 PM</strong></span>
           </p>
+
+          <!-- WhatsApp Direct Action Button -->
+          <a href="https://wa.me/252634812030?text=Asc%20AQOONPLUS%20Academy%2C%20waxaan%20doonayaa%20macluumaad%20ku%20saabsan%20koorsooyinka." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; background-color: #25d366; color: #ffffff; padding: 0.55rem 1.1rem; border-radius: 8px; font-weight: 700; font-size: 0.88rem; text-decoration: none; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25); transition: transform 0.2s ease;">
+            <span style="font-size: 1.1rem;">💬</span> Toos WhatsApp Nooga La Soo Xiriir
+          </a>
         </div>
       </div>
 
-      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.75rem;">
-        <div style="font-size: 2rem; background: #cff4fc; width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+      <!-- Instructor / Leadership Card -->
+      <div class="stat-card" style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.6rem; border-left: 4px solid var(--secondary);">
+        <div style="font-size: 1.9rem; background: #fef3c7; width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
           👨‍💻
         </div>
         <div>
-          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Instructor & Lead Dev</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-            <strong>Eng. Abdikadir Kosar</strong><br>
-            <span class="dev-badge" style="margin-top: 0.35rem; display: inline-block;">Dev. Abdikadir</span>
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--text-main);">Hogaamiyaha &amp; Macallinka Guud</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+            <strong style="color: var(--text-main); font-size: 1rem;">Eng. Abdikadir Kosar</strong><br>
+            <span class="dev-badge" style="margin-top: 0.35rem; display: inline-block;">Dev. Abdikadir</span> — Full-Stack Architect
           </p>
         </div>
       </div>
@@ -76,34 +90,37 @@
 
     <!-- Contact Form -->
     <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.25rem; box-shadow: var(--shadow-sm);">
-      <h2 style="font-size: 1.45rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text-main);">
+      <h2 style="font-size: 1.45rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">
         Fariin Noo Soo Dir
       </h2>
+      <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem;">
+        Fadlan buuxi foomkan, kooxda taageerada ee AQOONPLUS ayaa isla markiiba kula soo xiriiri doonta.
+      </p>
 
       <form method="POST" action="{% url 'contact' %}">
         {% csrf_token %}
 
         <div class="form-group">
-          <label for="contact_name">Magacaaga oo Buuxa</label>
+          <label for="contact_name" style="font-weight: 600; font-size: 0.92rem;">Magacaaga oo Buuxa</label>
           <input type="text" id="contact_name" name="name" class="form-input" placeholder="Geli magacaaga" required>
         </div>
 
         <div class="form-group">
-          <label for="contact_email">Email-kaaga</label>
+          <label for="contact_email" style="font-weight: 600; font-size: 0.92rem;">Email-kaaga</label>
           <input type="email" id="contact_email" name="email" class="form-input" placeholder="tusaale: arday@example.com" required>
         </div>
 
         <div class="form-group">
-          <label for="contact_subject">Mowduuca (Subject)</label>
+          <label for="contact_subject" style="font-weight: 600; font-size: 0.92rem;">Mowduuca (Subject)</label>
           <input type="text" id="contact_subject" name="subject" class="form-input" placeholder="Maxay ku saabsan tahay fariintaadu?">
         </div>
 
         <div class="form-group">
-          <label for="contact_message">Farriintaada (Message)</label>
-          <textarea id="contact_message" name="message" class="form-input" rows="5" placeholder="Qor farriintaada halkan..." required></textarea>
+          <label for="contact_message" style="font-weight: 600; font-size: 0.92rem;">Farriintaada (Message)</label>
+          <textarea id="contact_message" name="message" class="form-input" rows="5" placeholder="Qor farriintaada ama su'aashaada halkan..." required></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem; font-size: 1rem; padding: 0.85rem;">
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem; font-size: 1rem; padding: 0.85rem; font-weight: 700;">
           Dir Farriinta &rarr;
         </button>
       </form>

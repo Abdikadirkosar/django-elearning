@@ -250,6 +250,15 @@ OK
 
 ---
 
+## 📍 Xarunta & Xiriirka Rasmiga ah (Official Headquarters & Contact)
+
+* 📍 **Xarunta Guud**: Arabsiyo, Somaliland *(Online Learning Campus & Tech Hub)*
+* 📧 **Email**: [Abdikadirkosara@gmail.com](mailto:Abdikadirkosara@gmail.com) | [contact@aqoonplus.so](mailto:contact@aqoonplus.so)
+* 📞 **Telefoon & WhatsApp**: [+252 634812030](tel:+252634812030) *(Isniin - Sabti: 8:00 AM - 6:00 PM)*
+* 💬 **Toos WhatsApp**: [https://wa.me/252634812030](https://wa.me/252634812030)
+
+---
+
 ## 👨‍💻 Xogta Qorayaasha & Xuquuqda (Credits & Leadership)
 
 * 🎓 **Madaxa & Bare Sare**: **Eng. Abdikadir Kosar**
@@ -261,3 +270,4 @@ OK
 <div align="center">
   <sub>Waxaa si gaar ah loogu dhisay horumarinta aqoonta dhalinyarada Soomaaliyeed ❤️</sub>
 </div>
+

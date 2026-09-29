@@ -343,10 +343,32 @@ def contact_view(request):
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
         email = request.POST.get('email', '').strip()
-        subject = request.POST.get('subject', '').strip()
+        subject = request.POST.get('subject', '').strip() or 'Farriin Cusub oo ka timid AQOONPLUS Form'
         message = request.POST.get('message', '').strip()
         
         if name and email and message:
+            # Send notification email to administration
+            email_body = (
+                f"Farriin Cusub oo ka timid barta AQOONPLUS Academy:\n\n"
+                f"Magaca: {name}\n"
+                f"Email: {email}\n"
+                f"Mowduuca: {subject}\n\n"
+                f"Farriinta:\n{message}\n\n"
+                f"--\nAQOONPLUS Contact Notification System"
+            )
+            try:
+                from django.core.mail import send_mail
+                from django.conf import settings
+                send_mail(
+                    f"[AQOONPLUS Contact] {subject}",
+                    email_body,
+                    settings.DEFAULT_FROM_EMAIL,
+                    ['Abdikadirkosara@gmail.com', 'contact@aqoonplus.so'],
+                    fail_silently=True
+                )
+            except Exception:
+                pass
+
             messages.success(request, f"Mahadsanid {name}! Farriintaada si guul leh ayaa loo diray. Dhawaan ayaan kula soo xiriiri doonnaa.")
             return redirect('contact')
         else:
