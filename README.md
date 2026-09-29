@@ -1,41 +1,111 @@
-# E-Learn - Simple E-Learning Management System
+# <div align="center">
+  <img src="static/images/logo-header.png" alt="AQOONPLUS Academy Logo" width="340"><br>
+  <strong>Aqoon. Xirfad. Mustaqbal.</strong>
+  <br><br>
+  <h1>AQOONPLUS Academy — Barashada Casriga ah ee Online-ka</h1>
+  <p><strong>Nidaam Dhammaystiran oo Waxbarasho Online ah (Full-Stack E-Learning Management System) oo loogu talagalay Jaamacadaha iyo Kulliyadaha Soomaaliyeed.</strong></p>
 
-**Lead Developer**: **Dev. Abdikadir**
-
-"E-Learn" is a full-stack E-Learning Management System (LMS) built with **Python**, **Django 5**, **HTML5**, **CSS3**, **Vanilla JavaScript**, and **SQLite**.
-
-It is architected by **Dev. Abdikadir** to be clean, modular, professional, and easy for a Computer Science student to demonstrate during an academic project presentation.
-
----
-
-## 🌟 Features
-
-### For Students
-- **Interactive Landing Page**: Modern hero section, real-time platform statistics, featured courses, and call-to-action blocks.
-- **User Authentication**: Secure user registration, validation, password confirmation, session login, and logout.
-- **Course Catalog**: Filter courses by category and perform instant live search using pure Vanilla JavaScript.
-- **Course Syllabus & Enrollment**: View course details, syllabus outline, instructor info, and enroll with a single click.
-- **Interactive Lesson Player**: Sequential lesson navigation (Previous / Next lesson buttons), video tutorial links, and lesson completion markers.
-- **Personalized Student Dashboard**: Real-time stats (Enrolled Courses, Completed Lessons, Overall Progress %, Certificates) and "Continue Learning" shortcuts.
-
-### For Administrators
-- **Django Admin Interface**: Full control to manage users, courses, lessons, enrollments, and lesson completion records.
-- **Tabular Inline Lessons**: Add or reorder lessons directly inside the Course edit page in Django Admin.
+  <p>
+    <img src="https://img.shields.io/badge/Python-3.14-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+    <img src="https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django">
+    <img src="https://img.shields.io/badge/Frontend-HTML5_%7C_CSS3_%7C_Vanilla_JS-E34F26?style=for-the-badge" alt="Frontend">
+    <img src="https://img.shields.io/badge/Database-SQLite3-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+    <img src="https://img.shields.io/badge/Tests-17%2F17%20Passed-brightgreen?style=for-the-badge" alt="Tests">
+    <img src="https://img.shields.io/badge/Language-Af--Soomaali-blue?style=for-the-badge" alt="Somali">
+  </p>
+</div>
 
 ---
 
-## 🛠️ Technology Stack
-
-- **Backend**: Python 3.10+, Django 5.x (Auth, Forms, ORM, Admin)
-- **Frontend**: HTML5, Vanilla CSS3 (Custom CSS Variables, Grid, Flexbox), Vanilla JavaScript (ES6+)
-- **Database**: SQLite3
-- **Architecture**: Django MVT (Model-View-Template)
-
-> **Note**: No heavy frontend frameworks (React, Vue, Angular, Bootstrap, Tailwind, or jQuery) were used. The frontend is built from scratch using pure web standards.
+<div align="center">
+  <img src="static/images/homepage_screenshot.png" alt="AQOONPLUS Homepage Interface" width="960" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin: 20px 0;">
+  <p><em>Shaashadda Koowaad ee AQOONPLUS Academy (Interactive Hero, Toos u Raadinta Koorsooyinka, & Tirakoobka Nidaamka)</em></p>
+</div>
 
 ---
 
-## 📁 Project Directory Structure
+## 📌 Guudmar ku Saabsan Mashruuca (Project Overview)
+
+**AQOONPLUS Academy** waa madal waxbarasho online ah oo casri ah (Full-Stack E-Learning Management System) oo loogu talagalay ardayda wax ka barata jaamacadaha iyo dugsiyada sare ee dalka. Nidaamku wuxuu bixiyaa jawi waxbarasho oo dhammaystiran oo ku baxa **Af-Soomaali**, fududeynaya qaadashada casharrada, imtixaannada tooska ah, iyo qaadashada shahaadooyin rasmi ah oo la xaqiijin karo.
+
+- **Madaxa Waxbarashada (Instructor)**: **Eng. Abdikadir Kosar**
+- **Horumariyaha Nidaamka (Developer)**: **Dev. Abdikadir**
+
+> ⚡ **Falsafadda Naqshadda (Architecture Design)**: Nidaamkan waxaa lagu dhisay **Pure Vanilla Stack** (Python/Django, HTML5, CSS3, iyo Vanilla JavaScript). Looma baahsan habab culus (no Bootstrap, Tailwind, React, ama jQuery) si nidaamku u noqdo mid xawaare sare ku shaqeeya, si sahlan loo daalacan karo taleefannada iyo kombiyuutarada labadaba, isla markaana nadiif u ah bandhigyada tacliimeed.
+
+---
+
+## 🌟 Tilmaamaha & Faa'iidooyinka Muhiimka ah (Key Features)
+
+### 1. 🎓 Barxadda Ardayda (Student Learning Experience)
+- **Bogga Hore ee Casriga ah**: Qayb hero oo soo jiidasho leh, tirakoobka ardayda iyo koorsooyinka, iyo koorsooyinka loogu jecelyahay.
+- **Katalogga Koorsooyinka & Raadin Toos ah (Live Search)**: Raadinta koorsooyinka xawaare ku socota iyo kala shaandhaynta qaybaha (Categories) oo lagu dhisay Vanilla JS.
+- **Daawashada Casharrada (Sequential Lesson Player)**: Qaab habaysan oo casharba casharka xiga loo maro (Previous / Next), xiriirrada fiidiyowyada casharka, iyo calaamadaynta casharka la dhammeeyay.
+- **Dashboard-ka Ardayga**: Warbixin toos ah oo ku saabsan koorsooyinka aad iska diiwaangelisay, boqolkiiba inta aad dhammaysay (%), iyo shahaadooyinkaaga.
+
+---
+
+### 2. 🧠 Imtixaannada Tooska ah (Interactive Quiz Engine)
+- Imtixaanno gaar u ah koorso kasta oo leh su'aalo doorasho ah (Multiple Choice Questions).
+- **Sixid Toos ah (Instant Auto-Grading)**: Isla marka aad gudbiso, hel dhibcahaaga, natiijada (Gudbay / Dhacay), iyo dib-u-eegista su'aalaha.
+- **Diiwaanka Isku-dayada**: Taariikhda imtixaannadii hore oo dhammaystiran.
+
+---
+
+### 3. 🏆 Shahaadooyinka Rasmiga ah & Nidaamka Darajooyinka (Honors System)
+- **Shahaado Toos ah (Digital Certificate)**: Ardaygu markuu koorsada iyo imtixaanka ku baaso, si toos ah ayuu u helayaa shahaado qurux badan.
+- **Darajooyinka Guusha (Honors Badges)**:
+  - 🏆 **HEER SARE (With Distinction)** — Dhibco 90% ama ka badan (Calaamad Dahab ah)
+  - 🎖️ **DARAJADA 1-AAD (With Merit)** — Dhibco 80% – 89% (Calaamad Buluug ah)
+  - ⭐ **GUUL (Satisfactory Pass)** — Dhibco 70% – 79% (Calaamad Cagaar ah)
+- **Astaamaha Shahaadada**: Shaabad dahab ah oo 3D ah, Astaanta rasmiga ah ee AQOONPLUS (`logo-emblem.jpg`), iyo saxiixa macallinka.
+- **Xaqiijinta Shahaadada (Public Verification Page)**: Qof kasta wuxuu shahaadada ku xaqiijin karaa link toos ah (`/certificate/verify/<code>/`), sidoo kale waxaa ku jira batoon loogu wadaago **LinkedIn** iyo daabacaad toos ah (**Print to PDF**).
+
+---
+
+### 4. 🔐 Nidaamka Amniga & Gelitaanka (Advanced Authentication)
+- **Gelitaan Labo Dhinac ah**: Waxaad ku geli kartaa **Email-kaaga AMA Username-kaaga**.
+- **I Xasuuso (Remember Me)**: Xulasho kuu oggolaanaysa in akoonkaagu furnaado ilaa 2 toddobaad.
+- **Muuji / Qari Furaha (👁️ / 🙈 Show/Hide Toggle)**: Fursad lagu arko furaha sirta ah xilliga qorista.
+- **Cabbiraadda Awoodda Furaha (Password Strength Meter)**: Xariiq midabaysan oo toos u cabbiraysa adkaanta furaha sirta ah.
+- **Ilowday Furahaaga (4-Step Password Reset Workflow)**:
+  1. *Codsi*: Geli email-kaaga ama magacaaga isticmaale.
+  2. *Email & Token*: Waxaa la soo dirayaa token amni ah oo Django cryptographic ku dhisay.
+  3. *Dejinta Furaha Cusub*: Foom leh cabbirka awoodda furaha.
+  4. *Guul*: Xaqiijin iyo toos u galitaanka akoonkaaga.
+- **Beddelka Furaha (Profile Password Change)**: Beddelashada furaha sirta ah adoo ku jira gudaha profile-ka.
+
+---
+
+### 5. 👑 Xafiiska Maamulka (Custom Admin Panel)
+- Ka sokow Django admin-ka rasmiga ah, nidaamku wuxuu leeyahay **Admin Panel u gaar ah** oo ku salaysan midabada iyo astaanta AQOONPLUS:
+  - Maamulka Isticmaalayaasha & Kaalmaha (Admin / Student)
+  - Abuurista iyo wax-ka-beddelka Koorsooyinka & Casharrada
+  - Maamulka Su'aalaha iyo Imtixaannada
+  - Tirakoobka Diiwaangelinta & Xogta Shahaadooyinka
+
+---
+
+### 6. 🌐 Bogagga Xogta & Xiriirka
+- **Nagu Saabsan (About Us)**: Hadafka, aragtida, iyo xogta macallimiinta AQOONPLUS.
+- **Nala Soo Xiriir (Contact Us)**: Foom toos ah oo fariin loogu diro maamulka iyo xafiiska taageerada.
+
+---
+
+## 🛠️ Qalabka & Farsamooyinka Lagu Dhisay (Technology Stack)
+
+| Qaybta | Qalabka / Luqadda | Faahfaahin |
+|---|---|---|
+| **Backend Framework** | **Django 5.2 (Python 3.14)** | Models, ORM, Forms, Views, Authentication, Cryptographic Tokens |
+| **Database** | **SQLite3** | Keydka xogta ee fudud, degdegga ah, laguna shaqeyn karo meel kasta |
+| **Frontend Layout** | **HTML5 Semantic** | Qoraalka bogagga oo habaysan oo heer caalami ah |
+| **Styling & Design** | **Vanilla CSS3** | Custom CSS Variables, Flexbox, Grid, Keyframe Animations (No frameworks) |
+| **Client Scripts** | **Vanilla JavaScript (ES6+)** | Dynamic Search, Password Toggles, Strength Checker, Mobile Drawer |
+| **Testing** | **Django Test Runner** | 17 Automated Unit & Integration Tests (100% Passing) |
+
+---
+
+## 📁 Qaab-dhismeedka Faylasha (Project Directory Structure)
 
 ```
 django/
@@ -44,186 +114,150 @@ django/
 ├── README.md
 ├── db.sqlite3
 │
-├── e_learning/               # Project Root Configuration
-│   ├── __init__.py
+├── e_learning/               # Habeynta Guud ee Mashruuca (Settings & Root URLs)
 │   ├── settings.py
 │   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
+│   ├── wsgi.py
+│   └── asgi.py
 │
-├── courses/                  # Courses & Lessons App
-│   ├── management/
-│   │   └── commands/
-│   │       └── seed_data.py  # Sample Data Generator Command
-│   ├── migrations/
-│   ├── templates/
-│   │   └── courses/
-│   │       ├── home.html
-│   │       ├── course_list.html
-│   │       ├── course_detail.html
-│   │       └── lesson_detail.html
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py             # Course, Lesson, Enrollment, LessonProgress
+├── accounts/                 # Akoonnada, Amniga, & Dib-u-dejinta Furaha
+│   ├── forms.py              # Register, Login, Reset, & Change Password Forms
+│   ├── models.py             # UserProfile (Role: Student / Admin, Bio, Avatar)
+│   ├── urls.py               # Auth URLs (Login, Register, Reset flow)
+│   ├── views.py              # Logic-ga Gelitaanka & Dib-u-dejinta
+│   ├── tests.py              # Tijaabooyinka Akoonnada
+│   └── templates/accounts/   # login, register, profile, password_reset...
+│
+├── courses/                  # Koorsooyinka, Casharrada, Imtixaanka & Shahaadada
+│   ├── forms.py              # ReviewForm & Contact Form
+│   ├── models.py             # Course, Lesson, Enrollment, Quiz, Question, Choice, Certificate
+│   ├── urls.py               # Course, Lesson, Quiz, Cert verify, About, Contact
+│   ├── views.py              # Waxbarashada, Imtixaanka, Shahaado bixinta & Darajooyinka
+│   ├── tests.py              # Tijaabooyinka Koorsooyinka
+│   └── templates/courses/    # home, course_detail, lesson_detail, quiz, certificate...
+│
+├── dashboard/                # Xogta Gaarka ah ee Ardayga
+│   ├── views.py              # Tirakoobka horumarka ardayga
 │   ├── urls.py
-│   ├── views.py
-│   └── tests.py
+│   ├── tests.py
+│   └── templates/dashboard/  # dashboard.html
 │
-├── accounts/                 # User Authentication App
-│   ├── templates/
-│   │   └── accounts/
-│   │       ├── login.html
-│   │       └── register.html
-│   ├── forms.py              # UserRegisterForm & UserLoginForm
-│   ├── apps.py
+├── admin_panel/              # Qaybta Gaarka ah ee Maamulka (Custom Dashboard)
+│   ├── views.py
 │   ├── urls.py
-│   ├── views.py
-│   └── tests.py
+│   └── templates/admin_panel/
 │
-├── dashboard/                # Student Dashboard App
-│   ├── templates/
-│   │   └── dashboard/
-│   │       └── dashboard.html
-│   ├── apps.py
-│   ├── urls.py
-│   ├── views.py
-│   └── tests.py
+├── templates/                # Qaababka Guud ee la wadaago
+│   ├── base.html             # Navbar, Footer, Mobile Drawer & Global Messages
+│   ├── 404.html              # Bogga Khaladka 404
+│   └── 500.html              # Bogga Khaladka 500
 │
-├── templates/                # Shared Master Templates
-│   ├── base.html             # Main Navbar, Footer & Layout
-│   ├── 404.html              # Custom 404 Error Page
-│   └── 500.html              # Custom 500 Error Page
-│
-└── static/                   # Static Frontend Assets
-    ├── css/
-    │   └── style.css         # Modern Vanilla CSS Design System
-    └── js/
-        └── main.js           # Mobile drawer, search filter, auto-alerts
+└── static/                   # Faylasha Naqshadda & Sawirrada
+    ├── css/style.css         # Naqshadda Buuxda ee AQOONPLUS
+    ├── js/main.js            # JavaScript-ka Nidaamka
+    └── images/               # Astaamaha Rasmiga ah (logo-header, logo-emblem, screenshots)
 ```
 
 ---
 
-## 🚀 Step-by-Step Installation & Setup
+## 🚀 Tallaabooyinka Ku Rakibashada (Setup & Installation)
 
-### 1. Open Terminal in Project Directory
-Navigated to your project root folder:
+### 1. Soo Degso Mashruuca (Clone Repository)
 ```bash
-cd path/to/django
+git clone https://github.com/Abdikadirkosar/django-elearning.git
+cd django-elearning
 ```
 
-### 2. Create and Activate Virtual Environment
-
-**On Windows (PowerShell / Command Prompt):**
-```bash
+### 2. Sameyso Deegaan Gooni ah (Virtual Environment)
+```powershell
+# Windows PowerShell
 python -m venv .venv
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 ```
 
-**On macOS / Linux:**
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-### 3. Install Dependencies
+### 3. Ku Shubo Baahiyaha Mashruuca (Install Dependencies)
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Apply Database Migrations
-Create the SQLite database tables:
+### 4. Furi Xog-keydiyaha (Run Migrations)
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 5. Populate Sample Seed Data
-Seed 5 complete courses with 25 interactive lessons into your database:
+### 5. Geli Xogta Tusaalaha ah (Seed Sample Courses & Lessons)
 ```bash
 python manage.py seed_data
 ```
 
-### 6. Create Superuser (Admin Account)
-Run the administrative user creation wizard:
+### 6. Sameyso Akoonka Maamulaha (Superuser)
 ```bash
 python manage.py createsuperuser
 ```
-*(Enter a username, email, and password when prompted)*
 
-### 7. Run the Development Server
+### 7. Kici Server-ka (Start Development Server)
 ```bash
 python manage.py runserver 8000
 ```
 
-Open your browser and visit:
-👉 **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)**
-
-Django Admin interface is available at:
-👉 **[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)**
+Ku fur browser-kaaga:
+- 🌐 **Bogga Guud**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+- 👑 **Admin Panel-ka**: [http://127.0.0.1:8000/admin-panel/](http://127.0.0.1:8000/admin-panel/)
+- ⚙️ **Django Admin**: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
 ---
 
-## 🧪 Running Automated Tests
+## 🧪 Tijaabooyinka Tooska ah (Automated Test Suite)
 
-Run Django's built-in test suite to verify project health:
+Mashruucani wuxuu leeyahay **17 tijaabo oo toos ah** kuwaas oo xaqiijiya badqabka dhammaan qaybaha muhiimka ah:
+
 ```bash
 python manage.py test
 ```
 
-All test cases covering registration, login, course catalog, enrollments, lesson progress, and dashboard permissions will run and display `OK`.
+### Natiijada Tijaabooyinka:
+```text
+Found 17 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 79.374s
 
----
-
-## 🎓 Django MVT Architecture Explained
-
-When presenting to your professor, explain the software flow using Django's **MVT (Model-View-Template)** pattern:
-
-```
-[ User Browser ]
-       │
-       ▼
- [ 1. URL Pattern (urls.py) ]  ─── Maps request path to a View function
-       │
-       ▼
- [ 2. View Function (views.py) ] ── Executes business logic & security checks
-       │                      │
-       ▼                      ▼
-[ 3. Model (models.py) ]   [ 4. Django ORM ] ── SQL query ──► [ SQLite DB ]
-       │                      │                                     │
-       └───────────┬──────────┘ ◄── Data Returned ──────────────────┘
-                   │
-                   ▼
- [ 5. Template (HTML + DTL) ] ── Renders context data into dynamic HTML page
-       │
-       ▼
-[ Rendered HTTP Response to Browser ]
+OK
 ```
 
-1. **Model (`models.py`)**: Defines python data structures (`Course`, `Lesson`, `Enrollment`, `LessonProgress`) mapped to SQLite tables via Django ORM.
-2. **View (`views.py`)**: Handles request logic, `@login_required` permissions, form processing, and database querying.
-3. **Template (`templates/`)**: Converts Python dictionary data into HTML markup using Django Template Language (`{{ variable }}`, `{% for %}`, `{% if %}`).
+| Qaybta | Tijaabada | Natiijada |
+|---|---|---|
+| `accounts` | `test_login_logout` | ✅ Guul |
+| `accounts` | `test_login_with_email` | ✅ Guul |
+| `accounts` | `test_password_reset_request_and_confirm` | ✅ Guul |
+| `accounts` | `test_profile_view_get_and_update` | ✅ Guul |
+| `accounts` | `test_registration_password_mismatch` | ✅ Guul |
+| `accounts` | `test_registration_success` | ✅ Guul |
+| `accounts` | `test_user_profile_auto_created` | ✅ Guul |
+| `courses` | `test_course_detail_status` | ✅ Guul |
+| `courses` | `test_course_list_status` | ✅ Guul |
+| `courses` | `test_course_properties` | ✅ Guul |
+| `courses` | `test_enrollment_workflow` | ✅ Guul |
+| `courses` | `test_home_page_status` | ✅ Guul |
+| `courses` | `test_lesson_completion` | ✅ Guul |
+| `courses` | `test_quiz_and_certificate` | ✅ Guul |
+| `courses` | `test_submit_review` | ✅ Guul |
+| `dashboard` | `test_dashboard_authenticated_success` | ✅ Guul |
+| `dashboard` | `test_dashboard_unauthenticated_redirect` | ✅ Guul |
 
 ---
 
-## 👨‍🏫 Classroom Presentation & Defense Guide
+## 👨‍💻 Xogta Qorayaasha & Xuquuqda (Credits & Leadership)
 
-If asked by your teacher during your demonstration:
-
-- **Q: Why did you split the project into `courses`, `accounts`, and `dashboard` apps?**  
-  *Answer*: Django promotes modularity. `accounts` manages user identity, `courses` manages core academic content, and `dashboard` aggregates student progress. This makes the codebase clean and maintainable.
-
-- **Q: How is lesson progress calculated?**  
-  *Answer*: `Course.get_user_progress(user)` queries `LessonProgress` records for that user and course, divides completed lessons by total lessons, and multiplies by 100 to return an integer percentage.
-
-- **Q: How do you prevent duplicate enrollments?**  
-  *Answer*: In `models.py`, `Enrollment` enforces `unique_together = ('user', 'course')`. In `views.py`, we use `Enrollment.objects.get_or_create(...)` to guarantee duplicate protection.
-
-- **Q: How does security work in this project?**  
-  *Answer*: All POST forms require `{% csrf_token %}` to prevent Cross-Site Request Forgery. Passwords are hashed using Django's default PBKDF2 algorithm. Sensitive views use `@login_required`.
+* 🎓 **Madaxa & Bare Sare**: **Eng. Abdikadir Kosar**
+* 💻 **Injineerka & Dhisaha Nidaamka**: **Dev. Abdikadir**
+* 🏫 **Astaanta**: **AQOONPLUS Academy** — *Aqoon. Xirfad. Mustaqbal.*
 
 ---
 
-## 🔮 Future Improvements
-- PDF Certificate Generation upon 100% course completion.
-- Quiz / Assignment submission at the end of each lesson.
-- Video file upload support for instructors.
+<div align="center">
+  <sub>Waxaa si gaar ah loogu dhisay horumarinta aqoonta dhalinyarada Soomaaliyeed ❤️</sub>
+</div>
