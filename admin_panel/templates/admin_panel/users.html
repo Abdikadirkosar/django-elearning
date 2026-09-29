@@ -47,11 +47,11 @@
           </td>
           <td style="color:#64748b;">{{ u.email|default:"—" }}</td>
           <td>
-            {% with role=u.profile.role %}
-            <span class="badge badge-{{ role }}">{{ role|title }}</span>
-            {% empty %}
-            <span class="badge badge-student">Student</span>
-            {% endwith %}
+            {% if u.profile.role %}
+              <span class="badge badge-{{ u.profile.role }}">{{ u.profile.role|title }}</span>
+            {% else %}
+              <span class="badge badge-student">Student</span>
+            {% endif %}
           </td>
           <td style="color:#64748b;">{{ u.date_joined|date:"M d, Y" }}</td>
           <td>
