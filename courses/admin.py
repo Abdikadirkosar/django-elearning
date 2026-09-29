@@ -47,10 +47,10 @@ class CourseAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at',)
     fieldsets = (
         ('📚 Course Info', {
-            'fields': ('title', 'description', 'category', 'instructor', 'thumbnail')
+            'fields': ('title', 'description', 'category', 'instructor', 'image')
         }),
         ('💰 Pricing', {
-            'fields': ('price', 'duration', 'level')
+            'fields': ('price', 'duration')
         }),
         ('⚙️ Settings', {
             'fields': ('is_published', 'created_at')
