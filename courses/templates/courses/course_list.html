@@ -55,7 +55,14 @@
       data-category="{{ course.category|lower }}"
     >
       <div class="course-card-body">
-        <span class="category-tag">{{ course.category }}</span>
+        <div class="course-card-top-bar">
+          <span class="category-tag">{{ course.category }}</span>
+          {% if course.is_free %}
+            <span class="course-price-tag free">Bilaash</span>
+          {% else %}
+            <span class="course-price-tag">${{ course.price }}</span>
+          {% endif %}
+        </div>
         <h3 class="course-card-title">{{ course.title }}</h3>
         <p class="course-card-desc">{{ course.description|truncatewords:20 }}</p>
 

@@ -7,7 +7,14 @@
 <div class="course-header-banner">
   <div class="course-header-row">
     <div>
-      <span class="category-tag">{{ course.category }}</span>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.85rem; flex-wrap: wrap;">
+        <span class="category-tag" style="margin-bottom: 0;">{{ course.category }}</span>
+        {% if course.is_free %}
+          <span class="course-price-tag free">Bilaash (Free)</span>
+        {% else %}
+          <span class="course-price-tag" style="font-size: 1.15rem; padding: 0.4rem 1.15rem; font-weight: 900;">💰 ${{ course.price }} USD</span>
+        {% endif %}
+      </div>
       <h1 class="hero-title">{{ course.title }}</h1>
       <p class="hero-subtitle">
         {{ course.description }}

@@ -737,6 +737,40 @@ a:hover {
   align-self: flex-start;
 }
 
+.course-card-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.85rem;
+}
+
+.course-card-top-bar .category-tag {
+  margin-bottom: 0;
+  align-self: auto;
+}
+
+.course-price-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.course-price-tag.free {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+
 .course-card-title {
   font-size: 1.3rem;
   font-weight: 800;
