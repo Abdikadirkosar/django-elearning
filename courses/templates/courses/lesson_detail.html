@@ -1,14 +1,38 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ lesson.title }} | {{ course.title }}{% endblock %}
+{% block title %}{{ lesson.title }} | {{ course.title }} | AQOONPLUS Academy{% endblock %}
 
 {% block content %}
 <!-- Back to Course Link -->
-<div style="margin-bottom: 1.5rem;">
-  <a href="{% url 'course_detail' course.id %}" style="font-weight: 600;">
+<div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+  <a href="{% url 'course_detail' course.id %}" style="font-weight: 700; color: var(--primary); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
     &larr; Ku noqo Dulmarka Koorsada ({{ course.title }})
   </a>
+
+  {% if is_preview_mode %}
+    <span style="background: #ecfdf5; color: #065f46; border: 1.5px solid #10b981; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800;">
+      🎁 Hordhac Bilaash ah (Free Preview)
+    </span>
+  {% endif %}
 </div>
+
+<!-- Free Preview Upsell Banner -->
+{% if is_preview_mode %}
+  <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1.5px solid #3b82f6; border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span style="font-size: 1.8rem;">💡</span>
+      <div>
+        <strong style="color: #1e3a8a; font-size: 1rem;">Ma jeceshahay casharkan?</strong>
+        <p style="color: #1e40af; margin: 0; font-size: 0.88rem;">
+          Casharkan waa hordhac bilaash ah. Iibso koorsada buuxda si aad u furto dhammaan {{ course.total_lessons }}-ka cashar, imtixaanka, iyo shahaadada.
+        </p>
+      </div>
+    </div>
+    <a href="{% url 'course_checkout' course.id %}" class="btn btn-primary" style="font-size: 0.95rem; font-weight: 800; padding: 0.65rem 1.3rem; white-space: nowrap;">
+      💳 Iibso Koorsada (${{ course.price }}) &rarr;
+    </a>
+  </div>
+{% endif %}
 
 <div class="lesson-layout">
   <!-- Sidebar Navigation -->
@@ -18,7 +42,10 @@
       {% for l in course.lessons.all %}
         <li>
           <a href="{% url 'lesson_detail' l.id %}" class="{% if l.id == lesson.id %}active{% endif %}">
-            <span>Cashar {{ l.order }}:</span> {{ l.title|truncatechars:24 }}
+            <span>Cashar {{ l.order }}:</span> {{ l.title|truncatechars:22 }}
+            {% if l.is_free_preview %}
+              <small style="margin-left: auto; color: #10b981; font-size: 0.72rem; font-weight: 800;">FREE</small>
+            {% endif %}
           </a>
         </li>
       {% endfor %}
@@ -54,13 +81,40 @@
 
     {% if lesson.video_url %}
       <div style="margin-top: 2rem; background-color: var(--bg-main); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-        <h4 style="margin-bottom: 0.5rem; color: var(--primary);">🎥 Muuqaalka Casharka (Video Tutorial)</h4>
-        <p style="font-size: 0.95rem;">
+        <h4 style="margin-bottom: 0.5rem; color: var(--primary); display: flex; align-items: center; gap: 0.4rem;">
+          <span>🎥</span> Muuqaalka Casharka (Video Tutorial)
+        </h4>
+        <p style="font-size: 0.95rem; margin: 0;">
           Daawo muuqaalka casharka: 
-          <a href="{{ lesson.video_url }}" target="_blank" rel="noopener noreferrer" style="font-weight: 600; text-decoration: underline;">
+          <a href="{{ lesson.video_url }}" target="_blank" rel="noopener noreferrer" style="font-weight: 700; color: var(--primary); text-decoration: underline;">
             {{ lesson.video_url }} &rarr;
           </a>
         </p>
+      </div>
+    {% endif %}
+
+    <!-- Lesson Downloadable Resources / Attachments -->
+    {% if resources %}
+      <div style="margin-top: 2rem; background-color: #f8fafc; padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+        <h4 style="margin-bottom: 0.75rem; color: var(--text-main); font-weight: 800; font-size: 1rem; display: flex; align-items: center; gap: 0.4rem;">
+          <span>📎</span> Qalabka &amp; Faylasha Casharka (Lesson Resources)
+        </h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          {% for res in resources %}
+            <li style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 0.6rem 0.9rem; border-radius: 6px; border: 1px solid var(--border-color);">
+              <span style="font-size: 0.92rem; font-weight: 600;">📄 {{ res.title }}</span>
+              {% if res.file %}
+                <a href="{{ res.file.url }}" download class="btn btn-outline" style="font-size: 0.8rem; padding: 0.3rem 0.75rem;">
+                  Soo Degso &darr;
+                </a>
+              {% elif res.url %}
+                <a href="{{ res.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.8rem; padding: 0.3rem 0.75rem;">
+                  Fur Link-ga &rarr;
+                </a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
       </div>
     {% endif %}
 
@@ -80,10 +134,100 @@
         </a>
       {% else %}
         <a href="{% url 'course_detail' course.id %}" class="btn btn-success">
-          Koorsadii Waa Dhammaatay! Ku Noqo Dulmarka
+          Koorsadii Waa Dhammaatay! Ku Noqo Dulmarka &rarr;
         </a>
       {% endif %}
     </div>
+
+    <!-- Lesson Q&A Discussion Section -->
+    <div style="margin-top: 3.5rem; padding-top: 2rem; border-top: 1.5px solid var(--border-color);">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>💬</span> Su'aalaha &amp; Wadahadalka Casharka (Lesson Q&amp;A)
+      </h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Ma qabtaa su'aal ama wax aan kuu caddayn casharkan? Halkan ku weydii macallinka iyo ardayda kale.
+      </p>
+
+      <!-- Ask Question Form -->
+      <form method="POST" action="{% url 'add_lesson_comment' lesson.id %}" style="margin-bottom: 2rem;">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ comment_form.content }}
+        </div>
+        <button type="submit" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.6rem 1.25rem; font-weight: 700;">
+          Dir Su'aashaada &rarr;
+        </button>
+      </form>
+
+      <!-- Comments List -->
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        {% for comment in comments %}
+          <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem;">
+                  {{ comment.user.username|slice:":1"|upper }}
+                </div>
+                <strong>{{ comment.user.get_full_name|default:comment.user.username }}</strong>
+                {% if comment.user.is_staff or comment.user.profile.role == 'instructor' or comment.user.profile.role == 'admin' %}
+                  <span class="dev-badge" style="font-size: 0.72rem; padding: 0.15rem 0.55rem;">👨‍🏫 Macallinka</span>
+                {% endif %}
+              </div>
+              <small style="color: var(--text-muted); font-size: 0.78rem;">{{ comment.created_at|timesince }} ka hor</small>
+            </div>
+
+            <p style="color: #334155; font-size: 0.94rem; line-height: 1.6; margin: 0 0 0.75rem 0;">
+              {{ comment.content }}
+            </p>
+
+            <!-- Replies -->
+            {% if comment.replies.all %}
+              <div style="margin-left: 1.5rem; padding-left: 1rem; border-left: 2px solid #cbd5e1; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
+                {% for reply in comment.replies.all %}
+                  <div style="background: #ffffff; padding: 0.85rem 1rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                      <div style="display: flex; align-items: center; gap: 0.4rem;">
+                        <strong style="font-size: 0.9rem;">{{ reply.user.get_full_name|default:reply.user.username }}</strong>
+                        {% if reply.user.is_staff or reply.user.profile.role == 'instructor' or reply.user.profile.role == 'admin' %}
+                          <span class="dev-badge" style="font-size: 0.7rem; padding: 0.1rem 0.45rem;">👨‍🏫 Macallinka</span>
+                        {% endif %}
+                      </div>
+                      <small style="color: var(--text-muted); font-size: 0.75rem;">{{ reply.created_at|timesince }} ka hor</small>
+                    </div>
+                    <p style="color: #334155; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+                      {{ reply.content }}
+                    </p>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <!-- Reply Form Toggle -->
+            <details style="margin-top: 0.75rem;">
+              <summary style="cursor: pointer; color: var(--primary); font-size: 0.85rem; font-weight: 700;">
+                💬 Ka jawaab su'aashan...
+              </summary>
+              <form method="POST" action="{% url 'add_lesson_comment' lesson.id %}" style="margin-top: 0.6rem;">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <div class="form-group" style="margin-bottom: 0.5rem;">
+                  <textarea name="content" class="form-input" rows="2" placeholder="Qor jawaabtaada halkan..." required style="font-size: 0.88rem;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline" style="font-size: 0.82rem; padding: 0.35rem 0.85rem;">
+                  Dir Jawaabta &rarr;
+                </button>
+              </form>
+            </details>
+
+          </div>
+        {% empty %}
+          <p style="color: var(--text-muted); font-size: 0.92rem; font-style: italic;">
+            Weli wax su'aalo ah lama weydiin casharkan. Noqo ardaygii koowaad ee su'aal bilaaba!
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+
   </main>
 </div>
 {% endblock %}

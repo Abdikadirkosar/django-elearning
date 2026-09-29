@@ -5,6 +5,22 @@
 
 {% block content %}
 
+<!-- Pending Orders Alert Banner -->
+{% if pending_enrollments > 0 %}
+  <div style="background: linear-gradient(135deg, #78350f 0%, #b45309 100%); color: #fff; padding: 1.25rem 1.5rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);">
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span style="font-size: 2rem;">⏳</span>
+      <div>
+        <strong style="font-size: 1.1rem; display: block;">Waxaa jira {{ pending_enrollments }} dalab oo sugaya ansixin (Pending Orders)!</strong>
+        <span style="font-size: 0.88rem; opacity: 0.9;">Arday ayaa soo dirtay lacagtii koorsada oo sugaya in loo fasaxo.</span>
+      </div>
+    </div>
+    <a href="{% url 'admin_panel_enrollments' %}?status=pending" class="btn btn-primary" style="background: #ffffff; color: #78350f; font-weight: 800; border: none; padding: 0.6rem 1.2rem;">
+      Eeg oo Fasax Dalabyada &rarr;
+    </a>
+  </div>
+{% endif %}
+
 <!-- Stats Grid -->
 <div class="ap-stats">
   <div class="ap-stat">
@@ -16,6 +32,11 @@
     <div class="ico">📚</div>
     <div class="num">{{ total_courses }}</div>
     <div class="lbl">Total Courses</div>
+  </div>
+  <div class="ap-stat" style="border: 2px solid {% if pending_enrollments > 0 %}#f59e0b{% else %}transparent{% endif %};">
+    <div class="ico">⏳</div>
+    <div class="num" style="color: #f59e0b;">{{ pending_enrollments }}</div>
+    <div class="lbl">Pending Orders</div>
   </div>
   <div class="ap-stat">
     <div class="ico">📋</div>

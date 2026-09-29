@@ -12,6 +12,8 @@ urlpatterns = [
     path('courses/<int:course_id>/delete/', views.admin_course_delete, name='admin_panel_course_delete'),
     path('courses/<int:course_id>/toggle/', views.admin_course_toggle_publish, name='admin_panel_course_toggle'),
     path('enrollments/', views.admin_enrollments, name='admin_panel_enrollments'),
+    path('enrollments/<int:enrollment_id>/approve/', views.admin_enrollment_approve, name='admin_panel_enrollment_approve'),
+    path('enrollments/<int:enrollment_id>/reject/', views.admin_enrollment_reject, name='admin_panel_enrollment_reject'),
     path('certificates/', views.admin_certificates, name='admin_panel_certificates'),
     path('quizzes/', views.admin_quizzes, name='admin_panel_quizzes'),
 ]

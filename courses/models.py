@@ -9,6 +9,7 @@ class Course(models.Model):
     category = models.CharField(max_length=100)
     image = models.ImageField(upload_to='courses/', blank=True, null=True)
     duration = models.CharField(max_length=50, help_text="e.g. 5 Hours, 4 Weeks")
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.00, help_text="Qiimaha koorsada USD (0 = Bilaash)")
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -18,6 +19,10 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def is_free(self):
+        return self.price == 0
 
     @property
     def total_lessons(self):
@@ -49,6 +54,17 @@ class Course(models.Model):
         ).count()
         return int((completed_count / total) * 100)
 
+    def is_enrolled_by(self, user):
+        if not user or not user.is_authenticated:
+            return False
+        return self.enrollments.filter(user=user, status='approved').exists()
+
+    def get_enrollment_status(self, user):
+        if not user or not user.is_authenticated:
+            return None
+        enrollment = self.enrollments.filter(user=user).first()
+        return enrollment.status if enrollment else None
+
 
 class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
@@ -56,6 +72,7 @@ class Lesson(models.Model):
     content = models.TextField()
     video_url = models.URLField(blank=True, null=True, help_text="Optional link to video lesson")
     order = models.PositiveIntegerField(default=1)
+    is_free_preview = models.BooleanField(default=False, help_text="Casharkan ma u furan yahay arday kasta (Free Preview)?")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -70,9 +87,41 @@ class Lesson(models.Model):
         return LessonProgress.objects.filter(user=user, lesson=self, completed=True).exists()
 
 
+class LessonResource(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='resources')
+    title = models.CharField(max_length=200)
+    file = models.FileField(upload_to='lesson_resources/', blank=True, null=True)
+    url = models.URLField(blank=True, null=True, help_text="External resource link")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Resource: {self.title} ({self.lesson.title})"
+
+
 class Enrollment(models.Model):
+    STATUS_CHOICES = (
+        ('approved', 'Fasaxan (Approved)'),
+        ('pending', 'Sugitaan (Pending Approval)'),
+        ('rejected', 'La Diiday (Rejected)'),
+    )
+
+    PAYMENT_METHODS = (
+        ('Zaad', 'Telesom Zaad'),
+        ('e-Dahab', 'Dahabshiil e-Dahab'),
+        ('EVC Plus', 'Hormuud EVC Plus'),
+        ('Free', 'Bilaash (Free Enrollment)'),
+        ('Manual', 'Gacanta (Manual Admin)'),
+    )
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='enrollments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='approved')
+    payment_method = models.CharField(max_length=50, choices=PAYMENT_METHODS, default='Free')
+    transaction_id = models.CharField(max_length=100, blank=True, null=True, help_text="Transaction reference number")
+    payment_receipt = models.ImageField(upload_to='receipts/', blank=True, null=True)
+    amount_paid = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+    approved_at = models.DateTimeField(blank=True, null=True)
+    admin_notes = models.TextField(blank=True)
     enrolled_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -80,7 +129,25 @@ class Enrollment(models.Model):
         ordering = ['-enrolled_at']
 
     def __str__(self):
-        return f"{self.user.username} enrolled in {self.course.title}"
+        return f"{self.user.username} - {self.course.title} ({self.get_status_display()})"
+
+    @property
+    def is_active(self):
+        return self.status == 'approved'
+
+
+class LessonComment(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lesson_comments')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.lesson.title}"
 
 
 class LessonProgress(models.Model):

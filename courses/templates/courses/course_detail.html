@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ course.title }} | E-Learn{% endblock %}
+{% block title %}{{ course.title }} | AQOONPLUS Academy{% endblock %}
 
 {% block content %}
 <!-- Course Header Banner -->
@@ -17,6 +17,7 @@
         <span>👨‍🏫 Macallinka: <strong>{{ course.instructor }}</strong></span>
         <span>⏱️ Waqtiga: <strong>{{ course.duration }}</strong></span>
         <span>📚 Casharrada: <strong>{{ course.total_lessons }} Cashar</strong></span>
+        <span>💰 Qiimaha: <strong style="color: {% if course.is_free %}#10b981{% else %}var(--primary){% endif %};">{% if course.is_free %}BILAASH (FREE){% else %}${{ course.price }} USD{% endif %}</strong></span>
         <span>⭐ Qiimeynta: <strong>{% if course.average_rating %}{{ course.average_rating }} / 5.0 ({{ course.total_reviews }} arday){% else %}Koorso Cusub{% endif %}</strong></span>
       </div>
     </div>
@@ -26,7 +27,7 @@
       {% if is_enrolled %}
         <div class="enrolled-status-box">
           <span class="course-enrolled-badge">
-            ✓ Waad Is-diiwaangelisay
+            ✓ Waad Is-diiwaangelisay (Fasaxan)
           </span>
         </div>
 
@@ -60,18 +61,55 @@
           </a>
         {% endif %}
 
+      {% elif enrollment_status == 'pending' %}
+        <!-- Pending Approval Alert -->
+        <div style="background: #fffbeb; border: 1.5px solid #f59e0b; border-radius: var(--radius-md); padding: 1.25rem; text-align: left;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <span style="font-size: 1.5rem;">⏳</span>
+            <strong style="color: #92400e; font-size: 1.05rem;">Dalabkaagu Waa Sugitaan</strong>
+          </div>
+          <p style="color: #78350f; font-size: 0.88rem; line-height: 1.5; margin: 0 0 0.75rem 0;">
+            Waxaan helnay codsigaaga iibsiga koorsadan (Ref: <strong>{{ enrollment.transaction_id|default:'La xaqiijinayo' }}</strong>). Admin-ka ayaa hubinaya lacag-bixintaada si uu koorsada kuugu furo dhakhso.
+          </p>
+          <a href="https://wa.me/252634812030?text=Asc%20AQOONPLUS%2C%20waxaan%20bixiyay%20lacagta%20koorsada%20{{ course.title|urlencode }}%20(Ref:%20{{ enrollment.transaction_id|urlencode }})" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; color: #047857; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+            <span>💬</span> La hadal Admin-ka (WhatsApp) &rarr;
+          </a>
+        </div>
+
+      {% elif enrollment_status == 'rejected' %}
+        <!-- Rejected Alert -->
+        <div style="background: #fef2f2; border: 1.5px solid #ef4444; border-radius: var(--radius-md); padding: 1.25rem; text-align: left; margin-bottom: 1rem;">
+          <strong style="color: #991b1b; display: block; margin-bottom: 0.35rem;">❌ Dalabkaagii Lama Ansixin</strong>
+          <p style="color: #7f1d1d; font-size: 0.85rem; margin: 0 0 0.75rem 0;">
+            {% if enrollment.admin_notes %}{{ enrollment.admin_notes }}{% else %}Fadlan dib u hubi tixraaca lacag-bixintaada ama maamulka la soo xiriir.{% endif %}
+          </p>
+          <a href="{% url 'course_checkout' course.id %}" class="btn btn-primary btn-block" style="font-size: 0.9rem; padding: 0.6rem;">
+            Dib u Iibso Koorsada (${{ course.price }}) &rarr;
+          </a>
+        </div>
+
       {% else %}
-        <h3 class="enroll-prompt-title">Bilow Waxbarashada Maanta</h3>
-        <p class="enroll-prompt-desc">Hel dhammaan {{ course.total_lessons }}-ka cashar ee koorsadan.</p>
+        <h3 class="enroll-prompt-title">
+          {% if course.is_free %}Koorsadan Waa Bilaash!{% else %}Iibso Koorsadan (${{ course.price }}){% endif %}
+        </h3>
+        <p class="enroll-prompt-desc">
+          Hel dhammaan {{ course.total_lessons }}-ka cashar, qalabka casharrada, iyo shahaadada rasmiga ah.
+        </p>
 
         {% if user.is_authenticated %}
-          <form method="POST" action="{% url 'enroll_course' course.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-block">Is-diiwaangeli Hadda</button>
-          </form>
+          {% if course.is_free %}
+            <form method="POST" action="{% url 'enroll_course' course.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary btn-block">Is-diiwaangeli Hadda (Bilaash) &rarr;</button>
+            </form>
+          {% else %}
+            <a href="{% url 'course_checkout' course.id %}" class="btn btn-primary btn-block" style="font-size: 1.05rem; font-weight: 800; padding: 0.85rem;">
+              💳 Iibso Koorsada (${{ course.price }} USD) &rarr;
+            </a>
+          {% endif %}
         {% else %}
-          <a href="{% url 'login' %}?next={% url 'course_detail' course.id %}" class="btn btn-primary btn-block">
-            Gal si aad Isugu Diiwaangeliso
+          <a href="{% url 'login' %}?next={% if course.is_free %}{% url 'course_detail' course.id %}{% else %}{% url 'course_checkout' course.id %}{% endif %}" class="btn btn-primary btn-block">
+            Gal Akoonka si aad u {% if course.is_free %}Biirto{% else %}Iibsato{% endif %} &rarr;
           </a>
         {% endif %}
       {% endif %}
@@ -92,16 +130,27 @@
           <span class="syllabus-num-badge">
             {{ lesson.order }}
           </span>
-          <span class="syllabus-item-title">{{ lesson.title }}</span>
+          <div>
+            <span class="syllabus-item-title">{{ lesson.title }}</span>
+            {% if lesson.is_free_preview %}
+              <span style="display: inline-block; margin-left: 0.5rem; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 0.15rem 0.55rem; border-radius: var(--radius-full); font-size: 0.76rem; font-weight: 700;">
+                🎁 Hordhac Bilaash ah (Free Preview)
+              </span>
+            {% endif %}
+          </div>
         </div>
 
         <div>
           {% if is_enrolled %}
             <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-secondary syllabus-btn-view">
-              Daawo Casharka
+              Daawo Casharka &rarr;
+            </a>
+          {% elif lesson.is_free_preview %}
+            <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-primary syllabus-btn-view" style="background: #10b981; border-color: #10b981; color: #ffffff;">
+              Daawo Hordhaca (Free) &rarr;
             </a>
           {% else %}
-            <span class="syllabus-lock-tag">🔒 Ardayda Is-diiwaangelisay Kaliya</span>
+            <span class="syllabus-lock-tag">🔒 Xiran (Koorso Buuxda)</span>
           {% endif %}
         </div>
       </div>
@@ -115,7 +164,7 @@
 <div class="reviews-section">
   <div class="reviews-header">
     <h2 class="reviews-title">
-      Fikradaha & Qiimeynta Ardayda
+      Fikradaha &amp; Qiimeynta Ardayda
     </h2>
     <span class="reviews-avg">
       {% if course.average_rating %}⭐ {{ course.average_rating }} / 5.0 ({{ reviews.count }} fikradood){% else %}Weli lama qiimeyn{% endif %}

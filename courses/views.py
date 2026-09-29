@@ -4,7 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q, Count
 from django.contrib.auth.models import User
-from .models import Course, Lesson, Enrollment, LessonProgress, Review, Quiz, Question, Choice, QuizAttempt, Certificate
+from .models import (
+    Course, Lesson, LessonResource, Enrollment, LessonProgress,
+    Review, Quiz, Question, Choice, QuizAttempt, Certificate, LessonComment
+)
+from .forms import CourseCheckoutForm, LessonCommentForm, ReviewForm
+from accounts.models import Notification
 
 
 
@@ -55,6 +60,8 @@ def course_detail(request, pk):
     reviews = course.reviews.select_related('user').all()
     
     is_enrolled = False
+    enrollment = None
+    enrollment_status = None
     progress = 0
     user_review = None
     certificate = None
@@ -62,19 +69,24 @@ def course_detail(request, pk):
     latest_attempt = None
 
     if request.user.is_authenticated:
-        is_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
-        if is_enrolled:
-            progress = course.get_user_progress(request.user)
-            user_review = reviews.filter(user=request.user).first()
-            certificate = Certificate.objects.filter(user=request.user, course=course).first()
-            if quiz:
-                latest_attempt = QuizAttempt.objects.filter(user=request.user, quiz=quiz).first()
+        enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
+        if enrollment:
+            enrollment_status = enrollment.status
+            is_enrolled = (enrollment.status == 'approved')
+            
+        progress = course.get_user_progress(request.user)
+        user_review = reviews.filter(user=request.user).first()
+        certificate = Certificate.objects.filter(user=request.user, course=course).first()
+        if quiz:
+            latest_attempt = QuizAttempt.objects.filter(user=request.user, quiz=quiz).first()
 
     context = {
         'course': course,
         'lessons': lessons,
         'reviews': reviews,
         'is_enrolled': is_enrolled,
+        'enrollment': enrollment,
+        'enrollment_status': enrollment_status,
         'progress': progress,
         'user_review': user_review,
         'certificate': certificate,
@@ -91,8 +103,8 @@ def submit_review(request, pk):
 
     course = get_object_or_404(Course, pk=pk, is_published=True)
 
-    if not Enrollment.objects.filter(user=request.user, course=course).exists():
-        messages.error(request, "Waa inaad koorsadan ku biirtaa si aad fikrad uga dhiibato.")
+    if not Enrollment.objects.filter(user=request.user, course=course, status='approved').exists():
+        messages.error(request, "Waa inaad koorsadan ku biirtaa oo laguu fasaxay si aad fikrad uga dhiibato.")
         return redirect('course_detail', pk=course.id)
 
     try:
@@ -121,8 +133,8 @@ def submit_review(request, pk):
 def take_quiz(request, pk):
     course = get_object_or_404(Course, pk=pk, is_published=True)
 
-    if not Enrollment.objects.filter(user=request.user, course=course).exists():
-        messages.error(request, "Waa inaad koorsadan iska diiwaangelisaa si aad imtixaanka u gasho.")
+    if not Enrollment.objects.filter(user=request.user, course=course, status='approved').exists():
+        messages.error(request, "Waa inaad koorsadan iska diiwaangelisaa oo laguu fasaxay si aad imtixaanka u gasho.")
         return redirect('course_detail', pk=course.id)
 
     quiz = getattr(course, 'quiz', None)
@@ -221,7 +233,7 @@ def get_cert_grade_info(user, course):
 def view_certificate(request, pk):
     course = get_object_or_404(Course, pk=pk, is_published=True)
 
-    if not Enrollment.objects.filter(user=request.user, course=course).exists():
+    if not Enrollment.objects.filter(user=request.user, course=course, status='approved').exists():
         messages.error(request, "Waa inaad koorsadan ku jirtaa si aad u daawato shahaadooyinka.")
         return redirect('course_detail', pk=course.id)
 
@@ -260,18 +272,25 @@ def verify_certificate_view(request, code):
     })
 
 
-
-
 @login_required
 def enroll_course(request, pk):
+    course = get_object_or_404(Course, pk=pk, is_published=True)
+
+    # If course is paid, send to checkout
+    if not course.is_free:
+        return redirect('course_checkout', pk=course.id)
+
     if request.method != 'POST':
         return redirect('course_detail', pk=pk)
 
-    course = get_object_or_404(Course, pk=pk, is_published=True)
-    enrollment, created = Enrollment.objects.get_or_create(user=request.user, course=course)
+    enrollment, created = Enrollment.objects.get_or_create(
+        user=request.user,
+        course=course,
+        defaults={'status': 'approved', 'payment_method': 'Free'}
+    )
 
     if created:
-        messages.success(request, f"Waxaad si guul leh ugu biirtay koorsada '{course.title}'.")
+        messages.success(request, f"Waxaad si guul leh ugu biirtay koorsada bilaashka ah ee '{course.title}'.")
     else:
         messages.info(request, f"Hore ayaad ugu biirtay koorsada '{course.title}'.")
 
@@ -279,15 +298,73 @@ def enroll_course(request, pk):
 
 
 @login_required
+def course_checkout(request, pk):
+    course = get_object_or_404(Course, pk=pk, is_published=True)
+
+    if course.is_free:
+        return redirect('enroll_course', pk=course.id)
+
+    enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
+    if enrollment:
+        if enrollment.status == 'approved':
+            messages.info(request, f"Hore ayaad u iibsatay koorsada '{course.title}'.")
+            return redirect('course_detail', pk=course.id)
+        elif enrollment.status == 'pending':
+            messages.info(request, f"Dalabkaaga koorsada '{course.title}' wuu socdaa (Sugitaan). Admin-ka ayaa xaqiijinaya lacag-bixintaada.")
+            return redirect('course_detail', pk=course.id)
+
+    if request.method == 'POST':
+        form = CourseCheckoutForm(request.POST, request.FILES)
+        if form.is_valid():
+            enrollment = form.save(commit=False)
+            enrollment.user = request.user
+            enrollment.course = course
+            enrollment.status = 'pending'
+            enrollment.amount_paid = course.price
+            enrollment.save()
+
+            # Create in-app notification
+            Notification.objects.create(
+                user=request.user,
+                title=f"Dalabka Koorsada: {course.title}",
+                message=f"Codsigaaga iibsiga koorsada '{course.title}' waa la helay. Waxaa laguugu fasixi doonaa muddo kooban (Tixraac: {enrollment.transaction_id}).",
+                link=reverse('course_detail', kwargs={'pk': course.id})
+            )
+
+            messages.success(
+                request,
+                f"🎉 Mahadsanid! Xogta lacag-bixinta koorsada '{course.title}' waa la helay. Admin-ka ayaa hubinaya si koorsada looguugu furo dhakhso."
+            )
+            return redirect('course_detail', pk=course.id)
+        else:
+            messages.error(request, "Fadlan buuxi meelaha loo baahan yahay oo sax xogta.")
+    else:
+        form = CourseCheckoutForm(initial={'payment_method': 'Zaad'})
+
+    return render(request, 'courses/checkout.html', {
+        'course': course,
+        'form': form,
+    })
+
+
+@login_required
 def lesson_detail(request, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
     course = lesson.course
 
-    # Check if user is enrolled in the course
-    is_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
-    if not is_enrolled:
-        messages.error(request, "Fadlan koorsadan iska diiwaangeli si aad casharrada u furato.")
-        return redirect('course_detail', pk=course.id)
+    enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
+    is_approved = enrollment is not None and enrollment.status == 'approved'
+    is_preview_mode = False
+
+    if not is_approved:
+        if lesson.is_free_preview:
+            is_preview_mode = True
+        else:
+            if enrollment and enrollment.status == 'pending':
+                messages.warning(request, "Casharkan wuu xiran yahay sababtoo ah dalabkaagu weli waa sugitaan (Pending Approval).")
+            else:
+                messages.error(request, "Fadlan koorsadan iska diiwaangeli ama iibso si aad casharrada u furato.")
+            return redirect('course_detail', pk=course.id)
 
     # Next and previous lessons
     prev_lesson = Lesson.objects.filter(course=course, order__lt=lesson.order).order_by('-order', '-id').first()
@@ -297,12 +374,20 @@ def lesson_detail(request, pk):
         user=request.user, lesson=lesson, completed=True
     ).exists()
 
+    comments = lesson.comments.filter(parent=None).select_related('user', 'user__profile').prefetch_related('replies', 'replies__user', 'replies__user__profile')
+    resources = lesson.resources.all()
+    comment_form = LessonCommentForm()
+
     context = {
         'lesson': lesson,
         'course': course,
         'prev_lesson': prev_lesson,
         'next_lesson': next_lesson,
         'is_completed': is_completed,
+        'is_preview_mode': is_preview_mode,
+        'comments': comments,
+        'resources': resources,
+        'comment_form': comment_form,
     }
     return render(request, 'courses/lesson_detail.html', context)
 
@@ -315,8 +400,10 @@ def complete_lesson(request, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
     course = lesson.course
 
-    # Ensure user is enrolled
-    if not Enrollment.objects.filter(user=request.user, course=course).exists():
+    # Ensure user is enrolled or in preview
+    enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
+    is_approved = enrollment is not None and enrollment.status == 'approved'
+    if not is_approved and not lesson.is_free_preview:
         messages.error(request, "Waa inaad koorsada ku jirtaa si aad casharrada u calaamadeyso.")
         return redirect('course_detail', pk=course.id)
 
@@ -328,10 +415,43 @@ def complete_lesson(request, pk):
 
     messages.success(request, f"Casharka '{lesson.title}' waxaa loo calaamadeeyay inuu dhammaaday.")
 
-    # Redirect to next lesson if available, else stay on current lesson
     next_lesson = Lesson.objects.filter(course=course, order__gt=lesson.order).order_by('order', 'id').first()
     if next_lesson:
         return redirect('lesson_detail', pk=next_lesson.id)
+    return redirect('lesson_detail', pk=lesson.id)
+
+
+@login_required
+def add_lesson_comment(request, pk):
+    if request.method != 'POST':
+        return redirect('lesson_detail', pk=pk)
+
+    lesson = get_object_or_404(Lesson, pk=pk)
+    course = lesson.course
+
+    enrollment = Enrollment.objects.filter(user=request.user, course=course).first()
+    is_approved = enrollment is not None and enrollment.status == 'approved'
+    if not is_approved and not lesson.is_free_preview and not request.user.is_staff:
+        messages.error(request, "Waa inaad koorsada ku jirtaa si aad su'aal u weydiiso.")
+        return redirect('course_detail', pk=course.id)
+
+    content = request.POST.get('content', '').strip()
+    if content:
+        parent_id = request.POST.get('parent_id')
+        parent = None
+        if parent_id:
+            parent = LessonComment.objects.filter(id=parent_id, lesson=lesson).first()
+
+        LessonComment.objects.create(
+            lesson=lesson,
+            user=request.user,
+            parent=parent,
+            content=content
+        )
+        messages.success(request, "Su'aashaada/faalladaada si guul leh ayaa loo daabacay.")
+    else:
+        messages.error(request, "Fadlan qor wax su'aal ama faallo ah.")
+
     return redirect('lesson_detail', pk=lesson.id)
 
 

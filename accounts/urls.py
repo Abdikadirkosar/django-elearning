@@ -7,6 +7,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('profile/', views.profile_view, name='profile'),
     path('profile/change-password/', views.change_password_view, name='change_password'),
+    path('notifications/', views.notifications_view, name='notifications'),
 
     # Password Reset URLs
     path('password-reset/', views.password_reset_request_view, name='password_reset'),

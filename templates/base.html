@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}AQOONPLUS — Barashada Online ee Heer Sare{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.2">
 </head>
 <body>
 
@@ -51,6 +51,14 @@
           <!-- Auth Buttons -->
           <div class="nav-auth-group">
             {% if user.is_authenticated %}
+              <!-- Notification Bell -->
+              <a href="{% url 'notifications' %}" class="nav-notification-btn" title="Ogeysiisyada" aria-label="Notifications">
+                🔔
+                {% if unread_notifications_count > 0 %}
+                  <span class="nav-notif-badge">{{ unread_notifications_count }}</span>
+                {% endif %}
+              </a>
+
               <a href="{% url 'profile' %}" class="nav-profile-pill {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
                 👤 {{ user.username }}
               </a>
@@ -95,6 +103,14 @@
           <li><a href="{% url 'about' %}">ℹ️ About</a></li>
           <li><a href="{% url 'contact' %}">📞 Contact</a></li>
           {% if user.is_authenticated %}
+          <li>
+            <a href="{% url 'notifications' %}" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>🔔 Ogeysiisyada (Notifications)</span>
+              {% if unread_notifications_count > 0 %}
+                <span style="background: #ef4444; color: #fff; padding: 2px 7px; border-radius: 10px; font-size: 0.75rem; font-weight: 800;">{{ unread_notifications_count }}</span>
+              {% endif %}
+            </a>
+          </li>
           <li><a href="{% url 'dashboard' %}">📊 Dashboard</a></li>
           {% if user.is_superuser or user.profile.role == 'admin' %}
           <li><a href="{% url 'admin_panel_dashboard' %}">🛡️ Admin Panel</a></li>

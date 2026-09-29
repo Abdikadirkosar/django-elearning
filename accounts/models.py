@@ -33,3 +33,19 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
             instance.profile.save()
         else:
             UserProfile.objects.create(user=instance)
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    title = models.CharField(max_length=200)
+    message = models.TextField()
+    link = models.CharField(max_length=255, blank=True, null=True, help_text="Optional target URL")
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        status = "Read" if self.is_read else "Unread"
+        return f"{self.user.username} - {self.title} ({status})"

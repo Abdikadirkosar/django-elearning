@@ -241,3 +241,21 @@ def change_password_view(request):
         form = ChangePasswordForm(request.user)
 
     return render(request, 'accounts/change_password.html', {'form': form})
+
+
+@login_required
+def notifications_view(request):
+    from .models import Notification
+    if request.method == 'POST' and 'mark_all_read' in request.POST:
+        Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+        messages.success(request, "Dhammaan ogeysiisyada waxaa loo calaamadeeyay in la aqriyay.")
+        return redirect('notifications')
+
+    notifications = Notification.objects.filter(user=request.user).order_by('-created_at')
+    # Mark as read when visited
+    Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+
+    return render(request, 'accounts/notifications.html', {
+        'notifications': notifications,
+    })
+

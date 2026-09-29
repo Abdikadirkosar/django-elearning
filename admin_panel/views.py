@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.db.models import Count
+from django.db.models import Count, Q
+from django.utils import timezone
 from functools import wraps
 
 from courses.models import Course, Enrollment, LessonProgress, Certificate, QuizAttempt, Quiz
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Notification
 
 
 # ─── Admin Required Decorator ────────────────────────────────────────────────
@@ -32,6 +34,8 @@ def admin_dashboard(request):
     total_users = User.objects.count()
     total_courses = Course.objects.count()
     total_enrollments = Enrollment.objects.count()
+    pending_enrollments = Enrollment.objects.filter(status='pending').count()
+    approved_enrollments = Enrollment.objects.filter(status='approved').count()
     total_certificates = Certificate.objects.count()
 
     students = User.objects.filter(profile__role='student').count()
@@ -48,6 +52,8 @@ def admin_dashboard(request):
         'total_users': total_users,
         'total_courses': total_courses,
         'total_enrollments': total_enrollments,
+        'pending_enrollments': pending_enrollments,
+        'approved_enrollments': approved_enrollments,
         'total_certificates': total_certificates,
         'students': students,
         'instructors': instructors,
@@ -180,13 +186,81 @@ def admin_course_toggle_publish(request, course_id):
 # ─── Enrollments ──────────────────────────────────────────────────────────────
 @admin_required
 def admin_enrollments(request):
-    enrollments = Enrollment.objects.select_related('user', 'course').order_by('-enrolled_at')
+    status_filter = request.GET.get('status', '')
     search = request.GET.get('search', '')
+
+    enrollments = Enrollment.objects.select_related('user', 'course').order_by('-enrolled_at')
+    
+    pending_count = Enrollment.objects.filter(status='pending').count()
+    approved_count = Enrollment.objects.filter(status='approved').count()
+    rejected_count = Enrollment.objects.filter(status='rejected').count()
+
+    if status_filter:
+        enrollments = enrollments.filter(status=status_filter)
     if search:
-        enrollments = enrollments.filter(user__username__icontains=search) | \
-                      enrollments.filter(course__title__icontains=search)
-    context = {'enrollments': enrollments, 'search': search, 'total': enrollments.count()}
+        enrollments = enrollments.filter(
+            Q(user__username__icontains=search) |
+            Q(course__title__icontains=search) |
+            Q(transaction_id__icontains=search)
+        )
+
+    context = {
+        'enrollments': enrollments,
+        'search': search,
+        'status_filter': status_filter,
+        'total': enrollments.count(),
+        'pending_count': pending_count,
+        'approved_count': approved_count,
+        'rejected_count': rejected_count,
+    }
     return render(request, 'admin_panel/enrollments.html', context)
+
+
+@admin_required
+def admin_enrollment_approve(request, enrollment_id):
+    if request.method == 'POST':
+        enrollment = get_object_or_404(Enrollment, id=enrollment_id)
+        enrollment.status = 'approved'
+        enrollment.approved_at = timezone.now()
+        enrollment.save()
+
+        # Send in-app notification to student
+        Notification.objects.create(
+            user=enrollment.user,
+            title="🎉 Koorsadaadii Waa La Fasaxay!",
+            message=f"Hambalyo! Dalabkaagii koorsada '{enrollment.course.title}' waa la ansixiyay. Hadda waad bilaabi kartaa dhammaan casharrada.",
+            link=reverse('course_detail', kwargs={'pk': enrollment.course.id})
+        )
+
+        messages.success(request, f"Dalabka ardayga '{enrollment.user.username}' ee koorsada '{enrollment.course.title}' si guul leh ayaa loo fasaxay (Approved)!")
+    return redirect('admin_panel_enrollments')
+
+
+@admin_required
+def admin_enrollment_reject(request, enrollment_id):
+    if request.method == 'POST':
+        enrollment = get_object_or_404(Enrollment, id=enrollment_id)
+        enrollment.status = 'rejected'
+        reason = request.POST.get('reason', '').strip()
+        if reason:
+            enrollment.admin_notes = reason
+        enrollment.save()
+
+        # Send in-app notification to student
+        msg_text = f"Nasiib-darro, dalabkaagii koorsada '{enrollment.course.title}' lama ansixin."
+        if reason:
+            msg_text += f" Sababta: {reason}."
+        msg_text += " Fadlan la soo xiriir xafiiska taageerada (+252 634812030)."
+
+        Notification.objects.create(
+            user=enrollment.user,
+            title="Codsigaaga Koorsada Lama Ansixin",
+            message=msg_text,
+            link=reverse('contact')
+        )
+
+        messages.warning(request, f"Dalabka '{enrollment.user.username}' waa la diiday (Rejected).")
+    return redirect('admin_panel_enrollments')
 
 
 # ─── Certificates ─────────────────────────────────────────────────────────────

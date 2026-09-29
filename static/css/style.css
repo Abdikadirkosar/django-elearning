@@ -2061,4 +2061,44 @@ a:hover {
   }
 }
 
+/* ==========================================================================
+   Notification Bell & Badge
+   ========================================================================== */
+.nav-notification-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-alt);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 1.15rem;
+  transition: var(--transition);
+}
+
+.nav-notification-btn:hover {
+  background: #e0e7ff;
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.nav-notif-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  border: 2px solid #ffffff;
+  line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+}
+
+
 

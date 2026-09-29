@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Ogeysiisyadaada | AQOONPLUS Academy{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 2.5rem auto; padding: 0 1.5rem;">
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h1 style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin: 0 0 0.25rem 0;">
+        🔔 Ogeysiisyadaada (Notifications)
+      </h1>
+      <p style="color: var(--text-muted); margin: 0; font-size: 0.95rem;">
+        La soco xaaladda koorsooyinkaaga, ansixinta lacag-bixinta, iyo wararka cusub.
+      </p>
+    </div>
+
+    {% if notifications %}
+      <form method="POST" action="{% url 'notifications' %}">
+        {% csrf_token %}
+        <button type="submit" name="mark_all_read" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.45rem 0.9rem;">
+          ✓ Dhammaan u calaamadee in la akhriyay
+        </button>
+      </form>
+    {% endif %}
+  </div>
+
+  {% if notifications %}
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      {% for notif in notifications %}
+        <div class="stat-card" style="padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start; border-left: 4px solid {% if not notif.is_read %}var(--primary){% else %}var(--border-color){% endif %}; background: {% if not notif.is_read %}#f8faff{% else %}var(--card-bg){% endif %};">
+          <div style="font-size: 1.5rem; flex-shrink: 0; background: #e0e7ff; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+            📢
+          </div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; flex-wrap: wrap; gap: 0.5rem;">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); margin: 0;">
+                {{ notif.title }}
+              </h3>
+              <span style="font-size: 0.78rem; color: var(--text-muted);">
+                {{ notif.created_at|timesince }} ka hor
+              </span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin: 0 0 0.5rem 0;">
+              {{ notif.message }}
+            </p>
+            {% if notif.link %}
+              <a href="{{ notif.link }}" style="font-size: 0.86rem; color: var(--primary); font-weight: 700; text-decoration: none;">
+                Fur oo Eeg &rarr;
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div style="text-align: center; padding: 4rem 2rem; background: var(--card-bg); border-radius: var(--radius-lg); border: 1px dashed var(--border-color);">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🔕</div>
+      <h3 style="font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+        Ma Jiraan Ogeysiisas Cusub
+      </h3>
+      <p style="color: var(--text-muted); max-width: 400px; margin: 0 auto 1.5rem; font-size: 0.95rem;">
+        Hadda ma haysatid wax ogeysiis ah. Marka aad koorso dalbato ama koorso laguu fasaxo halkan ayaa lagugu soo wargelin doonaa.
+      </p>
+      <a href="{% url 'course_list' %}" class="btn btn-primary">
+        Daawo Koorsooyinka &rarr;
+      </a>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django">
     <img src="https://img.shields.io/badge/Frontend-HTML5_%7C_CSS3_%7C_Vanilla_JS-E34F26?style=for-the-badge" alt="Frontend">
     <img src="https://img.shields.io/badge/Database-SQLite3-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
-    <img src="https://img.shields.io/badge/Tests-17%2F17%20Passed-brightgreen?style=for-the-badge" alt="Tests">
+    <img src="https://img.shields.io/badge/Tests-19%2F19%20Passed-brightgreen?style=for-the-badge" alt="Tests">
     <img src="https://img.shields.io/badge/Language-Af--Soomaali-blue?style=for-the-badge" alt="Somali">
   </p>
 </div>
@@ -60,6 +60,38 @@
   - ⭐ **GUUL (Satisfactory Pass)** — Dhibco 70% – 79% (Calaamad Cagaar ah)
 - **Astaamaha Shahaadada**: Shaabad dahab ah oo 3D ah, Astaanta rasmiga ah ee AQOONPLUS (`logo-emblem.jpg`), iyo saxiixa macallinka.
 - **Xaqiijinta Shahaadada (Public Verification Page)**: Qof kasta wuxuu shahaadada ku xaqiijin karaa link toos ah (`/certificate/verify/<code>/`), sidoo kale waxaa ku jira batoon loogu wadaago **LinkedIn** iyo daabacaad toos ah (**Print to PDF**).
+
+---
+
+### 4. 💳 Iibsiga Koorsooyinka & Ansixinta Admin-ka (Purchase & Approval Workflow)
+- **Koorsooyin Bilaash ah & Kuwo Lacag ah**: Koorsooyinka waxaa loogu talagalay labo nooc: **Bilaash (Free)** iyo **Lacag ($15 - $35 USD)**.
+- **Lacag-bixinta Mobile Money (Zaad & e-Dahab)**:
+  - 📱 **Telesom ZAAD**: `+252 63 4812030` (Eng. Abdikadir Kosar)
+  - 📱 **e-Dahab**: `+252 63 4812030`
+- **Foomka Xaqiijinta (Checkout)**: Ardaygu wuxuu soo galinayaa lambarka tixraaca (Transaction ID / Reference) iyo sawirka rasiidka fariinta.
+- **Xaaladda Dalabka (Order Lifecycle)**:
+  - ⏳ *Sugitaan (Pending Approval)*: Ardayga waxaa loo muujinayaa in dalabkiisu socdo, casharraduna xiran yihiin.
+  - ✅ *Fasaxan (Approved)*: Admin-ka ayaa hal gujin ku fasaxaya, koorsadiina isla markiiba way furmaysaa.
+  - ❌ *La Diiday (Rejected)*: Haddii lacagtu khaldanto oo leh sharaxaad.
+- **🎁 Hordhac Bilaash ah (Free Preview Lessons)**: Casharka koowaad ee koorsooyinka lacagta ah waa mid u furan arday kasta si uu u arko tayada casharrada inta uusan iibsan.
+
+---
+
+### 5. 🔔 Nidaamka Ogeysiisyada (In-App Notification Bell System)
+- Gambaleel casri ah oo navbar-ka ku yaalla (🔔) oo wata calaamad guduudan oo muujinaysa tirada ogeysiisyada aan la akhriyin.
+- Ogeysiis toos ah marka admin-ku dalabkaaga koorsada fasaxo ama diido.
+- Bog u gaar ah ogeysiisyada (`/notifications/`) oo leh taariikhda iyo batoonka *"Dhammaan u calaamadee in la akhriyay"*.
+
+---
+
+### 6. 💬 Wadahadalka & Su'aalaha Casharka (Lesson Q&A Discussion Board)
+- Cashar kasta hoostiisa waxaa ku yaalla barxad wada-hadal oo ardaydu su'aalo ku weydiin karaan.
+- Macallin **Eng. Abdikadir Kosar** wuxuu toos ugu jawaabi karaa ardayda isagoo wata calaamadda gaarka ah ee `👨‍🏫 Macallinka (Instructor)`.
+
+---
+
+### 7. 📎 Qalabka & Faylasha Casharka (Lesson Resources)
+- Macallinku wuxuu cashar kasta ku lifaaqi karaa PDF files, code files, ama linkiyo dheeraad ah oo ardaydu toos u soo degsan karaan.
 
 ---
 
@@ -210,7 +242,7 @@ Ku fur browser-kaaga:
 
 ## 🧪 Tijaabooyinka Tooska ah (Automated Test Suite)
 
-Mashruucani wuxuu leeyahay **17 tijaabo oo toos ah** kuwaas oo xaqiijiya badqabka dhammaan qaybaha muhiimka ah:
+Mashruucani wuxuu leeyahay **19 tijaabo oo toos ah** kuwaas oo xaqiijiya badqabka dhammaan qaybaha muhiimka ah:
 
 ```bash
 python manage.py test
@@ -218,12 +250,12 @@ python manage.py test
 
 ### Natiijada Tijaabooyinka:
 ```text
-Found 17 test(s).
+Found 19 test(s).
 Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
-.................
+...................
 ----------------------------------------------------------------------
-Ran 17 tests in 79.374s
+Ran 19 tests in 121.800s
 
 OK
 ```
@@ -240,7 +272,9 @@ OK
 | `courses` | `test_course_detail_status` | ✅ Guul |
 | `courses` | `test_course_list_status` | ✅ Guul |
 | `courses` | `test_course_properties` | ✅ Guul |
-| `courses` | `test_enrollment_workflow` | ✅ Guul |
+| `courses` | `test_enrollment_workflow_free_course` | ✅ Guul |
+| `courses` | `test_paid_course_checkout_and_admin_approval` | ✅ Guul |
+| `courses` | `test_free_preview_access` | ✅ Guul |
 | `courses` | `test_home_page_status` | ✅ Guul |
 | `courses` | `test_lesson_completion` | ✅ Guul |
 | `courses` | `test_quiz_and_certificate` | ✅ Guul |

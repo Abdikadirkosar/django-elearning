@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Iibso Koorsada: {{ course.title }} | AQOONPLUS Academy{% endblock %}
+
+{% block content %}
+<div style="max-width: 950px; margin: 2.5rem auto; padding: 0 1.5rem;">
+
+  <!-- Header -->
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; background: #e0e7ff; padding: 0.3rem 0.85rem; border-radius: var(--radius-full);">
+      💳 Nidaamka Iibsiga &amp; Lacag-bixinta
+    </span>
+    <h1 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin: 0.75rem 0 0.5rem 0;">
+      Dhameystir Iibsiga Koorsada
+    </h1>
+    <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto;">
+      Fadlan bixi lacagta koorsada adoo isticmaalaya Zaad ama e-Dahab, ka dibna buuxi xogta tixraaca hoose si koorsada laguguugu furo.
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; align-items: start;">
+
+    <!-- Order Summary Card -->
+    <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-sm);">
+      <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text-main); padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color);">
+        📋 Xogta Koorsada (Order Summary)
+      </h2>
+
+      <div style="margin-bottom: 1.25rem;">
+        <span style="font-size: 0.82rem; font-weight: 700; color: var(--primary); text-transform: uppercase;">
+          {{ course.category }}
+        </span>
+        <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main); margin: 0.25rem 0 0.5rem 0;">
+          {{ course.title }}
+        </h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+          {{ course.description|truncatewords:25 }}
+        </p>
+        <div style="display: flex; gap: 1rem; font-size: 0.88rem; color: var(--text-muted); flex-wrap: wrap;">
+          <span>👨‍🏫 <strong>{{ course.instructor }}</strong></span>
+          <span>📚 <strong>{{ course.total_lessons }} Cashar</strong></span>
+          <span>⏱️ <strong>{{ course.duration }}</strong></span>
+        </div>
+      </div>
+
+      <div style="background: linear-gradient(135deg, #f8faff 0%, #eff6ff 100%); border-radius: var(--radius-md); padding: 1.25rem; border: 1.5px dashed #c7d2fe; margin-top: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span style="color: var(--text-muted); font-size: 0.95rem;">Qiimaha Koorsada:</span>
+          <span style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">${{ course.price }} USD</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span style="color: var(--text-muted); font-size: 0.95rem;">Fasaxa Casharrada:</span>
+          <span style="color: #10b981; font-weight: 700; font-size: 0.92rem;">Dhammaan Casharrada + Shahaado</span>
+        </div>
+        <div style="height: 1px; background: #c7d2fe; margin: 0.75rem 0;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <strong style="color: var(--text-main); font-size: 1.1rem;">Isu-geyn (Total):</strong>
+          <strong style="color: var(--primary); font-size: 1.6rem; font-weight: 900;">${{ course.price }} <small style="font-size: 0.85rem;">USD</small></strong>
+        </div>
+      </div>
+
+      <!-- Payment Numbers Box -->
+      <div style="margin-top: 1.75rem; background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 1.25rem;">
+        <h4 style="font-size: 0.98rem; font-weight: 800; color: #92400e; margin: 0 0 0.65rem 0; display: flex; align-items: center; gap: 0.4rem;">
+          <span>📱</span> Akoonnada Lacag-bixinta ee Rasmiga ah:
+        </h4>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.92rem; color: #78350f;">
+          <li style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #fef3c7;">
+            <span><strong>Telesom ZAAD:</strong></span>
+            <strong style="font-family: monospace; font-size: 1.05rem; color: #0f172a;">+252 63 4812030</strong>
+          </li>
+          <li style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #fef3c7;">
+            <span><strong>e-Dahab:</strong></span>
+            <strong style="font-family: monospace; font-size: 1.05rem; color: #0f172a;">+252 63 4812030</strong>
+          </li>
+          <li style="display: flex; justify-content: space-between; align-items: center; background: #ffffff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #fef3c7;">
+            <span><strong>Magaca:</strong></span>
+            <strong style="color: #0f172a;">Eng. Abdikadir Kosar</strong>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Payment Verification Form -->
+    <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-sm);">
+      <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">
+        ✍️ Geli Xogta Lacag-bixintaada
+      </h2>
+      <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.6;">
+        Markaad lacagta soo dirto, buuxi foomkan si maamulka AQOONPLUS uu u xaqiijiyo una furo koorsadaada.
+      </p>
+
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="{{ form.payment_method.id_for_label }}" style="font-weight: 600; font-size: 0.92rem;">
+            Qaabka Lacag-bixinta (Payment Method) <span style="color: #ef4444;">*</span>
+          </label>
+          {{ form.payment_method }}
+          {% if form.payment_method.errors %}
+            <div class="form-error">{{ form.payment_method.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.phone_number.id_for_label }}" style="font-weight: 600; font-size: 0.92rem;">
+            Lambarkaaga Telefoonka (Sender Mobile) <span style="color: #ef4444;">*</span>
+          </label>
+          {{ form.phone_number }}
+          {% if form.phone_number.errors %}
+            <div class="form-error">{{ form.phone_number.errors.0 }}</div>
+          {% endif %}
+          <small style="color: var(--text-muted); font-size: 0.8rem;">Lambarkii aad lacagta kasoo dirtay (Zaad ama e-Dahab).</small>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.transaction_id.id_for_label }}" style="font-weight: 600; font-size: 0.92rem;">
+            Lambarka Tixraaca (Transaction ID / Reference) <span style="color: #ef4444;">*</span>
+          </label>
+          {{ form.transaction_id }}
+          {% if form.transaction_id.errors %}
+            <div class="form-error">{{ form.transaction_id.errors.0 }}</div>
+          {% endif %}
+          <small style="color: var(--text-muted); font-size: 0.8rem;">Tusaale: TXN-94812 ama nambarka tixraaca ee fariinta ku jira.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.payment_receipt.id_for_label }}" style="font-weight: 600; font-size: 0.92rem;">
+            Sawirka Rasiidka / Fariinta (Screenshot) <small style="color: var(--text-muted); font-weight: normal;">(Ikhtiyaari)</small>
+          </label>
+          {{ form.payment_receipt }}
+          {% if form.payment_receipt.errors %}
+            <div class="form-error">{{ form.payment_receipt.errors.0 }}</div>
+          {% endif %}
+          <small style="color: var(--text-muted); font-size: 0.8rem;">Haddii aad haysato screenshot-ka fariinta Zaad/e-Dahab, halkan ku soo lifaaq.</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="padding: 0.9rem; font-size: 1.05rem; font-weight: 800; margin-top: 1.5rem;">
+          Gudbi Dalabka (${{ course.price }}) &rarr;
+        </button>
+
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">
+          🔒 Lacag-bixintaadu waa mid amni ah. Haddii aad caawimaad u baahato, <a href="https://wa.me/252634812030" target="_blank" style="color: #25d366; font-weight: 700;">WhatsApp nala soo xiriir</a>.
+        </p>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
