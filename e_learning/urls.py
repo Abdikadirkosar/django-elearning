@@ -9,11 +9,14 @@ admin.site.site_title   = "AQOONPLUS Admin"
 admin.site.index_title  = "⚙️ Maareeyaha Nidaamka | E-Learning Platform"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # Custom Admin Panel directly accessible at /admin/ and /admin-panel/
+    path('admin/', include('admin_panel.urls')),
+    path('admin-panel/', include('admin_panel.urls')),
+    # Django Internal Database Admin moved to /django-admin/
+    path('django-admin/', admin.site.urls),
     path('', include('courses.urls')),
     path('', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
-    path('admin-panel/', include('admin_panel.urls')),
 ]
 
 if settings.DEBUG:
