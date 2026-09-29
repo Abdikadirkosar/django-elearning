@@ -1,30 +1,122 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="so">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}E-Learn - Simple E-Learning Management System{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>{% block title %}AQOONPLUS — Barashada Online ee Heer Sare{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}?v=5.0">
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="navbar-container">
-      <a href="{% url 'home' %}" class="navbar-brand">
-        📚 E-Learn <span>System</span>
-      </a>
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="navbar-wrapper">
+    <nav class="navbar">
+      <div class="navbar-container">
 
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        ☰
-      </button>
+        <!-- 1. Brand / Logo -->
+        <a href="{% url 'home' %}" class="navbar-brand" title="AQOONPLUS - Aqoon. Xirfad. Mustaqbal.">
+          <img src="{% static 'images/logo-header.png' %}" alt="AQOONPLUS - Aqoon. Xirfad. Mustaqbal." class="navbar-brand-logo">
+        </a>
 
-      <ul class="navbar-links" id="navLinks"><li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li><li><a href="{% url 'course_list' %}" class="{% if request.resolver_match.url_name == 'course_list' %}active{% endif %}">Courses</a></li>{% if user.is_authenticated %}<li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a></li><li><a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">👤 Profile</a></li><li><a href="{% url 'logout' %}" class="nav-btn nav-btn-secondary">Logout ({{ user.username }})</a></li>{% else %}<li><a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}">Login</a></li><li><a href="{% url 'register' %}" class="nav-btn">Register</a></li>{% endif %}</ul>
-    </div>
-  </nav>
+        <!-- 2. Desktop Navigation Links -->
+        <ul class="navbar-links" id="navbarLinks">
+          <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+          <li><a href="{% url 'course_list' %}" class="{% if request.resolver_match.url_name == 'course_list' %}active{% endif %}">Courses</a></li>
+          <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a></li>
+          <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a></li>
+          {% if user.is_superuser or user.profile.role == 'admin' %}
+          <li><a href="{% url 'admin_panel_dashboard' %}" class="nav-admin-link {% if 'admin_panel' in request.resolver_match.url_name %}active{% endif %}">🛡️ Admin</a></li>
+          {% endif %}
+          {% endif %}
+        </ul>
 
-  <!-- Flash Messages -->
+        <!-- 3. Desktop Search + Auth Actions -->
+        <div class="navbar-actions">
+          <!-- Search Form -->
+          <form class="nav-search-form" action="{% url 'course_list' %}" method="GET" role="search">
+            <span class="nav-search-icon">🔍</span>
+            <input
+              type="search"
+              name="q"
+              class="nav-search-input"
+              placeholder="Search courses..."
+              value="{{ request.GET.q|default:'' }}"
+              aria-label="Search courses"
+            >
+          </form>
+
+          <!-- Auth Buttons -->
+          <div class="nav-auth-group">
+            {% if user.is_authenticated %}
+              <a href="{% url 'profile' %}" class="nav-profile-pill {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                👤 {{ user.username }}
+              </a>
+              <a href="{% url 'logout' %}" class="nav-btn-logout">
+                Ka Bax
+              </a>
+            {% else %}
+              <a href="{% url 'login' %}" class="nav-btn-login {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+                Login
+              </a>
+              <a href="{% url 'register' %}" class="nav-btn-signup">
+                Sign Up
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- 4. Mobile Menu Toggle Button -->
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+          ☰
+        </button>
+
+      </div><!-- /navbar-container -->
+
+      <!-- Mobile Dropdown Menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <form class="mobile-search-form" action="{% url 'course_list' %}" method="GET" role="search">
+          <span class="nav-search-icon">🔍</span>
+          <input
+            type="search"
+            name="q"
+            class="nav-search-input"
+            placeholder="Search courses..."
+            value="{{ request.GET.q|default:'' }}"
+            aria-label="Search courses"
+          >
+        </form>
+
+        <ul class="mobile-links">
+          <li><a href="{% url 'home' %}">🏠 Home</a></li>
+          <li><a href="{% url 'course_list' %}">📚 Courses</a></li>
+          <li><a href="{% url 'about' %}">ℹ️ About</a></li>
+          <li><a href="{% url 'contact' %}">📞 Contact</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'dashboard' %}">📊 Dashboard</a></li>
+          {% if user.is_superuser or user.profile.role == 'admin' %}
+          <li><a href="{% url 'admin_panel_dashboard' %}">🛡️ Admin Panel</a></li>
+          {% endif %}
+          <li><a href="{% url 'profile' %}">👤 Profile ({{ user.username }})</a></li>
+          {% endif %}
+        </ul>
+
+        <div class="mobile-auth">
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="mobile-btn-logout">Ka Bax (Logout)</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="mobile-btn-login">Login</a>
+            <a href="{% url 'register' %}" class="mobile-btn-signup">Sign Up</a>
+          {% endif %}
+        </div>
+      </div>
+
+    </nav>
+  </header>
+
+  <!-- ===================== FLASH MESSAGES ===================== -->
   {% if messages %}
     <div class="messages-container">
       {% for message in messages %}
@@ -36,20 +128,30 @@
     </div>
   {% endif %}
 
-  <!-- Main Content Block -->
+  <!-- ===================== MAIN CONTENT ===================== -->
   <main class="main-content">
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
   </main>
 
-  <!-- Footer -->
+  <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="footer-container">
-      <p>&copy; 2026 E-Learn LMS. Designed for Computer Science Academic Presentation.</p>
-      <p class="footer-subtext">Built with Python, Django, HTML5, CSS3, & Vanilla JavaScript.</p>
+      <div class="footer-brand">
+        <img src="{% static 'images/logo-header.png' %}" alt="AQOONPLUS" class="footer-brand-logo">
+      </div>
+      <nav class="footer-links">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'course_list' %}">Courses</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'contact' %}">Contact</a>
+      </nav>
+      <p style="color:var(--text-muted);font-size:0.9rem;margin-top:1rem;">
+        &copy; 2026 AQOONPLUS. Waxaa Naqshadeeyay &amp; Dhisay <span class="dev-badge">💻 Dev. Abdikadir</span>.
+      </p>
+      <p class="footer-subtext">Waxaa lagu dhisay Python, Django, HTML5, CSS3, &amp; Vanilla JavaScript.</p>
     </div>
   </footer>
 
-  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/main.js' %}?v=4.0"></script>
 </body>
 </html>

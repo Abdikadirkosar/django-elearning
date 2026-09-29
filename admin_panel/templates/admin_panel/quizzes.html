@@ -1,0 +1,59 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Quiz Attempts — Admin Panel{% endblock %}
+{% block page_title %}📝 Quiz Attempts{% endblock %}
+
+{% block content %}
+<div class="ap-card">
+  <form method="get" class="ap-toolbar">
+    <input type="text" name="search" class="ap-search" placeholder="🔍 Search student or course..." value="{{ search }}">
+    <button type="submit" class="btn btn-primary">Search</button>
+    {% if search %}<a href="{% url 'admin_panel_quizzes' %}" class="btn btn-warning">Clear</a>{% endif %}
+  </form>
+  <div style="font-size:0.8rem;color:#64748b;">Total: <strong style="color:#818cf8;">{{ total }}</strong> attempts</div>
+</div>
+
+<div class="ap-card" style="padding:0;">
+  <div class="ap-table-wrap">
+    <table class="ap-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student</th>
+          <th>Quiz / Course</th>
+          <th>Score</th>
+          <th>Result</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for attempt in attempts %}
+        <tr>
+          <td style="color:#475569;">{{ forloop.counter }}</td>
+          <td><strong>{{ attempt.user.username }}</strong></td>
+          <td>
+            {{ attempt.quiz.title|truncatechars:25 }}<br>
+            <small style="color:#64748b;">{{ attempt.quiz.course.title|truncatechars:25 }}</small>
+          </td>
+          <td>
+            <strong style="color:{% if attempt.passed %}#4ade80{% else %}#f87171{% endif %};">
+              {{ attempt.score }}%
+            </strong>
+          </td>
+          <td>
+            {% if attempt.passed %}
+            <span class="badge badge-passed">✅ Passed</span>
+            {% else %}
+            <span class="badge badge-failed">❌ Failed</span>
+            {% endif %}
+          </td>
+          <td style="color:#64748b;">{{ attempt.completed_at|date:"M d, Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" style="text-align:center;color:#475569;padding:30px;">No quiz attempts yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

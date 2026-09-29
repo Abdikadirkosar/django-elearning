@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Quiz: {{ quiz.title }} | E-Learn{% endblock %}
+{% block title %}Imtixaan: {{ quiz.title }} | EduPulse LMS{% endblock %}
 
 {% block content %}
 <div class="quiz-container">
@@ -10,21 +10,21 @@
     <!-- Quiz Header -->
     <div class="quiz-header">
       <a href="{% url 'course_detail' course.id %}" class="quiz-back-link">
-        ← Back to {{ course.title }}
+        &larr; Ku noqo {{ course.title }}
       </a>
       <h1 class="quiz-title">📝 {{ quiz.title }}</h1>
-      <p class="quiz-desc">{{ quiz.description|default:"Test your knowledge and pass to earn your official Course Certificate." }}</p>
+      <p class="quiz-desc">{{ quiz.description|default:"Tijaabi aqoontaada si aad u hesho Shahaado Rasmi ah marka aad baasto." }}</p>
       
       <div class="quiz-meta-row">
         <span class="quiz-badge">
-          <strong>Total Questions:</strong> {{ questions|length }}
+          <strong>Wadarta Su'aalaha:</strong> {{ questions|length }}
         </span>
         <span class="quiz-badge">
-          <strong>Pass Mark:</strong> {{ quiz.pass_percentage }}%
+          <strong>Heerka Baasitaanka:</strong> {{ quiz.pass_percentage }}%
         </span>
         {% if latest_attempt %}
           <span class="{% if latest_attempt.passed %}quiz-badge-pass{% else %}quiz-badge-fail{% endif %}">
-            Latest Score: {{ latest_attempt.score }}% ({% if latest_attempt.passed %}PASSED{% else %}FAILED{% endif %})
+            Dhibcihii Ugu Dambeeyay: {{ latest_attempt.score }}% ({% if latest_attempt.passed %}PASSED{% else %}FAILED{% endif %})
           </span>
         {% endif %}
       </div>
@@ -37,7 +37,7 @@
       {% for question in questions %}
         <div class="quiz-question-box">
           <h3 class="quiz-question-title">
-            <span class="quiz-question-num">Question {{ forloop.counter }}:</span> {{ question.text }}
+            <span class="quiz-question-num">Su'aasha {{ forloop.counter }}:</span> {{ question.text }}
           </h3>
 
           <div class="quiz-choices-list">
@@ -53,10 +53,10 @@
 
       <div class="quiz-actions">
         <button type="submit" class="btn btn-primary">
-          Submit Quiz Answers 🚀
+          Gudbi Jawaabaha Imtixaanka 🚀
         </button>
         <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">
-          Cancel
+          Ka Noqo
         </a>
       </div>
     </form>

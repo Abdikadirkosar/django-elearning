@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}My Profile | E-Learn{% endblock %}
+{% block title %}Profile-kayga | AQOONPLUS{% endblock %}
 
 {% block content %}
 <div class="profile-container">
@@ -25,16 +25,19 @@
           </span>
         </div>
         <p class="profile-headline">
-          {{ profile.headline|default:"Student at E-Learn Platform" }}
+          {{ profile.headline|default:"Arday ka tirsan EduPulse LMS" }}
         </p>
         <p class="profile-meta">
-          Member since: {{ user.date_joined|date:"F Y" }}
+          Xubin tan iyo: {{ user.date_joined|date:"F Y" }}
         </p>
       </div>
 
-      <div>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <a href="{% url 'change_password' %}" class="btn btn-secondary">
+          🔒 Beddel Furaha
+        </a>
         <a href="{% url 'dashboard' %}" class="btn btn-secondary">
-          ← Back to Dashboard
+          &larr; Dashboard-ka
         </a>
       </div>
     </div>
@@ -44,12 +47,12 @@
       {% csrf_token %}
 
       <h3 class="profile-form-section-title">
-        Edit Profile Information
+        Wax Ka Beddel Xogtaada Profile-ka
       </h3>
 
       <div class="profile-form-grid">
         <div class="form-group">
-          <label for="{{ u_form.first_name.id_for_label }}">First Name</label>
+          <label for="{{ u_form.first_name.id_for_label }}">Magaca Koowaad (First Name)</label>
           {{ u_form.first_name }}
           {% if u_form.first_name.errors %}
             <div class="form-error">{{ u_form.first_name.errors.0 }}</div>
@@ -57,7 +60,7 @@
         </div>
 
         <div class="form-group">
-          <label for="{{ u_form.last_name.id_for_label }}">Last Name</label>
+          <label for="{{ u_form.last_name.id_for_label }}">Magaca Qoyska (Last Name)</label>
           {{ u_form.last_name }}
           {% if u_form.last_name.errors %}
             <div class="form-error">{{ u_form.last_name.errors.0 }}</div>
@@ -67,7 +70,7 @@
 
       <div class="profile-form-grid">
         <div class="form-group">
-          <label for="{{ u_form.email.id_for_label }}">Email Address</label>
+          <label for="{{ u_form.email.id_for_label }}">Cinwaanka Email-ka</label>
           {{ u_form.email }}
           {% if u_form.email.errors %}
             <div class="form-error">{{ u_form.email.errors.0 }}</div>
@@ -75,7 +78,7 @@
         </div>
 
         <div class="form-group">
-          <label for="{{ p_form.phone.id_for_label }}">Phone Number</label>
+          <label for="{{ p_form.phone.id_for_label }}">Lambarka Telefoonka</label>
           {{ p_form.phone }}
           {% if p_form.phone.errors %}
             <div class="form-error">{{ p_form.phone.errors.0 }}</div>
@@ -85,7 +88,7 @@
 
       <div class="profile-form-grid">
         <div class="form-group">
-          <label for="{{ p_form.role.id_for_label }}">Account Role</label>
+          <label for="{{ p_form.role.id_for_label }}">Doorka Akoonka (Role)</label>
           {{ p_form.role }}
           {% if p_form.role.errors %}
             <div class="form-error">{{ p_form.role.errors.0 }}</div>
@@ -93,7 +96,7 @@
         </div>
 
         <div class="form-group">
-          <label for="{{ p_form.headline.id_for_label }}">Professional Headline</label>
+          <label for="{{ p_form.headline.id_for_label }}">Cinwaanka Xirfadeed (Headline)</label>
           {{ p_form.headline }}
           {% if p_form.headline.errors %}
             <div class="form-error">{{ p_form.headline.errors.0 }}</div>
@@ -102,7 +105,7 @@
       </div>
 
       <div class="form-group">
-        <label for="{{ p_form.avatar.id_for_label }}">Profile Picture (Avatar)</label>
+        <label for="{{ p_form.avatar.id_for_label }}">Sawirka Profile-ka (Avatar)</label>
         {{ p_form.avatar }}
         {% if p_form.avatar.errors %}
           <div class="form-error">{{ p_form.avatar.errors.0 }}</div>
@@ -110,7 +113,7 @@
       </div>
 
       <div class="form-group">
-        <label for="{{ p_form.bio.id_for_label }}">Biography</label>
+        <label for="{{ p_form.bio.id_for_label }}">Taariikh Kooban (Bio)</label>
         {{ p_form.bio }}
         {% if p_form.bio.errors %}
           <div class="form-error">{{ p_form.bio.errors.0 }}</div>
@@ -119,10 +122,10 @@
 
       <div class="profile-form-actions">
         <button type="submit" class="btn btn-primary">
-          Save Profile Changes
+          Kaydi Isbeddellada
         </button>
         <a href="{% url 'dashboard' %}" class="btn btn-secondary">
-          Cancel
+          Ka Noqo
         </a>
       </div>
     </form>

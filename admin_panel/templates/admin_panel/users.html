@@ -1,0 +1,87 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Users — Admin Panel{% endblock %}
+{% block page_title %}👥 Users Management{% endblock %}
+
+{% block content %}
+
+<!-- Toolbar -->
+<div class="ap-card">
+  <form method="get" class="ap-toolbar">
+    <input type="text" name="search" class="ap-search" placeholder="🔍 Search username or email..." value="{{ search }}">
+    <select name="role" class="ap-select" onchange="this.form.submit()">
+      <option value="">All Roles</option>
+      <option value="student"    {% if role_filter == 'student'    %}selected{% endif %}>🎓 Students</option>
+      <option value="instructor" {% if role_filter == 'instructor' %}selected{% endif %}>🧑‍🏫 Instructors</option>
+      <option value="admin"      {% if role_filter == 'admin'      %}selected{% endif %}>🛡️ Admins</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Search</button>
+    {% if search or role_filter %}
+    <a href="{% url 'admin_panel_users' %}" class="btn btn-warning">Clear</a>
+    {% endif %}
+  </form>
+  <div style="font-size:0.8rem;color:#64748b;">Total: <strong style="color:#818cf8;">{{ total }}</strong> users found</div>
+</div>
+
+<!-- Table -->
+<div class="ap-card" style="padding:0;">
+  <div class="ap-table-wrap">
+    <table class="ap-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Joined</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td style="color:#475569;">{{ forloop.counter }}</td>
+          <td>
+            <strong>{{ u.username }}</strong>
+            {% if u.is_superuser %}<span class="badge badge-admin" style="margin-left:6px;">SU</span>{% endif %}
+          </td>
+          <td style="color:#64748b;">{{ u.email|default:"—" }}</td>
+          <td>
+            {% with role=u.profile.role %}
+            <span class="badge badge-{{ role }}">{{ role|title }}</span>
+            {% empty %}
+            <span class="badge badge-student">Student</span>
+            {% endwith %}
+          </td>
+          <td style="color:#64748b;">{{ u.date_joined|date:"M d, Y" }}</td>
+          <td>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <!-- Role Change -->
+              {% if u != request.user %}
+              <form method="post" action="{% url 'admin_panel_user_role' u.id %}" style="display:inline;">
+                {% csrf_token %}
+                <select name="role" class="ap-select" style="padding:4px 8px;font-size:0.75rem;" onchange="this.form.submit()">
+                  <option value="student"    {% if u.profile.role == 'student'    %}selected{% endif %}>Student</option>
+                  <option value="instructor" {% if u.profile.role == 'instructor' %}selected{% endif %}>Instructor</option>
+                  <option value="admin"      {% if u.profile.role == 'admin'      %}selected{% endif %}>Admin</option>
+                </select>
+              </form>
+              <!-- Delete -->
+              <form method="post" action="{% url 'admin_panel_user_delete' u.id %}" style="display:inline;" onsubmit="return confirm('Delete user {{ u.username }}?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">🗑️</button>
+              </form>
+              {% else %}
+              <span style="color:#475569;font-size:0.8rem;">— (You)</span>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" style="text-align:center;color:#475569;padding:30px;">No users found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

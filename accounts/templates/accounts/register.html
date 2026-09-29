@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Register | E-Learn{% endblock %}
+{% block title %}Sameyso Akoon | AQOONPLUS{% endblock %}
 
 {% block content %}
 <div class="auth-wrapper">
   <div class="auth-card">
     <div class="auth-header">
-      <h2>Create Student Account</h2>
-      <p style="color: var(--text-muted);">Sign up to start enrolling in free courses and track learning progress.</p>
+      <h2>Sameyso Akoon Ardaynimo 🎓</h2>
+      <p style="color: var(--text-muted);">Is-diiwaangeli si aad koorsooyin bilaash ah u hesho oo aad ula socoto horumarkaaga.</p>
     </div>
 
     <form method="POST" action="{% url 'register' %}">
@@ -22,7 +23,7 @@
       {% endif %}
 
       <div class="form-group">
-        <label for="{{ form.username.id_for_label }}">Username</label>
+        <label for="{{ form.username.id_for_label }}">Magaca Isticmaalaha (Username)</label>
         {{ form.username }}
         {% if form.username.errors %}
           <div class="form-error">{{ form.username.errors.0 }}</div>
@@ -30,7 +31,7 @@
       </div>
 
       <div class="form-group">
-        <label for="{{ form.email.id_for_label }}">Email Address</label>
+        <label for="{{ form.email.id_for_label }}">Cinwaanka Email-ka</label>
         {{ form.email }}
         {% if form.email.errors %}
           <div class="form-error">{{ form.email.errors.0 }}</div>
@@ -38,29 +39,91 @@
       </div>
 
       <div class="form-group">
-        <label for="{{ form.password.id_for_label }}">Password</label>
-        {{ form.password }}
+        <label for="{{ form.password.id_for_label }}">Furaha Sirta ah (Password)</label>
+        <div class="password-input-wrapper">
+          {{ form.password }}
+          <button type="button" class="btn-password-toggle" data-pw-toggle="{{ form.password.id_for_label }}" aria-label="Muuji furaha">
+            👁️
+          </button>
+        </div>
         {% if form.password.errors %}
           <div class="form-error">{{ form.password.errors.0 }}</div>
         {% endif %}
+
+        <!-- Password Strength Meter -->
+        <div class="pw-strength-container" style="margin-top: 0.5rem;">
+          <div class="pw-strength-bar">
+            <div class="pw-strength-fill" id="regPwFill"></div>
+          </div>
+          <div class="pw-strength-text" style="font-size: 0.78rem; font-weight: 700; margin-top: 0.25rem; color: var(--text-muted);">
+            Awoodda: <span id="regPwLabel">Qor fure...</span>
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="{{ form.confirm_password.id_for_label }}">Confirm Password</label>
-        {{ form.confirm_password }}
+        <label for="{{ form.confirm_password.id_for_label }}">Xaqiiji Furaha Sirta ah</label>
+        <div class="password-input-wrapper">
+          {{ form.confirm_password }}
+          <button type="button" class="btn-password-toggle" data-pw-toggle="{{ form.confirm_password.id_for_label }}" aria-label="Muuji furaha">
+            👁️
+          </button>
+        </div>
         {% if form.confirm_password.errors %}
           <div class="form-error">{{ form.confirm_password.errors.0 }}</div>
         {% endif %}
       </div>
 
       <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
-        Register Account
+        Is-Diiwaangeli Hadda &rarr;
       </button>
     </form>
 
     <div style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
-      Already have an account? <a href="{% url 'login' %}" style="font-weight: 600;">Log in here</a>
+      Hore ma u leedahay akoon? <a href="{% url 'login' %}" style="font-weight: 600;">Gal halkan</a>
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const pwInput = document.getElementById('{{ form.password.id_for_label }}');
+  const fill = document.getElementById('regPwFill');
+  const label = document.getElementById('regPwLabel');
+  
+  if (pwInput && fill && label) {
+    pwInput.addEventListener('input', function() {
+      const val = pwInput.value;
+      let score = 0;
+      if (val.length >= 6) score += 25;
+      if (val.length >= 9) score += 25;
+      if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score += 25;
+      if (/[0-9]/.test(val) || /[^A-Za-z0-9]/.test(val)) score += 25;
+
+      fill.style.width = score + '%';
+      if (score === 0) {
+        fill.style.backgroundColor = '#e2e8f0';
+        label.textContent = 'Qor fure...';
+        label.style.color = 'var(--text-muted)';
+      } else if (score <= 25) {
+        fill.style.backgroundColor = '#ef4444';
+        label.textContent = 'Daciif (Weak)';
+        label.style.color = '#ef4444';
+      } else if (score <= 50) {
+        fill.style.backgroundColor = '#f59e0b';
+        label.textContent = 'Dhexdhexaad (Medium)';
+        label.style.color = '#f59e0b';
+      } else if (score <= 75) {
+        fill.style.backgroundColor = '#3b82f6';
+        label.textContent = 'Fiican (Good)';
+        label.style.color = '#3b82f6';
+      } else {
+        fill.style.backgroundColor = '#10b981';
+        label.textContent = 'Aad u Adag (Strong) ✓';
+        label.style.color = '#10b981';
+      }
+    });
+  }
+});
+</script>
 {% endblock %}

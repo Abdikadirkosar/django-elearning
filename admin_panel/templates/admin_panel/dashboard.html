@@ -1,0 +1,103 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Dashboard — Admin Panel{% endblock %}
+{% block page_title %}📊 Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Stats Grid -->
+<div class="ap-stats">
+  <div class="ap-stat">
+    <div class="ico">👥</div>
+    <div class="num">{{ total_users }}</div>
+    <div class="lbl">Total Users</div>
+  </div>
+  <div class="ap-stat">
+    <div class="ico">📚</div>
+    <div class="num">{{ total_courses }}</div>
+    <div class="lbl">Total Courses</div>
+  </div>
+  <div class="ap-stat">
+    <div class="ico">📋</div>
+    <div class="num">{{ total_enrollments }}</div>
+    <div class="lbl">Enrollments</div>
+  </div>
+  <div class="ap-stat">
+    <div class="ico">🏆</div>
+    <div class="num">{{ total_certificates }}</div>
+    <div class="lbl">Certificates</div>
+  </div>
+  <div class="ap-stat">
+    <div class="ico">🎓</div>
+    <div class="num">{{ students }}</div>
+    <div class="lbl">Students</div>
+  </div>
+  <div class="ap-stat">
+    <div class="ico">🧑‍🏫</div>
+    <div class="num">{{ instructors }}</div>
+    <div class="lbl">Instructors</div>
+  </div>
+  <div class="ap-stat">
+    <div class="ico">✅</div>
+    <div class="num">{{ published_courses }}</div>
+    <div class="lbl">Published</div>
+  </div>
+  <div class="ap-stat">
+    <div class="ico">🚫</div>
+    <div class="num">{{ unpublished_courses }}</div>
+    <div class="lbl">Unpublished</div>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;flex-wrap:wrap;">
+
+  <!-- Recent Users -->
+  <div class="ap-card">
+    <div class="ap-card-title">👥 Recent Users</div>
+    <div class="ap-table-wrap">
+      <table class="ap-table">
+        <thead><tr><th>Username</th><th>Role</th><th>Joined</th></tr></thead>
+        <tbody>
+          {% for u in recent_users %}
+          <tr>
+            <td>{{ u.username }}</td>
+            <td>
+              {% with role=u.profile.role %}
+              <span class="badge badge-{{ role }}">{{ role|title }}</span>
+              {% endwith %}
+            </td>
+            <td>{{ u.date_joined|date:"M d, Y" }}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" style="color:#475569;text-align:center;">No users yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a href="{% url 'admin_panel_users' %}" class="btn btn-primary" style="margin-top:14px;font-size:0.8rem;">View All Users →</a>
+  </div>
+
+  <!-- Recent Enrollments -->
+  <div class="ap-card">
+    <div class="ap-card-title">📋 Recent Enrollments</div>
+    <div class="ap-table-wrap">
+      <table class="ap-table">
+        <thead><tr><th>Student</th><th>Course</th><th>Date</th></tr></thead>
+        <tbody>
+          {% for e in recent_enrollments %}
+          <tr>
+            <td>{{ e.user.username }}</td>
+            <td>{{ e.course.title|truncatechars:25 }}</td>
+            <td>{{ e.enrolled_at|date:"M d" }}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" style="color:#475569;text-align:center;">No enrollments yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <a href="{% url 'admin_panel_enrollments' %}" class="btn btn-primary" style="margin-top:14px;font-size:0.8rem;">View All →</a>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us | AQOONPLUS{% endblock %}
+
+{% block content %}
+<div class="about-page-container" style="max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem;">
+
+  <!-- Hero Section -->
+  <div style="text-align: center; padding: 3rem 1.5rem 2rem; background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%); border-radius: var(--radius-lg); border: 1px solid var(--border-color); margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+    <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 16px; color: #fff; font-size: 2rem; margin-bottom: 1rem; box-shadow: 0 8px 20px var(--primary-glow);">
+      ✨
+    </div>
+    <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 1rem;">
+      About <span class="highlight">AQOONPLUS</span>
+    </h1>
+    <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 720px; margin: 0 auto; line-height: 1.8;">
+      Ku soo dhawoow madasha waxbarashada casriga ah ee <strong>AQOONPLUS</strong>. Waxaan u taagannahay inaan ardayda Soomaaliyeed u fududeyno barashada xirfadaha tiknoolajiyadda, barnaamijyada kombuyuutarka, iyo aqoonta heer caalami ah.
+    </p>
+  </div>
+
+  <!-- Mission & Vision Grid -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.75rem; margin-bottom: 2.5rem;">
+    
+    <div class="stat-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 2rem;">
+      <div style="font-size: 2.2rem; margin-bottom: 1rem;">🎯</div>
+      <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">Hadafkayaga (Our Mission)</h3>
+      <p style="color: var(--text-muted); line-height: 1.7;">
+        Inaan bixinno koorsooyin tayeysan oo Af-Soomaali ku baxaya oo qof kasta oo raba inuu xirfad helo ama kor u qaado aqoontiisa uu ka heli karo meel kasta iyo goor kasta.
+      </p>
+    </div>
+
+    <div class="stat-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 2rem;">
+      <div style="font-size: 2.2rem; margin-bottom: 1rem;">🚀</div>
+      <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">Hiigsigayaga (Our Vision)</h3>
+      <p style="color: var(--text-muted); line-height: 1.7;">
+        Inaan noqonno akadeemiyada ugu horreysa uguna kalsoonida badan ee dhalinyarada Soomaaliyeed ku bartaan xirfadaha shaqo ee qarniga 21-aad iyadoo la adeegsanayo nidaam dijitaal ah oo heer sare ah.
+      </p>
+    </div>
+
+    <div class="stat-card" style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 2rem;">
+      <div style="font-size: 2.2rem; margin-bottom: 1rem;">🏆</div>
+      <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main);">Shahaadooyin Xaqiijisan</h3>
+      <p style="color: var(--text-muted); line-height: 1.7;">
+        Arday kasta oo dhameysta koorsada una gudba imtixaanka qiimeynta wuxuu helayaa Shahaado Rasmi ah oo xaqiijisan oo xambaarsan lambar gaar ah (Verification ID).
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Lead Instructor / Leadership -->
+  <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.5rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; box-shadow: var(--shadow-sm); margin-bottom: 2.5rem;">
+    <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2.8rem; font-weight: 800; flex-shrink: 0; box-shadow: 0 8px 24px var(--primary-glow);">
+      AK
+    </div>
+    <div style="flex: 1; min-width: 260px;">
+      <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">Hogaamiyaha & Macallinka Guud</span>
+      <h2 style="font-size: 1.75rem; font-weight: 800; margin: 0.25rem 0 0.5rem; color: var(--text-main);">Eng. Abdikadir Kosar</h2>
+      <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem;">
+        Khabiir ku takhasusay horumarinta barnaamijyada kombuyuutarka, nidaamyada shabakadaha (Web Development & Architecture), iyo maamulka xogta. Waxaa ka go'an inuu aqoonta software engineering-ka iyo IT-ga u gaarsiiyo jiilka cusub hab fudud oo ficil ku saleysan.
+      </p>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <span class="dev-badge">💻 Dev. Abdikadir</span>
+        <span style="color: var(--text-muted); font-size: 0.9rem;">Lead Instructor & Platform Architect</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to action -->
+  <div style="text-align: center; padding: 2.5rem; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: var(--radius-lg); color: #ffffff;">
+    <h2 style="font-size: 1.85rem; font-weight: 800; margin-bottom: 0.75rem; color: #ffffff;">Diyaar ma u tahay inaad bilowdo?</h2>
+    <p style="color: #94a3b8; max-width: 580px; margin: 0 auto 1.5rem; font-size: 1.05rem;">
+      Ku biir kumanaan arday ah oo maanta xirfadahooda ku dhisaya madasha AQOONPLUS.
+    </p>
+    <a href="{% url 'course_list' %}" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.85rem 2rem;">
+      Daawo Koorsooyinka &rarr;
+    </a>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}Certificates — Admin Panel{% endblock %}
+{% block page_title %}🏆 Certificates{% endblock %}
+
+{% block content %}
+<div class="ap-card">
+  <form method="get" class="ap-toolbar">
+    <input type="text" name="search" class="ap-search" placeholder="🔍 Search student or course..." value="{{ search }}">
+    <button type="submit" class="btn btn-primary">Search</button>
+    {% if search %}<a href="{% url 'admin_panel_certificates' %}" class="btn btn-warning">Clear</a>{% endif %}
+  </form>
+  <div style="font-size:0.8rem;color:#64748b;">Total: <strong style="color:#818cf8;">{{ total }}</strong> certificates issued</div>
+</div>
+
+<div class="ap-card" style="padding:0;">
+  <div class="ap-table-wrap">
+    <table class="ap-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student</th>
+          <th>Course</th>
+          <th>Certificate Code</th>
+          <th>Issued At</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cert in certificates %}
+        <tr>
+          <td style="color:#475569;">{{ forloop.counter }}</td>
+          <td><strong>{{ cert.user.username }}</strong></td>
+          <td>{{ cert.course.title|truncatechars:35 }}</td>
+          <td>
+            <code style="background:rgba(99,102,241,0.1);color:#818cf8;padding:3px 8px;border-radius:4px;font-size:0.8rem;">
+              {{ cert.certificate_code|truncatechars:16 }}
+            </code>
+          </td>
+          <td style="color:#64748b;">{{ cert.issued_at|date:"M d, Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" style="text-align:center;color:#475569;padding:30px;">No certificates issued yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

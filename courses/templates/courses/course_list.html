@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}Courses Catalog | E-Learn{% endblock %}
+{% block title %}Koorsooyinka | EduPulse LMS{% endblock %}
 
 {% block content %}
 <div class="section-header">
-  <h2>Explore All Courses</h2>
-  <p>Browse our collection of software engineering and computer science courses.</p>
+  <h2>Tusmada Koorsooyinka</h2>
+  <p>Ka dooro koorsooyinka programming-ka iyo tignoolajiyada ee heer sare loo habeeyay.</p>
+</div>
+
+<!-- Category Pills Navigation -->
+<div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+  <a href="{% url 'course_list' %}" class="btn btn-secondary btn-sm" style="{% if not selected_category %}background: var(--primary); color: white; border-color: var(--primary);{% endif %} border-radius: var(--radius-full); padding: 0.4rem 1rem;">
+    Dhammaan Qaybaha
+  </a>
+  {% for cat in categories %}
+    <a href="{% url 'course_list' %}?category={{ cat }}" class="btn btn-secondary btn-sm" style="{% if selected_category|lower == cat|lower %}background: var(--primary); color: white; border-color: var(--primary);{% endif %} border-radius: var(--radius-full); padding: 0.4rem 1rem;">
+      {{ cat }}
+    </a>
+  {% endfor %}
 </div>
 
 <!-- Search and Category Filter Bar -->
@@ -15,12 +27,12 @@
     name="q"
     id="clientSearchInput"
     value="{{ search_query }}"
-    placeholder="🔍 Search courses by title, instructor, or keywords..."
+    placeholder="🔍 Raadi koorso adoo qoraya magaca, macallinka, ama maaddada..."
     class="form-input filter-input"
   >
 
   <select name="category" class="filter-select" onchange="this.form.submit()">
-    <option value="">All Categories</option>
+    <option value="">Ku Sifee Qaybta (Category)</option>
     {% for cat in categories %}
       <option value="{{ cat }}" {% if selected_category|lower == cat|lower %}selected{% endif %}>
         {{ cat }}
@@ -28,9 +40,9 @@
     {% endfor %}
   </select>
 
-  <button type="submit" class="btn btn-primary">Search</button>
+  <button type="submit" class="btn btn-primary">Raadi</button>
   {% if search_query or selected_category %}
-    <a href="{% url 'course_list' %}" class="btn btn-secondary">Clear Filters</a>
+    <a href="{% url 'course_list' %}" class="btn btn-secondary">Dib u Bilow</a>
   {% endif %}
 </form>
 
@@ -50,18 +62,20 @@
         <div class="course-card-meta">
           <span>👨‍🏫 {{ course.instructor }}</span>
           <span>⏱️ {{ course.duration }}</span>
-          <span>📚 {{ course.total_lessons }} Lessons</span>
+          <span>📚 {{ course.total_lessons }} Cashar</span>
         </div>
 
         <a href="{% url 'course_detail' course.id %}" class="btn btn-primary btn-block">
-          View Course
+          Daawo Tusmada &rarr;
         </a>
       </div>
     </div>
   {% empty %}
-    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: white; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-      <h3 style="color: var(--text-muted); margin-bottom: 0.5rem;">No courses found matching your criteria.</h3>
-      <a href="{% url 'course_list' %}" class="btn btn-secondary" style="margin-top: 1rem;">View All Courses</a>
+    <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background: var(--card-bg); border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+      <div style="font-size: 3rem; margin-bottom: 0.75rem;">🔍</div>
+      <h3 style="color: var(--text-main); font-size: 1.3rem; margin-bottom: 0.5rem;">Koorso laguma helin raadintaada.</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Isku day inaad adeegsato ereyo kale ama dib u eeg dhammaan qaybaha.</p>
+      <a href="{% url 'course_list' %}" class="btn btn-primary">Daawo Dhammaan Koorsooyinka</a>
     </div>
   {% endfor %}
 </div>

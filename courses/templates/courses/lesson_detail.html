@@ -6,19 +6,19 @@
 <!-- Back to Course Link -->
 <div style="margin-bottom: 1.5rem;">
   <a href="{% url 'course_detail' course.id %}" style="font-weight: 600;">
-    &larr; Back to {{ course.title }} Overview
+    &larr; Ku noqo Dulmarka Koorsada ({{ course.title }})
   </a>
 </div>
 
 <div class="lesson-layout">
   <!-- Sidebar Navigation -->
   <aside class="lesson-sidebar">
-    <h3>Course Syllabus</h3>
+    <h3>Tusmada Casharrada</h3>
     <ul class="sidebar-lessons-list">
       {% for l in course.lessons.all %}
         <li>
           <a href="{% url 'lesson_detail' l.id %}" class="{% if l.id == lesson.id %}active{% endif %}">
-            <span>Lesson {{ l.order }}:</span> {{ l.title|truncatechars:24 }}
+            <span>Cashar {{ l.order }}:</span> {{ l.title|truncatechars:24 }}
           </a>
         </li>
       {% endfor %}
@@ -29,19 +29,19 @@
   <main class="lesson-content-card">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);">
       <div>
-        <span class="category-tag">Lesson {{ lesson.order }} of {{ course.total_lessons }}</span>
+        <span class="category-tag">Cashar {{ lesson.order }} ee {{ course.total_lessons }}</span>
         <h1 style="font-size: 1.8rem; font-weight: 800; margin-top: 0.3rem;">{{ lesson.title }}</h1>
       </div>
 
       <div>
         {% if is_completed %}
           <span style="background-color: var(--success-bg); color: var(--success); font-weight: 700; padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.9rem;">
-            ✓ Completed
+            ✓ Waa La Dhameeyay
           </span>
         {% else %}
           <form method="POST" action="{% url 'complete_lesson' lesson.id %}" style="display: inline;">
             {% csrf_token %}
-            <button type="submit" class="btn btn-success">Mark as Completed</button>
+            <button type="submit" class="btn btn-success">U Calaamadee Inuu Dhammaaday</button>
           </form>
         {% endif %}
       </div>
@@ -54,9 +54,9 @@
 
     {% if lesson.video_url %}
       <div style="margin-top: 2rem; background-color: var(--bg-main); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-        <h4 style="margin-bottom: 0.5rem; color: var(--primary);">🎥 Video Resource</h4>
+        <h4 style="margin-bottom: 0.5rem; color: var(--primary);">🎥 Muuqaalka Casharka (Video Tutorial)</h4>
         <p style="font-size: 0.95rem;">
-          Watch external video tutorial: 
+          Daawo muuqaalka casharka: 
           <a href="{{ lesson.video_url }}" target="_blank" rel="noopener noreferrer" style="font-weight: 600; text-decoration: underline;">
             {{ lesson.video_url }} &rarr;
           </a>
@@ -68,7 +68,7 @@
     <div class="lesson-nav">
       {% if prev_lesson %}
         <a href="{% url 'lesson_detail' prev_lesson.id %}" class="btn btn-secondary">
-          &larr; Previous: {{ prev_lesson.title|truncatechars:20 }}
+          &larr; Casharkii Hore: {{ prev_lesson.title|truncatechars:20 }}
         </a>
       {% else %}
         <div></div>
@@ -76,11 +76,11 @@
 
       {% if next_lesson %}
         <a href="{% url 'lesson_detail' next_lesson.id %}" class="btn btn-primary">
-          Next: {{ next_lesson.title|truncatechars:20 }} &rarr;
+          Casharka Xiga: {{ next_lesson.title|truncatechars:20 }} &rarr;
         </a>
       {% else %}
         <a href="{% url 'course_detail' course.id %}" class="btn btn-success">
-          Course Complete! Back to Overview
+          Koorsadii Waa Dhammaatay! Ku Noqo Dulmarka
         </a>
       {% endif %}
     </div>

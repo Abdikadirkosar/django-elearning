@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Login | E-Learn{% endblock %}
+{% block title %}Gal Akoonkaaga | AQOONPLUS{% endblock %}
 
 {% block content %}
 <div class="auth-wrapper">
   <div class="auth-card">
     <div class="auth-header">
-      <h2>Welcome Back</h2>
-      <p style="color: var(--text-muted);">Log in to access your enrolled courses and dashboard.</p>
+      <h2>Ku Soo Dhawoow Mar Kale 👋</h2>
+      <p style="color: var(--text-muted);">Geli xogtaada si aad u gasho koorsooyinkaaga iyo dashboard-kaaga.</p>
     </div>
 
     <form method="POST" action="{% url 'login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">
@@ -22,7 +23,7 @@
       {% endif %}
 
       <div class="form-group">
-        <label for="{{ form.username.id_for_label }}">Username</label>
+        <label for="{{ form.username.id_for_label }}">Magaca Isticmaalaha ama Email-ka</label>
         {{ form.username }}
         {% if form.username.errors %}
           <div class="form-error">{{ form.username.errors.0 }}</div>
@@ -30,20 +31,36 @@
       </div>
 
       <div class="form-group">
-        <label for="{{ form.password.id_for_label }}">Password</label>
-        {{ form.password }}
+        <label for="{{ form.password.id_for_label }}">Furaha Sirta ah (Password)</label>
+        <div class="password-input-wrapper">
+          {{ form.password }}
+          <button type="button" class="btn-password-toggle" data-pw-toggle="loginPassword" aria-label="Muuji furaha">
+            👁️
+          </button>
+        </div>
         {% if form.password.errors %}
           <div class="form-error">{{ form.password.errors.0 }}</div>
         {% endif %}
       </div>
 
-      <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">
-        Log In
+      <!-- Remember Me & Forgot Password Row -->
+      <div class="auth-options-row">
+        <label class="remember-me-label">
+          {{ form.remember_me }}
+          <span>I xasuuso</span>
+        </label>
+        <a href="{% url 'password_reset' %}" class="forgot-password-link">
+          Ma ilowday furahaaga?
+        </a>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
+        Gal Akoonka (Log In) &rarr;
       </button>
     </form>
 
     <div style="text-align: center; margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
-      Don't have an account? <a href="{% url 'register' %}" style="font-weight: 600;">Register now</a>
+      Miyaadan weli akoon lahayn? <a href="{% url 'register' %}" style="font-weight: 600;">Is-diiwaangeli hadda</a>
     </div>
   </div>
 </div>

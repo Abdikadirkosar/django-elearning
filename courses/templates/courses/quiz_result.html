@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Quiz Result | {{ quiz.title }} | E-Learn{% endblock %}
+{% block title %}Natiijada Imtixaanka | {{ quiz.title }} | EduPulse LMS{% endblock %}
 
 {% block content %}
 <div class="result-container">
@@ -12,22 +12,22 @@
     </div>
 
     <h1 class="result-title {% if passed %}result-pass{% else %}result-fail{% endif %}">
-      {% if passed %}Congratulations! You Passed!{% else %}Don't Give Up! Keep Learning!{% endif %}
+      {% if passed %}Hambalyo! Waad Baastay! 🎉{% else %}Ha Quusan! Dib u eeg casharrada! 📚{% endif %}
     </h1>
 
     <p class="result-subtitle">
-      You scored <strong>{{ score }}%</strong> ({{ correct_q }} out of {{ total_q }} questions correct).<br>
-      Passing mark required: {{ quiz.pass_percentage }}%
+      Waxaad heshay <strong>{{ score }}%</strong> ({{ correct_q }} oo ka mid ah {{ total_q }} su'aalood ayaad si sax ah uga jawaabtay).<br>
+      Heerka baasitaanka looga baahan yahay: {{ quiz.pass_percentage }}%
     </p>
 
     <!-- Score Card -->
     <div class="result-score-box">
-      <div class="result-score-label">Final Result</div>
+      <div class="result-score-label">Natiijada Guud</div>
       <div class="result-score-val {% if passed %}result-pass{% else %}result-fail{% endif %}">
         {{ score }}%
       </div>
       <div class="result-score-status">
-        Status: {% if passed %}<span class="result-pass">PASSED</span>{% else %}<span class="result-fail">FAILED</span>{% endif %}
+        Xaaladda: {% if passed %}<span class="result-pass">WAAD BAASTAY (PASSED)</span>{% else %}<span class="result-fail">MAAD GUULEYSAN (FAILED)</span>{% endif %}
       </div>
     </div>
 
@@ -35,16 +35,16 @@
     <div class="result-actions">
       {% if passed %}
         <a href="{% url 'view_certificate' course.id %}" class="btn btn-primary">
-          🎓 View Your Official Certificate
+          🎓 Daawo Shahaadadaada Rasmiga ah
         </a>
       {% else %}
         <a href="{% url 'take_quiz' course.id %}" class="btn btn-primary">
-          🔄 Retake Quiz
+          🔄 Mar Kale Imtixaanka Gal
         </a>
       {% endif %}
 
       <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">
-        Back to Course Overview
+        &larr; Ku noqo Dulmarka Koorsada
       </a>
     </div>
 

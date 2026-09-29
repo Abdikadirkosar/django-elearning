@@ -1,8 +1,10 @@
 # E-Learn - Simple E-Learning Management System
 
+**Lead Developer**: **Dev. Abdikadir**
+
 "E-Learn" is a full-stack E-Learning Management System (LMS) built with **Python**, **Django 5**, **HTML5**, **CSS3**, **Vanilla JavaScript**, and **SQLite**.
 
-It is specifically architected to be clean, modular, and easy for a Computer Science student to explain during an academic classroom presentation or final project defense, while maintaining a professional design.
+It is architected by **Dev. Abdikadir** to be clean, modular, professional, and easy for a Computer Science student to demonstrate during an academic project presentation.
 
 ---
 

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Xaqiijinta Shahaadada | AQOONPLUS Academy{% endblock %}
+
+{% block content %}
+<div class="verify-page-container">
+  
+  <div class="verify-card">
+    
+    {% if certificate %}
+      <!-- Success Verified Badge Header -->
+      <div class="verify-status-badge verify-status-success">
+        <span class="verify-icon">✓</span>
+        <div>
+          <h2>Shahaado Rasmi ah oo Xaqiijisan</h2>
+          <p>Authentic &amp; Officially Verified Credential &bull; AQOONPLUS Academy</p>
+        </div>
+      </div>
+
+      <!-- Honors / Grade Badge if earned -->
+      {% if grade_info %}
+      <div class="cert-honors-pill {{ grade_info.class }}" style="margin: 1.5rem auto; display: inline-flex;">
+        <span class="cert-honors-badge-icon">{{ grade_info.icon }}</span>
+        <span class="cert-honors-badge-text">{{ grade_info.badge }}</span>
+        <span class="cert-honors-score">({{ grade_info.score }}%)</span>
+      </div>
+      {% endif %}
+
+      <!-- Verification Metadata Grid -->
+      <div class="verify-details-grid">
+        <div class="verify-item">
+          <span class="verify-item-label">Ardayga (Student Name)</span>
+          <span class="verify-item-value highlight-name">{{ certificate.user.get_full_name|default:certificate.user.username }}</span>
+        </div>
+
+        <div class="verify-item">
+          <span class="verify-item-label">Koorsada (Course Title)</span>
+          <span class="verify-item-value highlight-course">&ldquo;{{ certificate.course.title }}&rdquo;</span>
+        </div>
+
+        <div class="verify-item">
+          <span class="verify-item-label">Macallinka (Instructor)</span>
+          <span class="verify-item-value">Eng. Abdikadir Kosar</span>
+        </div>
+
+        <div class="verify-item">
+          <span class="verify-item-label">Taariikhda Bixinta (Issue Date)</span>
+          <span class="verify-item-value">{{ certificate.issued_at|date:"F j, Y" }}</span>
+        </div>
+
+        <div class="verify-item verify-item-full">
+          <span class="verify-item-label">Koodhka Shahaadada (Credential ID)</span>
+          <span class="verify-item-code">{{ certificate.certificate_code }}</span>
+        </div>
+
+        <div class="verify-item verify-item-full">
+          <span class="verify-item-label">Hay'adda Bixisay (Issuing Institution)</span>
+          <span class="verify-item-value">🎓 AQOONPLUS Academy of Modern Higher Education</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="verify-actions">
+        {% if user.is_authenticated and user == certificate.user %}
+          <a href="{% url 'view_certificate' certificate.course.id %}" class="btn btn-primary">
+            🎓 Fur Shahaadadaada Buuxda
+          </a>
+        {% endif %}
+        <a href="{% url 'course_detail' certificate.course.id %}" class="btn btn-secondary">
+          📚 Eeg Koorsadan
+        </a>
+      </div>
+
+    {% else %}
+      <!-- Not Found / Invalid State -->
+      <div class="verify-status-badge verify-status-danger">
+        <span class="verify-icon">✕</span>
+        <div>
+          <h2>Koodhka Shahaadadan Lama Helin</h2>
+          <p>Shahaadada aad raadinayso ma jirto ama koodhku ma saxna.</p>
+        </div>
+      </div>
+
+      <p style="margin: 1.5rem 0; color: var(--text-muted);">
+        Fadlan hubi in koodhka shahaadadu uu sax yahay, ama la xiriir maamulka AQOONPLUS.
+      </p>
+
+      <a href="{% url 'home' %}" class="btn btn-primary">
+        &larr; Ku noqo Hoyga
+      </a>
+    {% endif %}
+
+  </div>
+
+</div>
+{% endblock %}

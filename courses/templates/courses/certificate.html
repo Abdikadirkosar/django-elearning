@@ -1,99 +1,196 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Certificate of Completion - {{ course.title }} | E-Learn{% endblock %}
+{% block title %}Certificate of Completion - {{ course.title }} | AQOONPLUS{% endblock %}
 
 {% block content %}
+<!-- Google Fonts for Certificates -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
 <div class="cert-page-container">
   
-  <!-- Action Bar (Hidden on Print) -->
+  <!-- ===================== Action Toolbar (Hidden on Print) ===================== -->
   <div class="cert-actions-bar no-print">
-    <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary">
-      ← Back to Course
-    </a>
+    <div class="cert-actions-left">
+      <a href="{% url 'course_detail' course.id %}" class="btn btn-secondary cert-action-btn">
+        &larr; Ku noqo Koorsada
+      </a>
+      <a href="{% url 'dashboard' %}" class="btn btn-secondary cert-action-btn">
+        📊 Dashboard-ka
+      </a>
+    </div>
 
-    <div>
-      <button onclick="window.print()" class="btn btn-primary">
-        🖨️ Print / Save as PDF
+    <div class="cert-actions-right">
+      <button onclick="window.print()" class="btn btn-primary cert-action-btn cert-print-btn">
+        🖨️ Daabaco / Save as PDF
       </button>
+
+      <button id="copyVerifyBtn" class="btn btn-secondary cert-action-btn" data-url="{{ verify_url }}">
+        🔗 Nuulbixi Link-ga
+      </button>
+
+      <a href="https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name={{ course.title|urlencode }}&organizationName=AQOONPLUS&issueYear={{ certificate.issued_at|date:'Y' }}&issueMonth={{ certificate.issued_at|date:'n' }}&certUrl={{ verify_url|urlencode }}&certId={{ certificate.certificate_code|urlencode }}" 
+         target="_blank" 
+         rel="noopener" 
+         class="btn cert-linkedin-btn cert-action-btn">
+        💼 Ku Dar LinkedIn
+      </a>
     </div>
   </div>
 
-  <!-- Certificate Sheet -->
-  <div class="certificate-sheet">
-    
-    <!-- Inner Decorative Gold Border -->
-    <div class="cert-inner-border">
+  <div id="copyToast" class="cert-toast no-print" style="display:none;">
+    ✓ Link-ga xaqiijinta waa la nuulbixiyay! Waad la wadaagi kartaa shirkadaha ama CV-gaaga.
+  </div>
+
+  <!-- ===================== CERTIFICATE SHEET ===================== -->
+  <div class="cert-sheet-wrapper">
+    <div class="certificate-sheet" id="certificateSheet">
       
-      <!-- Top Brand -->
-      <div class="cert-brand">
-        📚 E-LEARN ACADEMY
-      </div>
-      <div class="cert-subbrand">
-        Verified Certificate of Achievement
-      </div>
+      <!-- Corner Decorative Accents -->
+      <div class="cert-corner cert-corner-tl"></div>
+      <div class="cert-corner cert-corner-tr"></div>
+      <div class="cert-corner cert-corner-bl"></div>
+      <div class="cert-corner cert-corner-br"></div>
 
-      <!-- Main Heading -->
-      <h1 class="cert-title">
-        Certificate of Completion
-      </h1>
-
-      <p class="cert-presented-text">
-        This is proudly presented to
-      </p>
-
-      <!-- Student Name -->
-      <div class="cert-recipient-name">
-        {{ certificate.user.get_full_name|default:certificate.user.username }}
+      <!-- Watermark Seal Pattern -->
+      <div class="cert-watermark">
+        <img src="{% static 'images/logo-emblem.jpg' %}" alt="AQOONPLUS Emblem Watermark" class="cert-watermark-img">
       </div>
 
-      <p class="cert-desc">
-        for successfully mastering the curriculum, completing all rigorous lessons, and passing the final examinations for the accredited online course:
-      </p>
-
-      <!-- Course Title -->
-      <h2 class="cert-course-title">
-        "{{ course.title }}"
-      </h2>
-
-      <!-- Bottom Signatures & Seal Grid -->
-      <div class="cert-footer-grid">
+      <!-- Inner Gold Frame -->
+      <div class="cert-inner-frame">
         
-        <!-- Left: Instructor Signature -->
-        <div class="cert-sign-col">
-          <div class="cert-sign-name">
-            {{ course.instructor }}
+        <!-- Header: Brand & Accreditations -->
+        <header class="cert-header">
+          <img src="{% static 'images/logo-header.png' %}" alt="AQOONPLUS - Aqoon. Xirfad. Mustaqbal." class="cert-brand-img">
+          <p class="cert-subbrand">
+            ACADEMY OF MODERN ONLINE EDUCATION &bull; XARUNTA BARASHADA HEER SARE
+          </p>
+
+          <!-- 🌟 Honors / Grade Badge -->
+          {% if grade_info %}
+          <div class="cert-honors-pill {{ grade_info.class }}">
+            <span class="cert-honors-badge-icon">{{ grade_info.icon }}</span>
+            <span class="cert-honors-badge-text">{{ grade_info.badge }}</span>
+            <span class="cert-honors-score">({{ grade_info.score }}%)</span>
           </div>
-          <div class="cert-sign-line"></div>
-          <div class="cert-sign-title">Course Instructor</div>
-          <div class="cert-sign-sub">{{ course.instructor }}</div>
+          {% endif %}
+        </header>
+
+        <!-- Certificate Main Title -->
+        <div class="cert-title-section">
+          <h1 class="cert-title">Certificate of Completion</h1>
+          <p class="cert-title-so">Shahaado Rasmi ah oo Xaqiijisan</p>
         </div>
 
-        <!-- Center: Official Seal -->
-        <div class="cert-sign-col">
-          <div class="cert-seal">
-            <span class="cert-seal-star">★</span>
-            <span class="cert-seal-text">OFFICIAL</span>
-            <span class="cert-seal-subtext">SEAL</span>
-          </div>
+        <!-- Recipient Intro -->
+        <p class="cert-presented-text">
+          Waxaa si sharaf iyo qaddarin leh loogu guddoonsiiyay &bull; This is proudly awarded to:
+        </p>
+
+        <!-- Recipient Full Name -->
+        <div class="cert-recipient-name">
+          {{ certificate.user.get_full_name|default:certificate.user.username }}
+        </div>
+        <div class="cert-name-underline">
+          <span class="cert-flourish-left"></span>
+          <span class="cert-flourish-diamond">◆</span>
+          <span class="cert-flourish-right"></span>
         </div>
 
-        <!-- Right: Date & Verification ID -->
-        <div class="cert-sign-col">
-          <div class="cert-date-val">
-            {{ certificate.issued_at|date:"F j, Y" }}
+        <!-- Citation Description -->
+        <p class="cert-desc">
+          maadama uu/ay si heer sare ah u dhammaystiray dhammaan casharrada, mashaariicda wax-ku-oolka ah, iyo imtixaankii guud ee koorsada xirfadeed ee:
+        </p>
+
+        <!-- Course Title -->
+        <h2 class="cert-course-title">
+          &ldquo;{{ course.title }}&rdquo;
+        </h2>
+
+        <!-- Bottom Signatures & Seal Section -->
+        <footer class="cert-footer-grid">
+          
+          <!-- Left: Lead Instructor Signature -->
+          <div class="cert-col cert-col-instructor">
+            <div class="cert-signature-cursive">
+              Eng. Abdikadir Kosar
+            </div>
+            <div class="cert-sign-line"></div>
+            <div class="cert-sign-name-printed">Eng. Abdikadir Kosar</div>
+            <div class="cert-sign-title">Macallinka Koorsada &amp; Agaasime</div>
+            <div class="cert-sign-dept">AQOONPLUS Academy</div>
           </div>
-          <div class="cert-sign-line"></div>
-          <div class="cert-sign-title">Issue Date</div>
-          <div class="cert-id-text">
-            ID: {{ certificate.certificate_code }}
+
+          <!-- Center: 3D Official Gold Foil Seal -->
+          <div class="cert-col cert-col-seal">
+            <div class="cert-seal-badge">
+              <div class="cert-seal-outer">
+                <div class="cert-seal-inner">
+                  <div class="cert-seal-star">★</div>
+                  <div class="cert-seal-brand">AQOONPLUS</div>
+                  <div class="cert-seal-text">RASMI</div>
+                  <div class="cert-seal-status">VERIFIED</div>
+                  <div class="cert-seal-year">2026</div>
+                </div>
+              </div>
+              <div class="cert-ribbons">
+                <div class="cert-ribbon-left"></div>
+                <div class="cert-ribbon-right"></div>
+              </div>
+            </div>
           </div>
-        </div>
 
-      </div>
+          <!-- Right: Verification, Date & Credential ID -->
+          <div class="cert-col cert-col-verification">
+            <div class="cert-date-val">
+              {{ certificate.issued_at|date:"F j, Y" }}
+            </div>
+            <div class="cert-sign-line"></div>
+            <div class="cert-sign-title">Taariikhda Bixinta (Issue Date)</div>
+            <div class="cert-credential-box">
+              <div class="cert-id-label">Credential ID:</div>
+              <div class="cert-id-code">{{ certificate.certificate_code|slice:":13" }}...</div>
+              <div class="cert-verify-link">
+                <a href="{{ verify_url }}" target="_blank" class="cert-link-anchor">
+                  aqoonplus.so/verify
+                </a>
+              </div>
+            </div>
+          </div>
 
-    </div>
+        </footer>
 
-  </div>
+      </div><!-- /cert-inner-frame -->
 
-</div>
+    </div><!-- /certificate-sheet -->
+  </div><!-- /cert-sheet-wrapper -->
+
+</div><!-- /cert-page-container -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const copyBtn = document.getElementById('copyVerifyBtn');
+  const toast = document.getElementById('copyToast');
+  if (copyBtn && toast) {
+    copyBtn.addEventListener('click', function() {
+      const url = copyBtn.getAttribute('data-url');
+      if (navigator.clipboard && url) {
+        navigator.clipboard.writeText(url).then(function() {
+          toast.style.display = 'block';
+          copyBtn.textContent = '✓ Waa La Nuulbixiyay!';
+          setTimeout(function() {
+            toast.style.display = 'none';
+            copyBtn.textContent = '🔗 Nuulbixi Link-ga';
+          }, 3500);
+        });
+      } else {
+        prompt('Nuulbixi Link-ga Xaqiijinta Shahaadada:', url);
+      }
+    });
+  }
+});
+</script>
 {% endblock %}

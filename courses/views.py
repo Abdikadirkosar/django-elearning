@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q, Count
@@ -91,7 +92,7 @@ def submit_review(request, pk):
     course = get_object_or_404(Course, pk=pk, is_published=True)
 
     if not Enrollment.objects.filter(user=request.user, course=course).exists():
-        messages.error(request, "You must be enrolled in this course to leave a review.")
+        messages.error(request, "Waa inaad koorsadan ku biirtaa si aad fikrad uga dhiibato.")
         return redirect('course_detail', pk=course.id)
 
     try:
@@ -103,7 +104,7 @@ def submit_review(request, pk):
 
     comment = request.POST.get('comment', '').strip()
     if not comment:
-        messages.error(request, "Please write a comment for your review.")
+        messages.error(request, "Fadlan qor faallo koorsada ku saabsan.")
         return redirect('course_detail', pk=course.id)
 
     Review.objects.update_or_create(
@@ -112,7 +113,7 @@ def submit_review(request, pk):
         defaults={'rating': rating, 'comment': comment}
     )
 
-    messages.success(request, "Thank you! Your course review has been submitted.")
+    messages.success(request, "Mahadsanid! Fikrad-celintaada koorsada si guul leh ayaa loo gudbiyay.")
     return redirect('course_detail', pk=course.id)
 
 
@@ -121,12 +122,12 @@ def take_quiz(request, pk):
     course = get_object_or_404(Course, pk=pk, is_published=True)
 
     if not Enrollment.objects.filter(user=request.user, course=course).exists():
-        messages.error(request, "You must enroll in this course to take the quiz.")
+        messages.error(request, "Waa inaad koorsadan iska diiwaangelisaa si aad imtixaanka u gasho.")
         return redirect('course_detail', pk=course.id)
 
     quiz = getattr(course, 'quiz', None)
     if not quiz:
-        messages.info(request, "No quiz has been added to this course yet.")
+        messages.info(request, "Weli imtixaan laguma darin koorsadan.")
         return redirect('course_detail', pk=course.id)
 
     questions = quiz.questions.prefetch_related('choices').all()
@@ -154,11 +155,11 @@ def take_quiz(request, pk):
         if passed:
             cert, created = Certificate.objects.get_or_create(user=request.user, course=course)
             if created:
-                messages.success(request, f"🎉 Congratulations! You scored {score}% and earned your Certificate of Completion!")
+                messages.success(request, f"🎉 Hambalyo! Waxaad heshay {score}% waxaanad ku guuleysatay Shahaadadaada Koorsada!")
             else:
-                messages.success(request, f"Great job! You passed the quiz with {score}%.")
+                messages.success(request, f"Heer sare! Waxaad imtixaanka ku baastay {score}%.")
         else:
-            messages.warning(request, f"You scored {score}%. The passing mark is {quiz.pass_percentage}%. You can retake the quiz anytime.")
+            messages.warning(request, f"Waxaad heshay {score}%. Heerka baasitaanku waa {quiz.pass_percentage}%. Waad ku celin kartaa mar kale.")
 
         return render(request, 'courses/quiz_result.html', {
             'course': course,
@@ -179,12 +180,49 @@ def take_quiz(request, pk):
     })
 
 
+def get_cert_grade_info(user, course):
+    """Calculate the Honors / Distinction grade badge for a student based on quiz performance."""
+    quiz = getattr(course, 'quiz', None)
+    best_attempt = None
+    if quiz:
+        best_attempt = QuizAttempt.objects.filter(user=user, quiz=quiz, passed=True).order_by('-score').first()
+    
+    score = best_attempt.score if best_attempt else 100
+    if score >= 90:
+        return {
+            'level': 'distinction',
+            'badge': 'HEER SARE (WITH DISTINCTION)',
+            'icon': '🏆',
+            'sub': 'Darajada Sharafta Sare (Honors Distinction: 90%+)',
+            'score': score,
+            'class': 'honors-distinction',
+        }
+    elif score >= 80:
+        return {
+            'level': 'merit',
+            'badge': 'DARAJADA 1-AAD (WITH MERIT)',
+            'icon': '🎖️',
+            'sub': 'Darajada Wanaagsan (Merit Grade: 80% - 89%)',
+            'score': score,
+            'class': 'honors-merit',
+        }
+    else:
+        return {
+            'level': 'pass',
+            'badge': 'GUUL (SATISFACTORY PASS)',
+            'icon': '⭐',
+            'sub': 'Darajada Baasitaanka (Passing Grade: 70%+)',
+            'score': score,
+            'class': 'honors-pass',
+        }
+
+
 @login_required
 def view_certificate(request, pk):
     course = get_object_or_404(Course, pk=pk, is_published=True)
 
     if not Enrollment.objects.filter(user=request.user, course=course).exists():
-        messages.error(request, "You must be enrolled to view certificates.")
+        messages.error(request, "Waa inaad koorsadan ku jirtaa si aad u daawato shahaadooyinka.")
         return redirect('course_detail', pk=course.id)
 
     cert = Certificate.objects.filter(user=request.user, course=course).first()
@@ -193,15 +231,34 @@ def view_certificate(request, pk):
     if not cert:
         if course.get_user_progress(request.user) >= 100:
             cert = Certificate.objects.create(user=request.user, course=course)
-            messages.success(request, "🎉 Congratulations! Course completed and certificate generated!")
+            messages.success(request, "🎉 Hambalyo! Koorsada waad dhameysatay waxaana laguu soo saaray Shahaadadaada!")
         else:
-            messages.info(request, "Complete all lessons or pass the course quiz to earn your Certificate.")
+            messages.info(request, "Dhameystir dhammaan casharrada ama baas imtixaanka si aad u hesho Shahaadadaada.")
             return redirect('course_detail', pk=course.id)
+
+    grade_info = get_cert_grade_info(request.user, course)
+    verify_url = request.build_absolute_uri(reverse('verify_certificate', kwargs={'code': cert.certificate_code}))
 
     return render(request, 'courses/certificate.html', {
         'course': course,
         'certificate': cert,
+        'grade_info': grade_info,
+        'verify_url': verify_url,
     })
+
+
+def verify_certificate_view(request, code):
+    """Public verification page to verify certificate authenticity."""
+    cert = Certificate.objects.filter(certificate_code=code).first()
+    grade_info = None
+    if cert:
+        grade_info = get_cert_grade_info(cert.user, cert.course)
+    return render(request, 'courses/verify_certificate.html', {
+        'certificate': cert,
+        'code': code,
+        'grade_info': grade_info,
+    })
+
 
 
 
@@ -214,9 +271,9 @@ def enroll_course(request, pk):
     enrollment, created = Enrollment.objects.get_or_create(user=request.user, course=course)
 
     if created:
-        messages.success(request, f"You have successfully enrolled in '{course.title}'.")
+        messages.success(request, f"Waxaad si guul leh ugu biirtay koorsada '{course.title}'.")
     else:
-        messages.info(request, f"You are already enrolled in '{course.title}'.")
+        messages.info(request, f"Hore ayaad ugu biirtay koorsada '{course.title}'.")
 
     return redirect('course_detail', pk=course.id)
 
@@ -229,7 +286,7 @@ def lesson_detail(request, pk):
     # Check if user is enrolled in the course
     is_enrolled = Enrollment.objects.filter(user=request.user, course=course).exists()
     if not is_enrolled:
-        messages.error(request, "Please enroll in this course to access lessons.")
+        messages.error(request, "Fadlan koorsadan iska diiwaangeli si aad casharrada u furato.")
         return redirect('course_detail', pk=course.id)
 
     # Next and previous lessons
@@ -260,7 +317,7 @@ def complete_lesson(request, pk):
 
     # Ensure user is enrolled
     if not Enrollment.objects.filter(user=request.user, course=course).exists():
-        messages.error(request, "You must be enrolled to complete lessons.")
+        messages.error(request, "Waa inaad koorsada ku jirtaa si aad casharrada u calaamadeyso.")
         return redirect('course_detail', pk=course.id)
 
     progress, created = LessonProgress.objects.get_or_create(
@@ -269,13 +326,33 @@ def complete_lesson(request, pk):
     progress.completed = True
     progress.save()
 
-    messages.success(request, f"Lesson '{lesson.title}' marked as completed.")
+    messages.success(request, f"Casharka '{lesson.title}' waxaa loo calaamadeeyay inuu dhammaaday.")
 
     # Redirect to next lesson if available, else stay on current lesson
     next_lesson = Lesson.objects.filter(course=course, order__gt=lesson.order).order_by('order', 'id').first()
     if next_lesson:
         return redirect('lesson_detail', pk=next_lesson.id)
     return redirect('lesson_detail', pk=lesson.id)
+
+
+def about_view(request):
+    return render(request, 'courses/about.html')
+
+
+def contact_view(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        subject = request.POST.get('subject', '').strip()
+        message = request.POST.get('message', '').strip()
+        
+        if name and email and message:
+            messages.success(request, f"Mahadsanid {name}! Farriintaada si guul leh ayaa loo diray. Dhawaan ayaan kula soo xiriiri doonnaa.")
+            return redirect('contact')
+        else:
+            messages.error(request, "Fadlan buuxi dhammaan meelaha looga baahan yahay foomka.")
+
+    return render(request, 'courses/contact.html')
 
 
 def custom_404_view(request, exception):

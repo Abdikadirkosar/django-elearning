@@ -62,5 +62,46 @@ class AccountsTestCase(TestCase):
         self.assertRedirects(post_response, reverse('profile'))
         user.refresh_from_db()
         self.assertEqual(user.first_name, 'Michael')
-        self.assertEqual(user.profile.role, 'instructor')
+        self.assertEqual(user.profile.headline, 'Regional Manager')
+
+    def test_login_with_email(self):
+        User.objects.create_user(username='alex', email='alex@example.com', password='AlexPassword123')
+        # Login using email instead of username
+        response = self.client.post(reverse('login'), {
+            'username': 'alex@example.com',
+            'password': 'AlexPassword123'
+        })
+        self.assertRedirects(response, reverse('dashboard'))
+
+    def test_password_reset_request_and_confirm(self):
+        from django.contrib.auth.tokens import default_token_generator
+        from django.utils.http import urlsafe_base64_encode
+        from django.utils.encoding import force_bytes
+
+        user = User.objects.create_user(username='resetuser', email='reset@example.com', password='OldPassword123')
+
+        # Request reset
+        response = self.client.post(reverse('password_reset'), {
+            'identifier': 'reset@example.com'
+        })
+        self.assertRedirects(response, reverse('password_reset_done'))
+
+        # Generate token and confirm new password
+        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+        token = default_token_generator.make_token(user)
+
+        confirm_url = reverse('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
+        confirm_get = self.client.get(confirm_url)
+        self.assertEqual(confirm_get.status_code, 200)
+
+        confirm_post = self.client.post(confirm_url, {
+            'new_password': 'BrandNewPassword123',
+            'confirm_password': 'BrandNewPassword123'
+        })
+        self.assertRedirects(confirm_post, reverse('password_reset_complete'))
+
+        # Verify new password works
+        user.refresh_from_db()
+        self.assertTrue(user.check_password('BrandNewPassword123'))
+
 

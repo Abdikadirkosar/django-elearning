@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Admin Panel — E-Learn{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    /* ── Admin Layout ── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .ap-sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #1a1d2e 0%, #12151f 100%);
+      border-right: 1px solid rgba(99,102,241,0.2);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 100;
+      transition: transform 0.3s;
+    }
+
+    .ap-logo {
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(99,102,241,0.15);
+    }
+    .ap-logo h1 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #818cf8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ap-logo span { font-size: 0.7rem; color: #64748b; display: block; margin-top: 2px; }
+
+    .ap-nav { padding: 16px 0; flex: 1; overflow-y: auto; }
+    .ap-nav-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #475569;
+      text-transform: uppercase;
+      padding: 12px 20px 6px;
+    }
+    .ap-nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 20px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+    .ap-nav a:hover, .ap-nav a.active {
+      color: #e2e8f0;
+      background: rgba(99,102,241,0.1);
+      border-left-color: #818cf8;
+    }
+    .ap-nav a .icon { font-size: 1.1rem; width: 20px; text-align: center; }
+
+    .ap-sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(99,102,241,0.15);
+    }
+    .ap-sidebar-footer a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #64748b;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .ap-sidebar-footer a:hover { color: #e2e8f0; }
+
+    /* Main Content */
+    .ap-main {
+      margin-left: 260px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top bar */
+    .ap-topbar {
+      background: rgba(26,29,46,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(99,102,241,0.15);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .ap-topbar h2 { font-size: 1.1rem; font-weight: 600; color: #e2e8f0; }
+    .ap-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    .ap-badge {
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    /* Page Content */
+    .ap-content { padding: 28px; flex: 1; }
+
+    /* Cards */
+    .ap-card {
+      background: rgba(26,29,46,0.8);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .ap-card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #818cf8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Stats Grid */
+    .ap-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .ap-stat {
+      background: rgba(26,29,46,0.9);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .ap-stat:hover { transform: translateY(-2px); border-color: rgba(99,102,241,0.5); }
+    .ap-stat .num { font-size: 2rem; font-weight: 800; color: #818cf8; line-height: 1; }
+    .ap-stat .lbl { font-size: 0.78rem; color: #64748b; margin-top: 6px; }
+    .ap-stat .ico { font-size: 1.6rem; margin-bottom: 8px; }
+
+    /* Table */
+    .ap-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(99,102,241,0.15); }
+    .ap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+    }
+    .ap-table th {
+      background: rgba(99,102,241,0.12);
+      color: #818cf8;
+      font-weight: 600;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ap-table td {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(99,102,241,0.08);
+      color: #cbd5e1;
+    }
+    .ap-table tr:hover td { background: rgba(99,102,241,0.05); }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .badge-student  { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-instructor{ background: rgba(245,158,11,0.15); color: #fbbf24; }
+    .badge-admin    { background: rgba(99,102,241,0.2);  color: #818cf8; }
+    .badge-published{ background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-draft    { background: rgba(100,116,139,0.2); color: #94a3b8; }
+    .badge-passed   { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    .badge-failed   { background: rgba(239,68,68,0.15);  color: #f87171; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: linear-gradient(135deg,#6366f1,#818cf8); color: white; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-danger  { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .btn-danger:hover  { background: rgba(239,68,68,0.3); }
+    .btn-warning { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .btn-warning:hover { background: rgba(245,158,11,0.3); }
+    .btn-sm { padding: 5px 10px; font-size: 0.78rem; }
+
+    /* Search / Filter Bar */
+    .ap-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .ap-search {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(15,17,23,0.8);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 8px;
+      padding: 9px 14px;
+      color: #e2e8f0;
+      font-size: 0.87rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .ap-search:focus { border-color: #818cf8; }
+    .ap-select {
+      background: rgba(15,17,23,0.8);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 8px;
+      padding: 9px 14px;
+      color: #e2e8f0;
+      font-size: 0.87rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Form */
+    .ap-form .form-group { margin-bottom: 18px; }
+    .ap-form label { display: block; font-size: 0.82rem; color: #94a3b8; margin-bottom: 6px; font-weight: 600; }
+    .ap-form .form-input, .ap-form input, .ap-form textarea, .ap-form select {
+      width: 100%;
+      background: rgba(15,17,23,0.8);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .ap-form input:focus, .ap-form textarea:focus, .ap-form select:focus { border-color: #818cf8; }
+
+    /* Messages */
+    .ap-messages { margin-bottom: 20px; }
+    .ap-alert {
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.87rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ap-alert-success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: #4ade80; }
+    .ap-alert-error   { background: rgba(239,68,68,0.12);  border: 1px solid rgba(239,68,68,0.25);  color: #f87171; }
+    .ap-alert-info    { background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.25); color: #818cf8; }
+
+    /* Mobile toggle */
+    .ap-toggle-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: #818cf8;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .ap-sidebar { transform: translateX(-100%); }
+      .ap-sidebar.open { transform: translateX(0); }
+      .ap-main { margin-left: 0; }
+      .ap-toggle-btn { display: block; }
+      .ap-content { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="ap-sidebar" id="apSidebar">
+  <div class="ap-logo">
+    <h1>🛡️ Admin Panel</h1>
+    <span>E-Learn Management System</span>
+  </div>
+
+  <nav class="ap-nav">
+    <div class="ap-nav-label">Overview</div>
+    <a href="{% url 'admin_panel_dashboard' %}" class="{% if request.resolver_match.url_name == 'admin_panel_dashboard' %}active{% endif %}">
+      <span class="icon">📊</span> Dashboard
+    </a>
+
+    <div class="ap-nav-label">Management</div>
+    <a href="{% url 'admin_panel_users' %}" class="{% if request.resolver_match.url_name == 'admin_panel_users' %}active{% endif %}">
+      <span class="icon">👥</span> Users
+    </a>
+    <a href="{% url 'admin_panel_courses' %}" class="{% if 'course' in request.resolver_match.url_name %}active{% endif %}">
+      <span class="icon">📚</span> Courses
+    </a>
+    <a href="{% url 'admin_panel_enrollments' %}" class="{% if request.resolver_match.url_name == 'admin_panel_enrollments' %}active{% endif %}">
+      <span class="icon">📋</span> Enrollments
+    </a>
+
+    <div class="ap-nav-label">Reports</div>
+    <a href="{% url 'admin_panel_certificates' %}" class="{% if request.resolver_match.url_name == 'admin_panel_certificates' %}active{% endif %}">
+      <span class="icon">🏆</span> Certificates
+    </a>
+    <a href="{% url 'admin_panel_quizzes' %}" class="{% if request.resolver_match.url_name == 'admin_panel_quizzes' %}active{% endif %}">
+      <span class="icon">📝</span> Quiz Attempts
+    </a>
+
+    <div class="ap-nav-label">System</div>
+    <a href="{% url 'home' %}">
+      <span class="icon">🌐</span> View Site
+    </a>
+    <a href="/admin/">
+      <span class="icon">⚙️</span> Django Admin
+    </a>
+  </nav>
+
+  <div class="ap-sidebar-footer">
+    <a href="{% url 'logout' %}">
+      <span>🚪</span> Logout ({{ request.user.username }})
+    </a>
+  </div>
+</aside>
+
+<!-- Main -->
+<div class="ap-main">
+  <!-- Topbar -->
+  <div class="ap-topbar">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button class="ap-toggle-btn" id="apToggle">☰</button>
+      <h2>{% block page_title %}Dashboard{% endblock %}</h2>
+    </div>
+    <div class="ap-topbar-right">
+      <span>👤 {{ request.user.username }}</span>
+      <span class="ap-badge">ADMIN</span>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="ap-content">
+    {% if messages %}
+    <div class="ap-messages">
+      {% for message in messages %}
+      <div class="ap-alert {% if message.tags == 'success' %}ap-alert-success{% elif message.tags == 'error' %}ap-alert-error{% else %}ap-alert-info{% endif %}">
+        {% if message.tags == 'success' %}✅{% elif message.tags == 'error' %}❌{% else %}ℹ️{% endif %}
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('apToggle');
+  const sidebar = document.getElementById('apSidebar');
+  if (toggle) {
+    toggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  }
+</script>
+</body>
+</html>

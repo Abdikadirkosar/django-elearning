@@ -14,10 +14,10 @@
       </p>
 
       <div class="course-header-meta">
-        <span>👨‍🏫 Instructor: <strong>{{ course.instructor }}</strong></span>
-        <span>⏱️ Duration: <strong>{{ course.duration }}</strong></span>
-        <span>📚 Lessons: <strong>{{ course.total_lessons }}</strong></span>
-        <span>⭐ Rating: <strong>{% if course.average_rating %}{{ course.average_rating }} / 5.0 ({{ course.total_reviews }} reviews){% else %}New (No reviews yet){% endif %}</strong></span>
+        <span>👨‍🏫 Macallinka: <strong>{{ course.instructor }}</strong></span>
+        <span>⏱️ Waqtiga: <strong>{{ course.duration }}</strong></span>
+        <span>📚 Casharrada: <strong>{{ course.total_lessons }} Cashar</strong></span>
+        <span>⭐ Qiimeynta: <strong>{% if course.average_rating %}{{ course.average_rating }} / 5.0 ({{ course.total_reviews }} arday){% else %}Koorso Cusub{% endif %}</strong></span>
       </div>
     </div>
 
@@ -26,13 +26,13 @@
       {% if is_enrolled %}
         <div class="enrolled-status-box">
           <span class="course-enrolled-badge">
-            ✓ Enrolled
+            ✓ Waad Is-diiwaangelisay
           </span>
         </div>
 
         <div class="progress-container">
           <div class="progress-header">
-            <span>Course Progress</span>
+            <span>Horumarka Koorsada</span>
             <span>{{ progress }}%</span>
           </div>
           <div class="progress-bar-bg">
@@ -42,36 +42,36 @@
 
         {% if lessons.first %}
           <a href="{% url 'lesson_detail' lessons.first.id %}" class="btn btn-primary btn-block continue-btn">
-            Continue Learning &rarr;
+            Sii Wad Waxbarashada &rarr;
           </a>
         {% endif %}
 
         <!-- Quiz CTA -->
         {% if quiz %}
           <a href="{% url 'take_quiz' course.id %}" class="btn btn-secondary btn-block course-cta-quiz">
-            📝 {% if latest_attempt %}Retake Quiz ({{ latest_attempt.score }}%){% else %}Take Course Quiz{% endif %}
+            📝 {% if latest_attempt %}Dib u Qaado Imtixaanka ({{ latest_attempt.score }}%){% else %}Qaado Imtixaanka Koorsada{% endif %}
           </a>
         {% endif %}
 
         <!-- Certificate CTA -->
         {% if certificate or progress >= 100 %}
           <a href="{% url 'view_certificate' course.id %}" class="btn btn-primary btn-block course-cta-cert">
-            🎓 View Your Certificate
+            🎓 Daawo Shahaadadaada
           </a>
         {% endif %}
 
       {% else %}
-        <h3 class="enroll-prompt-title">Start Learning Today</h3>
-        <p class="enroll-prompt-desc">Get full access to all {{ course.total_lessons }} interactive lessons.</p>
+        <h3 class="enroll-prompt-title">Bilow Waxbarashada Maanta</h3>
+        <p class="enroll-prompt-desc">Hel dhammaan {{ course.total_lessons }}-ka cashar ee koorsadan.</p>
 
         {% if user.is_authenticated %}
           <form method="POST" action="{% url 'enroll_course' course.id %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-block">Enroll Now</button>
+            <button type="submit" class="btn btn-primary btn-block">Is-diiwaangeli Hadda</button>
           </form>
         {% else %}
           <a href="{% url 'login' %}?next={% url 'course_detail' course.id %}" class="btn btn-primary btn-block">
-            Login to Enroll
+            Gal si aad Isugu Diiwaangeliso
           </a>
         {% endif %}
       {% endif %}
@@ -82,7 +82,7 @@
 <!-- Course Syllabus / Lessons List -->
 <div class="syllabus-card">
   <h2 class="syllabus-title">
-    Course Syllabus ({{ lessons.count }} Lessons)
+    Tusmada Koorsada ({{ lessons.count }} Cashar)
   </h2>
 
   <div class="syllabus-list">
@@ -98,15 +98,15 @@
         <div>
           {% if is_enrolled %}
             <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-secondary syllabus-btn-view">
-              View Lesson
+              Daawo Casharka
             </a>
           {% else %}
-            <span class="syllabus-lock-tag">🔒 Enrolled Only</span>
+            <span class="syllabus-lock-tag">🔒 Ardayda Is-diiwaangelisay Kaliya</span>
           {% endif %}
         </div>
       </div>
     {% empty %}
-      <p class="empty-text">No lessons have been added to this course yet.</p>
+      <p class="empty-text">Weli wax casharro ah laguma darin koorsadan.</p>
     {% endfor %}
   </div>
 </div>
@@ -115,10 +115,10 @@
 <div class="reviews-section">
   <div class="reviews-header">
     <h2 class="reviews-title">
-      Student Reviews & Ratings
+      Fikradaha & Qiimeynta Ardayda
     </h2>
     <span class="reviews-avg">
-      {% if course.average_rating %}⭐ {{ course.average_rating }} / 5.0 ({{ reviews.count }} total){% else %}No reviews yet{% endif %}
+      {% if course.average_rating %}⭐ {{ course.average_rating }} / 5.0 ({{ reviews.count }} fikradood){% else %}Weli lama qiimeyn{% endif %}
     </span>
   </div>
 
@@ -126,28 +126,28 @@
   {% if is_enrolled %}
     <div class="review-form-card">
       <h3 class="review-form-title">
-        {% if user_review %}Update Your Review{% else %}Leave a Course Review{% endif %}
+        {% if user_review %}Cusboonaysii Fikradaada{% else %}Ku dar Fikradaada Koorsada{% endif %}
       </h3>
 
       <form method="POST" action="{% url 'submit_review' course.id %}">
         {% csrf_token %}
         <div class="review-rating-row">
-          <label for="id_rating">Your Rating:</label>
+          <label for="id_rating">Qiimeyntaada:</label>
           <select name="rating" id="id_rating" class="form-input review-select-input" title="Course Rating" aria-label="Course Rating">
-            <option value="5" {% if user_review.rating == 5 %}selected{% endif %}>★★★★★ (5 Stars - Excellent)</option>
-            <option value="4" {% if user_review.rating == 4 %}selected{% endif %}>★★★★☆ (4 Stars - Very Good)</option>
-            <option value="3" {% if user_review.rating == 3 %}selected{% endif %}>★★★☆☆ (3 Stars - Good)</option>
-            <option value="2" {% if user_review.rating == 2 %}selected{% endif %}>★★☆☆☆ (2 Stars - Fair)</option>
-            <option value="1" {% if user_review.rating == 1 %}selected{% endif %}>★☆☆☆☆ (1 Star - Poor)</option>
+            <option value="5" {% if user_review.rating == 5 %}selected{% endif %}>★★★★★ (5 Xiddigood - Heer Sare)</option>
+            <option value="4" {% if user_review.rating == 4 %}selected{% endif %}>★★★★☆ (4 Xiddigood - Aad u Fiican)</option>
+            <option value="3" {% if user_review.rating == 3 %}selected{% endif %}>★★★☆☆ (3 Xiddigood - Wanaagsan)</option>
+            <option value="2" {% if user_review.rating == 2 %}selected{% endif %}>★★☆☆☆ (2 Xiddigood - Dhexdhexaad)</option>
+            <option value="1" {% if user_review.rating == 1 %}selected{% endif %}>★☆☆☆☆ (1 Xiddig - Liita)</option>
           </select>
         </div>
 
         <div class="form-group review-comment-group">
-          <textarea name="comment" class="form-input" rows="3" placeholder="Share your experience with this course, instructor, and lessons..." required>{{ user_review.comment|default:'' }}</textarea>
+          <textarea name="comment" class="form-input" rows="3" placeholder="La wadaag ardayda kale waayo-aragnimadaada koorsadan, macallinka, iyo casharrada..." required>{{ user_review.comment|default:'' }}</textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">
-          {% if user_review %}Update Review{% else %}Submit Review{% endif %}
+          {% if user_review %}Cusboonaysii Fikradaada{% else %}Dir Fikradaada{% endif %}
         </button>
       </form>
     </div>
@@ -174,7 +174,7 @@
         <span class="review-date">{{ rev.created_at|date:"F j, Y" }}</span>
       </div>
     {% empty %}
-      <p class="empty-text">Be the first enrolled student to review this course!</p>
+      <p class="empty-text">Noqo ardaygii ugu horreeyay ee koorsadan qiimeeya!</p>
     {% endfor %}
   </div>
 </div>

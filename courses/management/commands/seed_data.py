@@ -12,7 +12,7 @@ class Command(BaseCommand):
             {
                 'title': 'Python Programming',
                 'description': 'Master the fundamentals of Python programming from scratch. Learn syntax, data types, logic control, functions, and standard libraries.',
-                'instructor': 'Dr. Alan Turing',
+                'instructor': 'Eng. Abdikadir Kosar',
                 'category': 'Programming',
                 'duration': '6 Hours',
                 'lessons': [
@@ -46,7 +46,7 @@ class Command(BaseCommand):
             {
                 'title': 'Web Development',
                 'description': 'Learn how to build beautiful, modern websites using HTML5, CSS3, and JavaScript. Understand document structures, layout styles, and interactive scripts.',
-                'instructor': 'Sarah Jenkins',
+                'instructor': 'Eng. Abdikadir Kosar',
                 'category': 'Web Development',
                 'duration': '8 Hours',
                 'lessons': [
@@ -80,7 +80,7 @@ class Command(BaseCommand):
             {
                 'title': 'Database Fundamentals',
                 'description': 'Understand relational database concepts, entity relationships, normalization, and standard SQL queries using SQLite and PostgreSQL principles.',
-                'instructor': 'Prof. Michael Stone',
+                'instructor': 'Eng. Abdikadir Kosar',
                 'category': 'Databases',
                 'duration': '5 Hours',
                 'lessons': [
@@ -114,7 +114,7 @@ class Command(BaseCommand):
             {
                 'title': 'Java Programming',
                 'description': 'A foundational course in Java programming covering syntax, object-oriented principles, classes, inheritance, polymorphism, and standard I/O.',
-                'instructor': 'James Gosling',
+                'instructor': 'Eng. Abdikadir Kosar',
                 'category': 'Programming',
                 'duration': '7 Hours',
                 'lessons': [
@@ -148,7 +148,7 @@ class Command(BaseCommand):
             {
                 'title': 'Computer Networking',
                 'description': 'Understand how data traverses global networks. Learn about the OSI model, TCP/IP stack, IP routing, switches, routers, and cybersecurity basics.',
-                'instructor': 'Dr. Robert Kahn',
+                'instructor': 'Eng. Abdikadir Kosar',
                 'category': 'Networking',
                 'duration': '6 Hours',
                 'lessons': [

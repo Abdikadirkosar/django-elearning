@@ -1,0 +1,34 @@
+{% extends 'admin_panel/base_admin.html' %}
+
+{% block title %}{{ action }} Course — Admin Panel{% endblock %}
+{% block page_title %}{% if action == 'Add' %}➕ Add New Course{% else %}✏️ Edit Course{% endif %}{% endblock %}
+
+{% block content %}
+<div class="ap-card" style="max-width:700px;">
+  <div class="ap-card-title">📚 Course Details</div>
+
+  <form method="post" enctype="multipart/form-data" class="ap-form">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="form-group">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.help_text %}
+        <small style="color:#475569;font-size:0.75rem;">{{ field.help_text }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <small style="color:#f87171;">⚠️ {{ error }}</small>
+      {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div style="display:flex;gap:12px;margin-top:24px;">
+      <button type="submit" class="btn btn-primary">
+        {% if action == 'Add' %}➕ Create Course{% else %}💾 Save Changes{% endif %}
+      </button>
+      <a href="{% url 'admin_panel_courses' %}" class="btn btn-warning">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

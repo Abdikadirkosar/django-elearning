@@ -20,4 +20,4 @@ class DashboardTestCase(TestCase):
         self.client.login(username='student1', password='Password123')
         response = self.client.get(reverse('dashboard'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Welcome, student1!')
+        self.assertContains(response, 'Ku soo dhawoow, student1!')

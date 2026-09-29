@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('courses.urls')),
     path('', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('admin-panel/', include('admin_panel.urls')),
 ]
 
 if settings.DEBUG:
