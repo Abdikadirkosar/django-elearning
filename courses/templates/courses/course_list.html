@@ -40,8 +40,16 @@
     {% endfor %}
   </select>
 
+  <select name="sort" class="filter-select" onchange="this.form.submit()">
+    <option value="">Kala Saac (Sort By)</option>
+    <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>🆕 Ugu Cusub</option>
+    <option value="price_low" {% if sort_by == 'price_low' %}selected{% endif %}>💲 Qiimaha: Ugu Jaban ($10)</option>
+    <option value="price_high" {% if sort_by == 'price_high' %}selected{% endif %}>💎 Qiimaha: Ugu Sareeya ($15)</option>
+    <option value="popular" {% if sort_by == 'popular' %}selected{% endif %}>🔥 Ugu Caansan</option>
+  </select>
+
   <button type="submit" class="btn btn-primary">Raadi</button>
-  {% if search_query or selected_category %}
+  {% if search_query or selected_category or sort_by %}
     <a href="{% url 'course_list' %}" class="btn btn-secondary">Dib u Bilow</a>
   {% endif %}
 </form>

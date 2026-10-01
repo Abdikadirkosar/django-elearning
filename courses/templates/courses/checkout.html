@@ -141,10 +141,20 @@
           Gudbi Dalabka (${{ course.price }}) &rarr;
         </button>
 
-        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">
-          🔒 Lacag-bixintaadu waa mid amni ah. Haddii aad caawimaad u baahato, <a href="https://wa.me/252634812030" target="_blank" style="color: #25d366; font-weight: 700;">WhatsApp nala soo xiriir</a>.
-        </p>
+        <!-- 1-Click WhatsApp Confirmation Button -->
+        <div style="margin-top: 1.5rem; text-align: center; border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+          <span style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.75rem;">Miyaad lacagta hadda u dirtay Zaad ama e-Dahab?</span>
+          <a href="https://wa.me/252634812030?text=Asc%20Admin%2C%20waxaan%20bixiyay%20lacagta%20koorsada%20{{ course.title|urlencode }}%20(%24{{ course.price }}%20USD).%20Magacaygu%20waa%20{{ user.username|urlencode }}." 
+             target="_blank" 
+             class="btn" 
+             style="background: #25d366; color: #ffffff; font-weight: 700; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); padding: 0.75rem 1rem;">
+            <span style="font-size: 1.2rem;">💬</span> U Xaqiiji Admin-ka WhatsApp (+252 63 4812030)
+          </a>
+        </div>
 
+        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">
+          🔒 Lacag-bixintaadu waa mid amni ah oo si toos ah loo maareeyo.
+        </p>
       </form>
     </div>
 

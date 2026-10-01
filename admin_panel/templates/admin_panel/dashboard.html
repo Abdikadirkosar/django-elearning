@@ -23,6 +23,16 @@
 
 <!-- Stats Grid -->
 <div class="ap-stats">
+  <div class="ap-stat" style="border: 2px solid rgba(34, 197, 94, 0.4); background: rgba(34, 197, 94, 0.05);">
+    <div class="ico">💰</div>
+    <div class="num" style="color: #22c55e;">${{ total_revenue }}</div>
+    <div class="lbl">Dakhliga Guud (Revenue)</div>
+  </div>
+  <div class="ap-stat" style="border: 2px solid {% if pending_enrollments > 0 %}rgba(245, 158, 11, 0.5){% else %}transparent{% endif %}; background: rgba(245, 158, 11, 0.05);">
+    <div class="ico">⏳</div>
+    <div class="num" style="color: #f59e0b;">${{ pending_revenue }}</div>
+    <div class="lbl">Sugitaan (Pending: {{ pending_enrollments }})</div>
+  </div>
   <div class="ap-stat">
     <div class="ico">👥</div>
     <div class="num">{{ total_users }}</div>

@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Sum
 from django.utils import timezone
 from functools import wraps
 
@@ -25,7 +25,6 @@ def admin_login_view(request):
         return redirect('dashboard')
     form = UserLoginForm()
     return render(request, 'admin_panel/admin_login.html', {'form': form})
-
 
 
 # ─── Admin Required Decorator ────────────────────────────────────────────────
@@ -55,6 +54,10 @@ def admin_dashboard(request):
     approved_enrollments = Enrollment.objects.filter(status='approved').count()
     total_certificates = Certificate.objects.count()
 
+    # Revenue Analytics
+    total_revenue = Enrollment.objects.filter(status='approved').aggregate(total=Sum('amount_paid'))['total'] or 0.00
+    pending_revenue = Enrollment.objects.filter(status='pending').aggregate(total=Sum('amount_paid'))['total'] or 0.00
+
     students = User.objects.filter(profile__role='student').count()
     instructors = User.objects.filter(profile__role='instructor').count()
     admins = User.objects.filter(profile__role='admin').count()
@@ -66,6 +69,8 @@ def admin_dashboard(request):
     recent_users = User.objects.order_by('-date_joined')[:8]
 
     context = {
+        'total_revenue': total_revenue,
+        'pending_revenue': pending_revenue,
         'total_users': total_users,
         'total_courses': total_courses,
         'total_enrollments': total_enrollments,

@@ -45,11 +45,24 @@ def course_list(request):
     if selected_category:
         courses = courses.filter(category__iexact=selected_category)
 
+    sort_by = request.GET.get('sort', '').strip()
+    if sort_by == 'price_low':
+        courses = courses.order_by('price', '-created_at')
+    elif sort_by == 'price_high':
+        courses = courses.order_by('-price', '-created_at')
+    elif sort_by == 'popular':
+        courses = courses.annotate(enroll_count=Count('enrollments')).order_by('-enroll_count', '-created_at')
+    elif sort_by == 'newest':
+        courses = courses.order_by('-created_at')
+    else:
+        courses = courses.order_by('-created_at')
+
     context = {
         'courses': courses,
         'categories': categories,
         'search_query': search_query,
         'selected_category': selected_category,
+        'sort_by': sort_by,
     }
     return render(request, 'courses/course_list.html', context)
 

@@ -48,29 +48,72 @@
   </div>
 </div>
 
-<!-- My Enrolled Courses Section -->
+<!-- 1. PENDING APPROVAL ORDERS (If any) -->
+{% if pending_courses_data %}
 <section style="margin-top: 2rem;">
   <div class="section-header">
-    <h3>Koorsooyinkayga Firfircoon</h3>
-    <p>La soco casharrada koorso kasta oo ka sii wad meeshii aad joogtay.</p>
+    <h3 style="color: #b45309; display: flex; align-items: center; gap: 0.5rem;">
+      <span>⏳</span> Dalabyada Sugitaanka ah (Pending Approvals)
+    </h3>
+    <p>Koorsooyinkan lacagtaadooda waa la hubinayaa. Isla marka admin-ku xaqiijiyo, casharrada ayaa kuugu furmaya.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem;">
+    {% for item in pending_courses_data %}
+      <div style="background: #fffbeb; border: 1.5px solid #fde68a; border-radius: var(--radius-lg); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: var(--shadow-sm);">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.4rem;">
+            <span class="category-tag" style="margin-bottom: 0; background: #fef3c7; color: #92400e;">{{ item.course.category }}</span>
+            <span style="background: #f59e0b; color: #ffffff; font-weight: 800; font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: var(--radius-full);">
+              ⏳ Sugitaan (Pending)
+            </span>
+          </div>
+          <h4 style="font-size: 1.25rem; font-weight: 800; margin: 0.3rem 0; color: #78350f;">{{ item.course.title }}</h4>
+          <p style="color: #92400e; font-size: 0.88rem; margin: 0;">
+            Habka: <strong>{{ item.payment_method|title }}</strong> &bull; 
+            Tixraaca (Ref ID): <code style="background: #ffffff; padding: 2px 6px; border-radius: 4px; font-weight: 700;">{{ item.transaction_id|default:'Lama sheegin' }}</code> &bull; 
+            Lacagta: <strong>${{ item.amount_paid }} USD</strong>
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <a href="https://wa.me/252634812030?text=Asc%20Admin%2C%20waxaan%20rabaa%20in%20la%20ii%20fasaxo%20koorsada%20{{ item.course.title|urlencode }}%20(Ref:%20{{ item.transaction_id|urlencode }})." 
+             target="_blank" 
+             class="btn" 
+             style="background: #25d366; color: #ffffff; font-size: 0.88rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 0.6rem 1rem;">
+            <span>💬</span> Weydii Admin-ka (WhatsApp)
+          </a>
+          <a href="{% url 'course_detail' item.course.id %}" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.6rem 1rem;">
+            Eeg Koorsada
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- 2. ACTIVE COURSES (In Progress) -->
+<section style="margin-top: 1rem;">
+  <div class="section-header">
+    <h3>📚 Koorsooyinkayga Firfircoon (Waxbarashadu Way Socotaa)</h3>
+    <p>La soco casharrada aad meherada u tahay oo ka sii wad meeshii aad joogtay.</p>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-    {% for item in enrolled_courses_data %}
+    {% for item in active_courses_data %}
       <div style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.75rem; box-shadow: var(--shadow-sm); transition: var(--transition);">
         <div style="flex: 1; min-width: 290px;">
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
             <span class="category-tag" style="margin-bottom: 0;">{{ item.course.category }}</span>
-            {% if item.progress == 100 %}
-              <span style="background: rgba(16, 185, 129, 0.15); color: #059669; font-weight: 800; font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: var(--radius-full); display: inline-flex; align-items: center; gap: 0.3rem;">
-                ✓ Waa La Dhameeyay
-              </span>
-            {% endif %}
+            <span style="background: rgba(16, 185, 129, 0.15); color: #059669; font-weight: 800; font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: var(--radius-full);">
+              ✓ Waa Fasaxan Tahay
+            </span>
           </div>
           
           <h4 style="font-size: 1.35rem; font-weight: 800; margin: 0.3rem 0; color: var(--text-main);">{{ item.course.title }}</h4>
           <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1rem;">
-            Macallinka: <strong>{{ item.course.instructor }}</strong> &bull; Waxaad ku biirtay {{ item.enrolled_at|date:"M d, Y" }}
+            Macallinka: <strong>{{ item.course.instructor }}</strong> &bull; Ku biiray: {{ item.enrolled_at|date:"M d, Y" }}
           </p>
 
           <div class="progress-container" style="max-width: 500px;">
@@ -85,29 +128,66 @@
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 0.65rem; align-items: flex-end;">
-          {% if item.progress == 100 %}
-            <a href="{% url 'view_certificate' item.course.id %}" class="btn btn-success" style="font-size: 0.92rem;">
-              🏆 Daawo Shahaadada
-            </a>
-          {% endif %}
           {% if item.next_lesson %}
-            <a href="{% url 'lesson_detail' item.next_lesson.id %}" class="btn btn-primary" style="font-size: 0.92rem;">
+            <a href="{% url 'lesson_detail' item.next_lesson.id %}" class="btn btn-primary" style="font-size: 0.95rem; font-weight: 700;">
               Sii Wad Waxbarashada &rarr;
             </a>
           {% endif %}
           <a href="{% url 'course_detail' item.course.id %}" class="btn btn-secondary" style="font-size: 0.85rem;">
-            Faahfaahinta Koorsada
+            Tusmada Koorsada
           </a>
         </div>
       </div>
     {% empty %}
-      <div style="text-align: center; padding: 4rem 2rem; background-color: var(--card-bg); border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-        <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">📚</div>
-        <h3 style="margin-bottom: 0.5rem; font-size: 1.4rem;">Weli kuma aadan biirin wax koorso ah.</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1.75rem;">Ka dooro koorsooyinka diyaarka ah si aad u bilowdo waxbarashadaada.</p>
-        <a href="{% url 'course_list' %}" class="btn btn-primary">Daawo Koorsooyinka &rarr;</a>
+      {% if not completed_courses_data and not pending_courses_data %}
+        <div style="text-align: center; padding: 4rem 2rem; background-color: var(--card-bg); border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+          <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">📚</div>
+          <h3 style="margin-bottom: 0.5rem; font-size: 1.4rem;">Weli kuma aadan biirin wax koorso ah.</h3>
+          <p style="color: var(--text-muted); margin-bottom: 1.75rem;">Ka dooro 15-ka koorso ee diyaarka ah si aad u bilowdo waxbarashadaada.</p>
+          <a href="{% url 'course_list' %}" class="btn btn-primary">Daawo Koorsooyinka &rarr;</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<!-- 3. COMPLETED COURSES -->
+{% if completed_courses_data %}
+<section style="margin-top: 2.5rem;">
+  <div class="section-header">
+    <h3 style="color: #059669; display: flex; align-items: center; gap: 0.5rem;">
+      <span>🏆</span> Koorsooyinka Dhammaaday (Shahaadooyin Diyaar ah)
+    </h3>
+    <p>Hambalyo! Koorsooyinkan 100% waad dhammaysay, waxaadna xaq u leedahay shahaado rasmi ah.</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+    {% for item in completed_courses_data %}
+      <div style="background-color: var(--card-bg); border: 1.5px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-lg); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; box-shadow: var(--shadow-sm);">
+        <div style="flex: 1; min-width: 280px;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span class="category-tag" style="margin-bottom: 0;">{{ item.course.category }}</span>
+            <span style="background: rgba(16, 185, 129, 0.15); color: #059669; font-weight: 800; font-size: 0.75rem; padding: 0.25rem 0.65rem; border-radius: var(--radius-full);">
+              ✓ 100% Dhammaystiran
+            </span>
+          </div>
+          <h4 style="font-size: 1.25rem; font-weight: 800; margin: 0.25rem 0; color: var(--text-main);">{{ item.course.title }}</h4>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">
+            Dhammaan {{ item.total_lessons }} casharba waad dhammaysay.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <a href="{% url 'view_certificate' item.course.id %}" class="btn btn-success" style="font-size: 0.92rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+            <span>🎓</span> Daawo Shahaadada
+          </a>
+          <a href="{% url 'course_detail' item.course.id %}" class="btn btn-secondary" style="font-size: 0.85rem;">
+            Dib u Eeg Casharrada
+          </a>
+        </div>
       </div>
     {% endfor %}
   </div>
 </section>
+{% endif %}
 {% endblock %}
