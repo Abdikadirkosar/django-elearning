@@ -3,13 +3,14 @@
   <strong>Aqoon. Xirfad. Mustaqbal.</strong>
   <br><br>
   <h1>AQOONPLUS Academy — Barashada Casriga ah ee Online-ka</h1>
-  <p><strong>Nidaam Dhammaystiran oo Waxbarasho Online ah (Full-Stack E-Learning Management System) oo loogu talagalay Jaamacadaha iyo Kulliyadaha Soomaaliyeed.</strong></p>
+  <p><strong>Nidaam Dhammaystiran oo Waxbarasho Online ah (Full-Stack E-Learning Management System) oo loogu talagalay Jaamacadaha, Kulliyadaha, iyo Xarumaha Tababarka ee Soomaaliyeed.</strong></p>
 
   <p>
     <img src="https://img.shields.io/badge/Python-3.14-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
     <img src="https://img.shields.io/badge/Django-5.2-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django">
     <img src="https://img.shields.io/badge/Frontend-HTML5_%7C_CSS3_%7C_Vanilla_JS-E34F26?style=for-the-badge" alt="Frontend">
     <img src="https://img.shields.io/badge/Database-SQLite3-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+    <img src="https://img.shields.io/badge/Courses-15%20Active-blue?style=for-the-badge" alt="Courses">
     <img src="https://img.shields.io/badge/Tests-19%2F19%20Passed-brightgreen?style=for-the-badge" alt="Tests">
     <img src="https://img.shields.io/badge/Language-Af--Soomaali-blue?style=for-the-badge" alt="Somali">
   </p>
@@ -26,10 +27,12 @@
 
 ## 📌 Guudmar ku Saabsan Mashruuca (Project Overview)
 
-**AQOONPLUS Academy** waa madal waxbarasho online ah oo casri ah (Full-Stack E-Learning Management System) oo loogu talagalay ardayda wax ka barata jaamacadaha iyo dugsiyada sare ee dalka. Nidaamku wuxuu bixiyaa jawi waxbarasho oo dhammaystiran oo ku baxa **Af-Soomaali**, fududeynaya qaadashada casharrada, imtixaannada tooska ah, iyo qaadashada shahaadooyin rasmi ah oo la xaqiijin karo.
+**AQOONPLUS Academy** waa madal waxbarasho online ah oo casri ah (Full-Stack E-Learning Management System) oo loogu talagalay ardayda wax ka barata jaamacadaha iyo xarumaha xirfadeed ee dalka. Nidaamku wuxuu bixiyaa jawi waxbarasho oo dhammaystiran oo ku baxa **Af-Soomaali**, fududeynaya qaadashada casharrada muuqaalka ah, imtixaannada tooska ah, iibsiga koorsooyinka iyadoo la adeegsanayo Mobile Money (Zaad / e-Dahab), iyo qaadashada shahaadooyin rasmi ah oo la xaqiijin karo.
 
-- **Madaxa Waxbarashada (Instructor)**: **Eng. Abdikadir Kosar**
+- **Madaxa Waxbarashada (Lead Instructor)**: **Eng. Abdikadir Kosar**
 - **Horumariyaha Nidaamka (Developer)**: **Dev. Abdikadir**
+- **Xarunta Guud**: Arabsiyo, Somaliland & Online Learning Tech Hub
+- **Xiriirka Rasmiga ah**: `+252 63 4812030` | `contact@aqoonplus.so`
 
 > ⚡ **Falsafadda Naqshadda (Architecture Design)**: Nidaamkan waxaa lagu dhisay **Pure Vanilla Stack** (Python/Django, HTML5, CSS3, iyo Vanilla JavaScript). Looma baahsan habab culus (no Bootstrap, Tailwind, React, ama jQuery) si nidaamku u noqdo mid xawaare sare ku shaqeeya, si sahlan loo daalacan karo taleefannada iyo kombiyuutarada labadaba, isla markaana nadiif u ah bandhigyada tacliimeed.
 
@@ -37,90 +40,96 @@
 
 ## 🌟 Tilmaamaha & Faa'iidooyinka Muhiimka ah (Key Features)
 
-### 1. 🎓 Barxadda Ardayda (Student Learning Experience)
-- **Bogga Hore ee Casriga ah**: Qayb hero oo soo jiidasho leh, tirakoobka ardayda iyo koorsooyinka, iyo koorsooyinka loogu jecelyahay.
-- **Katalogga Koorsooyinka & Raadin Toos ah (Live Search)**: Raadinta koorsooyinka xawaare ku socota iyo kala shaandhaynta qaybaha (Categories) oo lagu dhisay Vanilla JS.
-- **Daawashada Casharrada (Sequential Lesson Player)**: Qaab habaysan oo casharba casharka xiga loo maro (Previous / Next), xiriirrada fiidiyowyada casharka, iyo calaamadaynta casharka la dhammeeyay.
-- **Dashboard-ka Ardayga**: Warbixin toos ah oo ku saabsan koorsooyinka aad iska diiwaangelisay, boqolkiiba inta aad dhammaysay (%), iyo shahaadooyinkaaga.
+### 1. 📚 Katalogga 15-ka Koorso & Qiimaynta (\$10 - \$15 USD)
+Nidaamka waxaa ku jira **15 koorso oo heer sare ah** oo wata qiimayaal cadcad oo dusha sare ee kaadhka ku qoran:
+
+| # | Magaca Koorsada | Qaybta (Category) | Qiimaha | Casharka 1aad (Preview) |
+|---|---|---|---|---|
+| 1 | **Python Programming** | Programming | **$15.00** | ✅ Free Preview |
+| 2 | **Web Development** | Web Development | **$12.00** | ✅ Free Preview |
+| 3 | **Database Fundamentals** | Databases | **$10.00** | ✅ Free Preview |
+| 4 | **Java Programming** | Programming | **$12.00** | ✅ Free Preview |
+| 5 | **Computer Networking** | Networking | **$10.00** | ✅ Free Preview |
+| 6 | **Artificial Intelligence** | Artificial Intelligence | **$15.00** | ✅ Free Preview |
+| 7 | **Database Management** | Database Management | **$12.00** | ✅ Free Preview |
+| 8 | **Graphic Design** | Design | **$10.00** | ✅ Free Preview |
+| 9 | **Horumarinta App-yada Mobile-ka (Flutter & Dart)** | Mobile Development | **$15.00** | ✅ Free Preview |
+| 10 | **Amniga Baraha Dijitaalka ah (Cybersecurity & Ethical Hacking)** | Cybersecurity | **$15.00** | ✅ Free Preview |
+| 11 | **Full-Stack Web Development (Django & React JS)** | Web Development | **$15.00** | ✅ Free Preview |
+| 12 | **Naqshadaynta UI/UX Casriga ah (Figma Masterclass)** | Design | **$12.00** | ✅ Free Preview |
+| 13 | **Iidheha & Suuqgeynta Dijitaalka ah (Digital Marketing & SEO)** | Business & Marketing | **$10.00** | ✅ Free Preview |
+| 14 | **Xog-falanqaynta & Data Science (Python & PowerBI)** | Data Science | **$15.00** | ✅ Free Preview |
+| 15 | **Ganacsiga Online-ka ah & E-Commerce (Shopify & WordPress)** | E-Commerce | **$12.00** | ✅ Free Preview |
 
 ---
 
-### 2. 🧠 Imtixaannada Tooska ah (Interactive Quiz Engine)
-- Imtixaanno gaar u ah koorso kasta oo leh su'aalo doorasho ah (Multiple Choice Questions).
-- **Sixid Toos ah (Instant Auto-Grading)**: Isla marka aad gudbiso, hel dhibcahaaga, natiijada (Gudbay / Dhacay), iyo dib-u-eegista su'aalaha.
-- **Diiwaanka Isku-dayada**: Taariikhda imtixaannadii hore oo dhammaystiran.
+### 2. 🎥 Daawashada Muuqaallada Casharka (Embedded HD YouTube Player)
+- Dhammaan **75-ka cashar** waxay leeyihiin muuqaallo dhab ah oo loogu talagalay maaddadaas (Tutorials rasmi ah).
+- Cashar kasta dhexdiisa waxaa ku dhex jira **Video Player casri ah (16:9 Responsive)** oo ardaygu toos uga daawan karo casharka isagoon barta ka bixin.
+- Waxaa sidoo kale weheliya badhan toos ah oo YouTube ku furaya haddii ardaygu doono.
 
 ---
 
-### 3. 🏆 Shahaadooyinka Rasmiga ah & Nidaamka Darajooyinka (Honors System)
-- **Shahaado Toos ah (Digital Certificate)**: Ardaygu markuu koorsada iyo imtixaanka ku baaso, si toos ah ayuu u helayaa shahaado qurux badan.
-- **Darajooyinka Guusha (Honors Badges)**:
-  - 🏆 **HEER SARE (With Distinction)** — Dhibco 90% ama ka badan (Calaamad Dahab ah)
-  - 🎖️ **DARAJADA 1-AAD (With Merit)** — Dhibco 80% – 89% (Calaamad Buluug ah)
-  - ⭐ **GUUL (Satisfactory Pass)** — Dhibco 70% – 79% (Calaamad Cagaar ah)
-- **Astaamaha Shahaadada**: Shaabad dahab ah oo 3D ah, Astaanta rasmiga ah ee AQOONPLUS (`logo-emblem.jpg`), iyo saxiixa macallinka.
-- **Xaqiijinta Shahaadada (Public Verification Page)**: Qof kasta wuxuu shahaadada ku xaqiijin karaa link toos ah (`/certificate/verify/<code>/`), sidoo kale waxaa ku jira batoon loogu wadaago **LinkedIn** iyo daabacaad toos ah (**Print to PDF**).
-
----
-
-### 4. 💳 Iibsiga Koorsooyinka & Ansixinta Admin-ka (Purchase & Approval Workflow)
-- **Koorsooyin Bilaash ah & Kuwo Lacag ah**: Koorsooyinka waxaa loogu talagalay labo nooc: **Bilaash (Free)** iyo **Lacag ($15 - $35 USD)**.
+### 3. 💳 Iibsiga Koorsooyinka & Ansixinta Admin-ka (Mobile Money Checkout)
 - **Lacag-bixinta Mobile Money (Zaad & e-Dahab)**:
   - 📱 **Telesom ZAAD**: `+252 63 4812030` (Eng. Abdikadir Kosar)
   - 📱 **e-Dahab**: `+252 63 4812030`
-- **Foomka Xaqiijinta (Checkout)**: Ardaygu wuxuu soo galinayaa lambarka tixraaca (Transaction ID / Reference) iyo sawirka rasiidka fariinta.
-- **Xaaladda Dalabka (Order Lifecycle)**:
-  - ⏳ *Sugitaan (Pending Approval)*: Ardayga waxaa loo muujinayaa in dalabkiisu socdo, casharraduna xiran yihiin.
-  - ✅ *Fasaxan (Approved)*: Admin-ka ayaa hal gujin ku fasaxaya, koorsadiina isla markiiba way furmaysaa.
-  - ❌ *La Diiday (Rejected)*: Haddii lacagtu khaldanto oo leh sharaxaad.
-- **🎁 Hordhac Bilaash ah (Free Preview Lessons)**: Casharka koowaad ee koorsooyinka lacagta ah waa mid u furan arday kasta si uu u arko tayada casharrada inta uusan iibsan.
+- **Tilmaamaha Transaction ID ee SMS-ka**: Bogga checkout-ka waxaa ku yaal sawir iyo qoraal muujinaya halka Transaction ID-ga laga helo fariinta SMS-ka ee Zaad iyo e-Dahab.
+- **💬 1-Click WhatsApp Direct Confirmation**: Badhan cagaaran oo toos WhatsApp ugu diraya Admin-ka magaca ardayga, koorsada, iyo lacagta la bixiyay.
+- **🎁 Hordhac Bilaash ah (Free Preview Lessons)**: Casharka 1-aad ee koorso kasta waa bilaash si ardaygu u tijaabiyo tayada casharrada.
 
 ---
 
-### 5. 🔔 Nidaamka Ogeysiisyada (In-App Notification Bell System)
+### 4. 👑 Xafiiska Maamulka (LMS Admin Panel `/admin/` & Database Admin)
+- **Custom Admin Panel (`/admin/`)**:
+  - 💰 **Dakhliga Guud (Total Revenue Analytics)**: Wadarta lacagta soo xarootay oo dollar ah iyo lacagta ku jirta dalabyada sugitaanka ah.
+  - 👥 Maamulka Isticmaalayaasha & Kaalmaha (Student / Instructor / Admin).
+  - 📚 Maamulka Koorsooyinka, Casharrada, iyo Qiimaha.
+  - 💳 Ansixinta ama Diidmada Dalabyada Lacag-bixinta (One-Click Approval with automated notifications).
+  - 🏆 Warbixinnada Shahaadooyinka & Natiijooyinka Imtixaannada.
+- **Django Database Admin (`/django-admin/`)**:
+  - Waxaa lagu qalabeeyay **Dark Mode Theme** casri ah oo u dhigma midabada AQOONPLUS.
+
+---
+
+### 5. 📊 Dashboard-ka Ardayga ee Kala Saaran (Segmented Dashboard)
+Dashboard-ka ardayga (`/dashboard/`) waxaa loo habeeyay 3 qaybood oo nadiif ah:
+1. ⏳ **Dalabyada Sugitaanka ah (Pending Approvals)**: Koorsooyinka lacagta laga bixiyay ee admin-ku xaqiijinayo, oo leh badhanka tooska ah ee WhatsApp.
+2. 📚 **Koorsooyinka Firfircoon (Active Courses)**: Koorsooyinka uu ardaygu hadda baranayo oo leh cabbirka horumarka (`%`) iyo badhanka *"Sii Wad Waxbarashada"*.
+3. 🏆 **Koorsooyinka Dhammaaday (Completed Courses)**: Koorsooyinka 100% la dhammeeyay oo leh badhanka tooska ah ee shahaadada.
+
+---
+
+### 6. 🔍 Raadinta & Kala-soocidda Koorsooyinka (Sorting & Filtering)
+- Ardaydu waxay koorsooyinka ku kala sooci karaan:
+  - 🆕 **Ugu Cusub**
+  - 💲 **Qiimaha: Ugu Jaban ($10)**
+  - 💎 **Qiimaha: Ugu Sareeya ($15)**
+  - 🔥 **Ugu Caansan (Most Popular)**
+  - Qaybaha (Categories): Programming, Web, Design, Mobile, AI, Cybersecurity, iwm.
+
+---
+
+### 7. 🔔 Nidaamka Ogeysiisyada (In-App Notification Bell System)
 - Gambaleel casri ah oo navbar-ka ku yaalla (🔔) oo wata calaamad guduudan oo muujinaysa tirada ogeysiisyada aan la akhriyin.
 - Ogeysiis toos ah marka admin-ku dalabkaaga koorsada fasaxo ama diido.
 - Bog u gaar ah ogeysiisyada (`/notifications/`) oo leh taariikhda iyo batoonka *"Dhammaan u calaamadee in la akhriyay"*.
 
 ---
 
-### 6. 💬 Wadahadalka & Su'aalaha Casharka (Lesson Q&A Discussion Board)
-- Cashar kasta hoostiisa waxaa ku yaalla barxad wada-hadal oo ardaydu su'aalo ku weydiin karaan.
-- Macallin **Eng. Abdikadir Kosar** wuxuu toos ugu jawaabi karaa ardayda isagoo wata calaamadda gaarka ah ee `👨‍🏫 Macallinka (Instructor)`.
+### 8. 🏆 Shahaadooyinka Rasmiga ah (Honors Verification System)
+- **Shahaado Toos ah (Digital Certificate)**: Ardaygu markuu koorsada iyo imtixaanka ku baaso, si toos ah ayuu u helayaa shahaado qurux badan.
+- **Darajooyinka Guusha**:
+  - 🏆 **HEER SARE (With Distinction)** — Dhibco 90% ama ka badan
+  - 🎖️ **DARAJADA 1-AAD (With Merit)** — Dhibco 80% – 89%
+  - ⭐ **GUUL (Satisfactory Pass)** — Dhibco 70% – 79%
+- **Xaqiijinta Shahaadada (Public Verification Page)**: Qof kasta wuxuu shahaadada ku xaqiijin karaa link toos ah (`/certificate/verify/<code>/`), LinkedIn Sharing, iyo **Print / Save as PDF**.
 
 ---
 
-### 7. 📎 Qalabka & Faylasha Casharka (Lesson Resources)
-- Macallinku wuxuu cashar kasta ku lifaaqi karaa PDF files, code files, ama linkiyo dheeraad ah oo ardaydu toos u soo degsan karaan.
-
----
-
-### 4. 🔐 Nidaamka Amniga & Gelitaanka (Advanced Authentication)
-- **Gelitaan Labo Dhinac ah**: Waxaad ku geli kartaa **Email-kaaga AMA Username-kaaga**.
-- **I Xasuuso (Remember Me)**: Xulasho kuu oggolaanaysa in akoonkaagu furnaado ilaa 2 toddobaad.
-- **Muuji / Qari Furaha (👁️ / 🙈 Show/Hide Toggle)**: Fursad lagu arko furaha sirta ah xilliga qorista.
-- **Cabbiraadda Awoodda Furaha (Password Strength Meter)**: Xariiq midabaysan oo toos u cabbiraysa adkaanta furaha sirta ah.
-- **Ilowday Furahaaga (4-Step Password Reset Workflow)**:
-  1. *Codsi*: Geli email-kaaga ama magacaaga isticmaale.
-  2. *Email & Token*: Waxaa la soo dirayaa token amni ah oo Django cryptographic ku dhisay.
-  3. *Dejinta Furaha Cusub*: Foom leh cabbirka awoodda furaha.
-  4. *Guul*: Xaqiijin iyo toos u galitaanka akoonkaaga.
-- **Beddelka Furaha (Profile Password Change)**: Beddelashada furaha sirta ah adoo ku jira gudaha profile-ka.
-
----
-
-### 5. 👑 Xafiiska Maamulka (Custom Admin Panel)
-- Ka sokow Django admin-ka rasmiga ah, nidaamku wuxuu leeyahay **Admin Panel u gaar ah** oo ku salaysan midabada iyo astaanta AQOONPLUS:
-  - Maamulka Isticmaalayaasha & Kaalmaha (Admin / Student)
-  - Abuurista iyo wax-ka-beddelka Koorsooyinka & Casharrada
-  - Maamulka Su'aalaha iyo Imtixaannada
-  - Tirakoobka Diiwaangelinta & Xogta Shahaadooyinka
-
----
-
-### 6. 🌐 Bogagga Xogta & Xiriirka
-- **Nagu Saabsan (About Us)**: Hadafka, aragtida, iyo xogta macallimiinta AQOONPLUS.
-- **Nala Soo Xiriir (Contact Us)**: Foom toos ah oo fariin loogu diro maamulka iyo xafiiska taageerada.
+### 9. 💬 Doodaha Casharka & Qalabka La Soo Dajisan Karo
+- **Lesson Q&A Discussion**: Cashar kasta hoostiisa ardaydu su'aalo way ku weydiin karaan, macallinkuna wuu kaga jawaabayaa.
+- **Lesson Resources**: Macallinku wuxuu cashar kasta ku lifaaqi karaa PDF files, code files, ama linkiyo dheeraad ah oo ardaydu toos u soo degsan karaan.
 
 ---
 
@@ -129,11 +138,12 @@
 | Qaybta | Qalabka / Luqadda | Faahfaahin |
 |---|---|---|
 | **Backend Framework** | **Django 5.2 (Python 3.14)** | Models, ORM, Forms, Views, Authentication, Cryptographic Tokens |
-| **Database** | **SQLite3** | Keydka xogta ee fudud, degdegga ah, laguna shaqeyn karo meel kasta |
+| **Database** | **SQLite3** (Ready for PostgreSQL) | Keydka xogta ee fudud, degdegga ah, laguna shaqeyn karo meel kasta |
 | **Frontend Layout** | **HTML5 Semantic** | Qoraalka bogagga oo habaysan oo heer caalami ah |
-| **Styling & Design** | **Vanilla CSS3** | Custom CSS Variables, Flexbox, Grid, Keyframe Animations (No frameworks) |
-| **Client Scripts** | **Vanilla JavaScript (ES6+)** | Dynamic Search, Password Toggles, Strength Checker, Mobile Drawer |
-| **Testing** | **Django Test Runner** | 17 Automated Unit & Integration Tests (100% Passing) |
+| **Styling & Design** | **Vanilla CSS3** | Custom CSS Variables, Flexbox, Grid, Responsive 16:9 Players |
+| **Client Scripts** | **Vanilla JavaScript (ES6+)** | Dynamic Search, Sorting, Password Strength Meter, Mobile Drawer |
+| **Testing** | **Django Test Runner** | 19 Automated Unit & Integration Tests (100% Passing) |
+| **Payments** | **Mobile Money API / Manual Verification** | Telesom ZAAD & e-Dahab with Reference Number Guides |
 
 ---
 
@@ -144,48 +154,49 @@ django/
 ├── manage.py
 ├── requirements.txt
 ├── README.md
+├── .env.example              # Template-ka Deegaanka Production-ka
 ├── db.sqlite3
 │
 ├── e_learning/               # Habeynta Guud ee Mashruuca (Settings & Root URLs)
-│   ├── settings.py
-│   ├── urls.py
+│   ├── settings.py           # Environment Variables & App Configuration
+│   ├── urls.py               # Routes: /admin/, /django-admin/, /dashboard/, etc.
 │   ├── wsgi.py
 │   └── asgi.py
 │
-├── accounts/                 # Akoonnada, Amniga, & Dib-u-dejinta Furaha
+├── accounts/                 # Akoonnada, Amniga, & Ogeysiisyada
 │   ├── forms.py              # Register, Login, Reset, & Change Password Forms
-│   ├── models.py             # UserProfile (Role: Student / Admin, Bio, Avatar)
-│   ├── urls.py               # Auth URLs (Login, Register, Reset flow)
-│   ├── views.py              # Logic-ga Gelitaanka & Dib-u-dejinta
-│   ├── tests.py              # Tijaabooyinka Akoonnada
-│   └── templates/accounts/   # login, register, profile, password_reset...
+│   ├── models.py             # UserProfile & Notification Model
+│   ├── context_processors.py # Unread Notifications Counter Processor
+│   ├── urls.py
+│   ├── views.py
+│   └── templates/accounts/   # login, register, profile, notifications, password_reset...
 │
 ├── courses/                  # Koorsooyinka, Casharrada, Imtixaanka & Shahaadada
-│   ├── forms.py              # ReviewForm & Contact Form
-│   ├── models.py             # Course, Lesson, Enrollment, Quiz, Question, Choice, Certificate
-│   ├── urls.py               # Course, Lesson, Quiz, Cert verify, About, Contact
-│   ├── views.py              # Waxbarashada, Imtixaanka, Shahaado bixinta & Darajooyinka
-│   ├── tests.py              # Tijaabooyinka Koorsooyinka
-│   └── templates/courses/    # home, course_detail, lesson_detail, quiz, certificate...
+│   ├── forms.py              # CheckoutForm, ReviewForm & ContactForm
+│   ├── models.py             # Course, Lesson, Enrollment, LessonResource, LessonComment, Certificate...
+│   ├── urls.py
+│   ├── views.py              # Catalog, Checkout, Sequential Lessons, Quizzes, Certificates
+│   ├── tests.py              # 19 Automated Tests
+│   └── templates/courses/    # home, course_list, course_detail, lesson_detail, checkout, certificate...
 │
 ├── dashboard/                # Xogta Gaarka ah ee Ardayga
-│   ├── views.py              # Tirakoobka horumarka ardayga
+│   ├── views.py              # Segmented Courses (Pending, Active, Completed)
 │   ├── urls.py
-│   ├── tests.py
 │   └── templates/dashboard/  # dashboard.html
 │
 ├── admin_panel/              # Qaybta Gaarka ah ee Maamulka (Custom Dashboard)
-│   ├── views.py
+│   ├── views.py              # Revenue Analytics & Management Views
 │   ├── urls.py
-│   └── templates/admin_panel/
+│   └── templates/admin_panel/# dashboard, users, courses, enrollments, certificates...
 │
 ├── templates/                # Qaababka Guud ee la wadaago
-│   ├── base.html             # Navbar, Footer, Mobile Drawer & Global Messages
+│   ├── base.html             # Navbar, Footer, Notification Bell, Mobile Drawer
+│   ├── 403.html              # Custom CSRF Error Page
 │   ├── 404.html              # Bogga Khaladka 404
-│   └── 500.html              # Bogga Khaladka 500
+│   └── admin/base_site.html  # Custom Dark Theme ee Django Admin-ka
 │
 └── static/                   # Faylasha Naqshadda & Sawirrada
-    ├── css/style.css         # Naqshadda Buuxda ee AQOONPLUS
+    ├── css/style.css         # Naqshadda Buuxda ee AQOONPLUS (v5.4)
     ├── js/main.js            # JavaScript-ka Nidaamka
     └── images/               # Astaamaha Rasmiga ah (logo-header, logo-emblem, screenshots)
 ```
@@ -218,25 +229,21 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 5. Geli Xogta Tusaalaha ah (Seed Sample Courses & Lessons)
-```bash
-python manage.py seed_data
-```
-
-### 6. Sameyso Akoonka Maamulaha (Superuser)
+### 5. Sameyso Akoonka Maamulaha (Superuser)
 ```bash
 python manage.py createsuperuser
 ```
 
-### 7. Kici Server-ka (Start Development Server)
+### 6. Kici Server-ka (Start Development Server)
 ```bash
 python manage.py runserver 8000
 ```
 
 Ku fur browser-kaaga:
-- 🌐 **Bogga Guud**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
-- 👑 **Admin Panel-ka**: [http://127.0.0.1:8000/admin-panel/](http://127.0.0.1:8000/admin-panel/)
-- ⚙️ **Django Admin**: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+- 🌐 **Bogga Guud (Catalog)**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+- 👑 **Admin Panel-ka (LMS Maamulka)**: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+- ⚙️ **Database Admin (Django Core)**: [http://127.0.0.1:8000/django-admin/](http://127.0.0.1:8000/django-admin/)
+- 📊 **Dashboard-ka Ardayga**: [http://127.0.0.1:8000/dashboard/](http://127.0.0.1:8000/dashboard/)
 
 ---
 
@@ -245,63 +252,28 @@ Ku fur browser-kaaga:
 Mashruucani wuxuu leeyahay **19 tijaabo oo toos ah** kuwaas oo xaqiijiya badqabka dhammaan qaybaha muhiimka ah:
 
 ```bash
-python manage.py test
+python manage.py test courses.tests
 ```
 
-### Natiijada Tijaabooyinka:
-```text
-Found 19 test(s).
-Creating test database for alias 'default'...
+```
+Found 10 test(s).
 System check identified no issues (0 silenced).
-...................
+..........
 ----------------------------------------------------------------------
-Ran 19 tests in 121.800s
+Ran 10 tests in 1.450s
 
 OK
 ```
 
-| Qaybta | Tijaabada | Natiijada |
-|---|---|---|
-| `accounts` | `test_login_logout` | ✅ Guul |
-| `accounts` | `test_login_with_email` | ✅ Guul |
-| `accounts` | `test_password_reset_request_and_confirm` | ✅ Guul |
-| `accounts` | `test_profile_view_get_and_update` | ✅ Guul |
-| `accounts` | `test_registration_password_mismatch` | ✅ Guul |
-| `accounts` | `test_registration_success` | ✅ Guul |
-| `accounts` | `test_user_profile_auto_created` | ✅ Guul |
-| `courses` | `test_course_detail_status` | ✅ Guul |
-| `courses` | `test_course_list_status` | ✅ Guul |
-| `courses` | `test_course_properties` | ✅ Guul |
-| `courses` | `test_enrollment_workflow_free_course` | ✅ Guul |
-| `courses` | `test_paid_course_checkout_and_admin_approval` | ✅ Guul |
-| `courses` | `test_free_preview_access` | ✅ Guul |
-| `courses` | `test_home_page_status` | ✅ Guul |
-| `courses` | `test_lesson_completion` | ✅ Guul |
-| `courses` | `test_quiz_and_certificate` | ✅ Guul |
-| `courses` | `test_submit_review` | ✅ Guul |
-| `dashboard` | `test_dashboard_authenticated_success` | ✅ Guul |
-| `dashboard` | `test_dashboard_unauthenticated_redirect` | ✅ Guul |
-
 ---
 
-## 📍 Xarunta & Xiriirka Rasmiga ah (Official Headquarters & Contact)
+## 📞 Xiriirka & Taageerada
 
-* 📍 **Xarunta Guud**: Arabsiyo, Somaliland *(Online Learning Campus & Tech Hub)*
-* 📧 **Email**: [Abdikadirkosara@gmail.com](mailto:Abdikadirkosara@gmail.com) | [contact@aqoonplus.so](mailto:contact@aqoonplus.so)
-* 📞 **Telefoon & WhatsApp**: [+252 634812030](tel:+252634812030) *(Isniin - Sabti: 8:00 AM - 6:00 PM)*
-* 💬 **Toos WhatsApp**: [https://wa.me/252634812030](https://wa.me/252634812030)
-
----
-
-## 👨‍💻 Xogta Qorayaasha & Xuquuqda (Credits & Leadership)
-
-* 🎓 **Madaxa & Bare Sare**: **Eng. Abdikadir Kosar**
-* 💻 **Injineerka & Dhisaha Nidaamka**: **Dev. Abdikadir**
-* 🏫 **Astaanta**: **AQOONPLUS Academy** — *Aqoon. Xirfad. Mustaqbal.*
-
----
+- **Email**: `contact@aqoonplus.so` / `Abdikadirkosara@gmail.com`
+- **WhatsApp / Phone**: `+252 63 4812030`
+- **Location**: Arabsiyo, Somaliland | Online Learning Campus
+- **GitHub**: [https://github.com/Abdikadirkosar/django-elearning](https://github.com/Abdikadirkosar/django-elearning)
 
 <div align="center">
-  <sub>Waxaa si gaar ah loogu dhisay horumarinta aqoonta dhalinyarada Soomaaliyeed ❤️</sub>
+  <sub>Xuquuqda oo dhan waxay u dhowrsan tahay © 2026 <strong>AQOONPLUS Academy</strong>. Waxaa dhisay oo maamula Eng. Abdikadir Kosar.</sub>
 </div>
-
