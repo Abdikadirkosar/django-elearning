@@ -86,6 +86,19 @@ class Lesson(models.Model):
             return False
         return LessonProgress.objects.filter(user=user, lesson=self, completed=True).exists()
 
+    @property
+    def embed_video_url(self):
+        if not self.video_url:
+            return None
+        import re
+        yt_match = re.search(r'(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})', self.video_url)
+        if yt_match:
+            video_id = yt_match.group(1)
+            return f"https://www.youtube-nocookie.com/embed/{video_id}"
+        if 'embed' in self.video_url:
+            return self.video_url
+        return None
+
 
 class LessonResource(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='resources')

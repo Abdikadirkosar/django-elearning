@@ -80,16 +80,31 @@
     </div>
 
     {% if lesson.video_url %}
-      <div style="margin-top: 2rem; background-color: var(--bg-main); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-        <h4 style="margin-bottom: 0.5rem; color: var(--primary); display: flex; align-items: center; gap: 0.4rem;">
+      <div style="margin-top: 2rem; background-color: var(--card-bg); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+        <h4 style="margin-bottom: 1rem; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; font-weight: 800;">
           <span>🎥</span> Muuqaalka Casharka (Video Tutorial)
         </h4>
-        <p style="font-size: 0.95rem; margin: 0;">
-          Daawo muuqaalka casharka: 
-          <a href="{{ lesson.video_url }}" target="_blank" rel="noopener noreferrer" style="font-weight: 700; color: var(--primary); text-decoration: underline;">
-            {{ lesson.video_url }} &rarr;
+
+        {% if lesson.embed_video_url %}
+          <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin-bottom: 1rem; background: #000; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+            <iframe 
+              src="{{ lesson.embed_video_url }}" 
+              title="{{ lesson.title }}"
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        {% endif %}
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; background: var(--bg-alt); padding: 0.75rem 1rem; border-radius: 8px;">
+          <span style="font-size: 0.88rem; color: var(--text-muted);">
+            📺 Waxaad sidoo kale muuqaalkan toos uga daawan kartaa:
+          </span>
+          <a href="{{ lesson.video_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.9rem; display: inline-flex; align-items: center; gap: 6px;">
+            <span>▶️</span> Ku Fur YouTube-ka Toos &rarr;
           </a>
-        </p>
+        </div>
       </div>
     {% endif %}
 
