@@ -287,6 +287,7 @@ Mashruucan waxaa si wada-jir ah u dhisay oo iska kaashaday kooxda:
 |---|---|---|---|
 | **Abdikadir Kosar** | **Lead Full-Stack Engineer** | Backend Architecture, Django MVT, Payment Engine (Zaad/e-Dahab), Admin Panel & Security | [@Abdikadirkosar](https://github.com/Abdikadirkosar) |
 | **Xamse Maxamed** | **Frontend & UI/UX Contributor** | UI/UX Components, Course Catalog Cards, Responsive Video Integration, Testing & Docs | [@xamse-maxamed](https://github.com/xamse-maxamed) |
+| **BytewMaster (Cnaasir)** | **Frontend & QA Contributor** | Global Branding, Header/Footer UX Polish, Navigation Integrity & Responsive Layout QA | [@cnaasircabdidaahir10-rgb](https://github.com/cnaasircabdidaahir10-rgb) |
 
 ---
 
@@ -298,5 +299,5 @@ Mashruucan waxaa si wada-jir ah u dhisay oo iska kaashaday kooxda:
 - **GitHub**: [https://github.com/Abdikadirkosar/django-elearning](https://github.com/Abdikadirkosar/django-elearning)
 
 <div align="center">
-  <sub>Xuquuqda oo dhan waxay u dhowrsan tahay © 2026 <strong>AQOONPLUS Academy</strong>. Waxaa dhisay oo wada maamula Eng. Abdikadir Kosar & Xamse Maxamed.</sub>
+  <sub>Xuquuqda oo dhan waxay u dhowrsan tahay © 2026 <strong>AQOONPLUS Academy</strong>. Waxaa dhisay oo wada maamula Kooxda Horumarinta (Abdikadir Kosar, Xamse Maxamed & BytewMaster).</sub>
 </div>
