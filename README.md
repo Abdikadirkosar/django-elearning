@@ -11,6 +11,7 @@
     <img src="https://img.shields.io/badge/Frontend-HTML5_%7C_CSS3_%7C_Vanilla_JS-E34F26?style=for-the-badge" alt="Frontend">
     <img src="https://img.shields.io/badge/Database-SQLite3-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
     <img src="https://img.shields.io/badge/Courses-15%20Active-blue?style=for-the-badge" alt="Courses">
+    <img src="https://img.shields.io/badge/Lessons-75%20HD%20Videos-red?style=for-the-badge" alt="Lessons">
     <img src="https://img.shields.io/badge/Tests-19%2F19%20Passed-brightgreen?style=for-the-badge" alt="Tests">
     <img src="https://img.shields.io/badge/Language-Af--Soomaali-blue?style=for-the-badge" alt="Somali">
   </p>
@@ -32,63 +33,63 @@
 - **Madaxa Waxbarashada (Lead Instructor)**: **Eng. Abdikadir Kosar**
 - **Horumariyaha Nidaamka (Developer)**: **Dev. Abdikadir**
 - **Xarunta Guud**: Arabsiyo, Somaliland & Online Learning Tech Hub
-- **Xiriirka Rasmiga ah**: `+252 63 4812030` | `contact@aqoonplus.so`
+- **Xiriirka Rasmiga ah**: `+252 63 4812030` | `contact@aqoonplus.so` / `Abdikadirkosara@gmail.com`
 
 > ⚡ **Falsafadda Naqshadda (Architecture Design)**: Nidaamkan waxaa lagu dhisay **Pure Vanilla Stack** (Python/Django, HTML5, CSS3, iyo Vanilla JavaScript). Looma baahsan habab culus (no Bootstrap, Tailwind, React, ama jQuery) si nidaamku u noqdo mid xawaare sare ku shaqeeya, si sahlan loo daalacan karo taleefannada iyo kombiyuutarada labadaba, isla markaana nadiif u ah bandhigyada tacliimeed.
 
 ---
 
-## 🌟 Tilmaamaha & Faa'iidooyinka Muhiimka ah (Key Features)
+## 🌟 Dhammaan Waxyaabaha Lagu Kordhiyay Nidaamka (Complete Feature Set)
 
 ### 1. 📚 Katalogga 15-ka Koorso & Qiimaynta (\$10 - \$15 USD)
-Nidaamka waxaa ku jira **15 koorso oo heer sare ah** oo wata qiimayaal cadcad oo dusha sare ee kaadhka ku qoran:
+Nidaamka waxaa ku jira **15 koorso oo heer sare ah** oo wata qiimayaal cadcad oo dusha sare ee kaadhka ku qoran (Badge Cagaaran):
 
-| # | Magaca Koorsada | Qaybta (Category) | Qiimaha | Casharka 1aad (Preview) |
-|---|---|---|---|---|
-| 1 | **Python Programming** | Programming | **$15.00** | ✅ Free Preview |
-| 2 | **Web Development** | Web Development | **$12.00** | ✅ Free Preview |
-| 3 | **Database Fundamentals** | Databases | **$10.00** | ✅ Free Preview |
-| 4 | **Java Programming** | Programming | **$12.00** | ✅ Free Preview |
-| 5 | **Computer Networking** | Networking | **$10.00** | ✅ Free Preview |
-| 6 | **Artificial Intelligence** | Artificial Intelligence | **$15.00** | ✅ Free Preview |
-| 7 | **Database Management** | Database Management | **$12.00** | ✅ Free Preview |
-| 8 | **Graphic Design** | Design | **$10.00** | ✅ Free Preview |
-| 9 | **Horumarinta App-yada Mobile-ka (Flutter & Dart)** | Mobile Development | **$15.00** | ✅ Free Preview |
-| 10 | **Amniga Baraha Dijitaalka ah (Cybersecurity & Ethical Hacking)** | Cybersecurity | **$15.00** | ✅ Free Preview |
-| 11 | **Full-Stack Web Development (Django & React JS)** | Web Development | **$15.00** | ✅ Free Preview |
-| 12 | **Naqshadaynta UI/UX Casriga ah (Figma Masterclass)** | Design | **$12.00** | ✅ Free Preview |
-| 13 | **Iidheha & Suuqgeynta Dijitaalka ah (Digital Marketing & SEO)** | Business & Marketing | **$10.00** | ✅ Free Preview |
-| 14 | **Xog-falanqaynta & Data Science (Python & PowerBI)** | Data Science | **$15.00** | ✅ Free Preview |
-| 15 | **Ganacsiga Online-ka ah & E-Commerce (Shopify & WordPress)** | E-Commerce | **$12.00** | ✅ Free Preview |
-
----
-
-### 2. 🎥 Daawashada Muuqaallada Casharka (Embedded HD YouTube Player)
-- Dhammaan **75-ka cashar** waxay leeyihiin muuqaallo dhab ah oo loogu talagalay maaddadaas (Tutorials rasmi ah).
-- Cashar kasta dhexdiisa waxaa ku dhex jira **Video Player casri ah (16:9 Responsive)** oo ardaygu toos uga daawan karo casharka isagoon barta ka bixin.
-- Waxaa sidoo kale weheliya badhan toos ah oo YouTube ku furaya haddii ardaygu doono.
+| # | Magaca Koorsada | Qaybta (Category) | Qiimaha | Casharrada | Preview Bilaash ah |
+|---|---|---|---|---|---|
+| 1 | **Python Programming** | Programming | **$15.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 2 | **Web Development** | Web Development | **$12.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 3 | **Database Fundamentals** | Databases | **$10.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 4 | **Java Programming** | Programming | **$12.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 5 | **Computer Networking** | Networking | **$10.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 6 | **Artificial Intelligence** | Artificial Intelligence | **$15.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 7 | **Database Management** | Database Management | **$12.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 8 | **Graphic Design** | Design | **$10.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 9 | **Horumarinta App-yada Mobile-ka (Flutter & Dart)** | Mobile Development | **$15.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 10 | **Amniga Baraha Dijitaalka ah (Cybersecurity & Ethical Hacking)** | Cybersecurity | **$15.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 11 | **Full-Stack Web Development (Django & React JS)** | Web Development | **$15.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 12 | **Naqshadaynta UI/UX Casriga ah (Figma Masterclass)** | Design | **$12.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 13 | **Iidheha & Suuqgeynta Dijitaalka ah (Digital Marketing & SEO)** | Business & Marketing | **$10.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 14 | **Xog-falanqaynta & Data Science (Python & PowerBI)** | Data Science | **$15.00** | 5 Cashar | ✅ Casharka 1-aad |
+| 15 | **Ganacsiga Online-ka ah & E-Commerce (Shopify & WordPress)** | E-Commerce | **$12.00** | 5 Cashar | ✅ Casharka 1-aad |
 
 ---
 
-### 3. 💳 Iibsiga Koorsooyinka & Ansixinta Admin-ka (Mobile Money Checkout)
-- **Lacag-bixinta Mobile Money (Zaad & e-Dahab)**:
+### 2. 🎥 Daawashada Muuqaallada Casharka (Embedded 16:9 HD Player)
+- Dhammaan **75-ka cashar** waxay leeyihiin muuqaallo dhab ah oo loogu talagalay maaddadaas (Real YouTube Tutorials).
+- Cashar kasta dhexdiisa waxaa ku dhex jira **Responsive Video Player (16:9)** oo ardaygu toos uga daawan karo casharka isagoon barta ka bixin.
+- Waxaa weheliya badhan toos ah oo YouTube ku furaya haddii ardaygu doono.
+
+---
+
+### 3. 💳 Iibsiga Koorsooyinka & Lacag-bixinta Mobile Money
+- **Akoonnada Rasmiga ah**:
   - 📱 **Telesom ZAAD**: `+252 63 4812030` (Eng. Abdikadir Kosar)
   - 📱 **e-Dahab**: `+252 63 4812030`
-- **Tilmaamaha Transaction ID ee SMS-ka**: Bogga checkout-ka waxaa ku yaal sawir iyo qoraal muujinaya halka Transaction ID-ga laga helo fariinta SMS-ka ee Zaad iyo e-Dahab.
-- **💬 1-Click WhatsApp Direct Confirmation**: Badhan cagaaran oo toos WhatsApp ugu diraya Admin-ka magaca ardayga, koorsada, iyo lacagta la bixiyay.
-- **🎁 Hordhac Bilaash ah (Free Preview Lessons)**: Casharka 1-aad ee koorso kasta waa bilaash si ardaygu u tijaabiyo tayada casharrada.
+- **Tilmaamaha Transaction ID ee SMS-ka**: Bogga checkout-ka waxaa ku yaal tusaale cad oo tusaya ardayga halka uu ka helayo nambarka tixraaca (Zaad & e-Dahab SMS).
+- **💬 1-Click WhatsApp Direct Confirmation**: Badhan toos WhatsApp ugu diraya maamulka magaca ardayga, koorsada, iyo lacagta la bixiyay.
+- **🎁 Free Preview Lessons**: Casharka 1-aad ee koorso kasta waa bilaash.
 
 ---
 
-### 4. 👑 Xafiiska Maamulka (LMS Admin Panel `/admin/` & Database Admin)
-- **Custom Admin Panel (`/admin/`)**:
+### 4. 👑 Xafiiska Maamulka (Dual Admin Layer)
+- **LMS Custom Admin Panel (`/admin/`)**:
   - 💰 **Dakhliga Guud (Total Revenue Analytics)**: Wadarta lacagta soo xarootay oo dollar ah iyo lacagta ku jirta dalabyada sugitaanka ah.
   - 👥 Maamulka Isticmaalayaasha & Kaalmaha (Student / Instructor / Admin).
   - 📚 Maamulka Koorsooyinka, Casharrada, iyo Qiimaha.
   - 💳 Ansixinta ama Diidmada Dalabyada Lacag-bixinta (One-Click Approval with automated notifications).
   - 🏆 Warbixinnada Shahaadooyinka & Natiijooyinka Imtixaannada.
-- **Django Database Admin (`/django-admin/`)**:
-  - Waxaa lagu qalabeeyay **Dark Mode Theme** casri ah oo u dhigma midabada AQOONPLUS.
+- **Dedicated Admin Login Page (`/admin-panel/login/`)**: Bog u gaar ah maamulka oo leh naqshad casri ah.
+- **Django Core Database Admin (`/django-admin/`)**: Waxaa lagu qalabeeyay **Dark Mode Theme** casri ah oo u dhigma midabada AQOONPLUS.
 
 ---
 
@@ -101,12 +102,12 @@ Dashboard-ka ardayga (`/dashboard/`) waxaa loo habeeyay 3 qaybood oo nadiif ah:
 ---
 
 ### 6. 🔍 Raadinta & Kala-soocidda Koorsooyinka (Sorting & Filtering)
-- Ardaydu waxay koorsooyinka ku kala sooci karaan:
-  - 🆕 **Ugu Cusub**
-  - 💲 **Qiimaha: Ugu Jaban ($10)**
-  - 💎 **Qiimaha: Ugu Sareeya ($15)**
-  - 🔥 **Ugu Caansan (Most Popular)**
-  - Qaybaha (Categories): Programming, Web, Design, Mobile, AI, Cybersecurity, iwm.
+Ardaydu waxay koorsooyinka ku kala sooci karaan:
+- 🆕 **Ugu Cusub**
+- 💲 **Qiimaha: Ugu Jaban ($10)**
+- 💎 **Qiimaha: Ugu Sareeya ($15)**
+- 🔥 **Ugu Caansan (Most Popular)**
+- Qaybaha (Categories): Programming, Web, Design, Mobile, AI, Cybersecurity, iwm.
 
 ---
 
@@ -133,6 +134,15 @@ Dashboard-ka ardayga (`/dashboard/`) waxaa loo habeeyay 3 qaybood oo nadiif ah:
 
 ---
 
+### 10. 🔐 Amniga & Gelitaanka Casriga ah
+- **Gelitaan Labo Dhinac ah**: Gelitaan Email AMA Username.
+- **I Xasuuso (Remember Me)**: Fursad lagu hayo akoonka ilaa 2 toddobaad.
+- **Cabbirka Awoodda Furaha**: Password Strength Meter toos u shaqaynaya.
+- **4-Step Password Reset**: Token-based password recovery.
+- **Custom Error Pages**: Bogga khaladka CSRF 403 oo Af-Soomaali ah, iyo boggaga 404 & 500.
+
+---
+
 ## 🛠️ Qalabka & Farsamooyinka Lagu Dhisay (Technology Stack)
 
 | Qaybta | Qalabka / Luqadda | Faahfaahin |
@@ -140,10 +150,10 @@ Dashboard-ka ardayga (`/dashboard/`) waxaa loo habeeyay 3 qaybood oo nadiif ah:
 | **Backend Framework** | **Django 5.2 (Python 3.14)** | Models, ORM, Forms, Views, Authentication, Cryptographic Tokens |
 | **Database** | **SQLite3** (Ready for PostgreSQL) | Keydka xogta ee fudud, degdegga ah, laguna shaqeyn karo meel kasta |
 | **Frontend Layout** | **HTML5 Semantic** | Qoraalka bogagga oo habaysan oo heer caalami ah |
-| **Styling & Design** | **Vanilla CSS3** | Custom CSS Variables, Flexbox, Grid, Responsive 16:9 Players |
+| **Styling & Design** | **Vanilla CSS3** | Custom CSS Variables, Flexbox, Grid, Responsive 16:9 Players (v5.4) |
 | **Client Scripts** | **Vanilla JavaScript (ES6+)** | Dynamic Search, Sorting, Password Strength Meter, Mobile Drawer |
 | **Testing** | **Django Test Runner** | 19 Automated Unit & Integration Tests (100% Passing) |
-| **Payments** | **Mobile Money API / Manual Verification** | Telesom ZAAD & e-Dahab with Reference Number Guides |
+| **Payments** | **Mobile Money Verification** | Telesom ZAAD & e-Dahab with Reference Number Guides |
 
 ---
 
