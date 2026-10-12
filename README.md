@@ -31,7 +31,9 @@
 **AQOONPLUS Academy** waa madal waxbarasho online ah oo casri ah (Full-Stack E-Learning Management System) oo loogu talagalay ardayda wax ka barata jaamacadaha iyo xarumaha xirfadeed ee dalka. Nidaamku wuxuu bixiyaa jawi waxbarasho oo dhammaystiran oo ku baxa **Af-Soomaali**, fududeynaya qaadashada casharrada muuqaalka ah, imtixaannada tooska ah, iibsiga koorsooyinka iyadoo la adeegsanayo Mobile Money (Zaad / e-Dahab), iyo qaadashada shahaadooyin rasmi ah oo la xaqiijin karo.
 
 - **Madaxa Waxbarashada (Lead Instructor)**: **Eng. Abdikadir Kosar**
-- **Horumariyaha Nidaamka (Developer)**: **Dev. Abdikadir**
+- **Kooxda Horumarinta (Development Team & Collaborators)**:
+  - 👨‍💻 **Abdikadir Kosar** ([@Abdikadirkosar](https://github.com/Abdikadirkosar)) — *Lead Full-Stack Developer & Architecture*
+  - 👨‍💻 **Xamse Maxamed** ([@xamse-maxamed](https://github.com/xamse-maxamed)) — *Frontend, UI/UX Contributor & Testing*
 - **Xarunta Guud**: Arabsiyo, Somaliland & Online Learning Tech Hub
 - **Xiriirka Rasmiga ah**: `+252 63 4812030` | `contact@aqoonplus.so` / `Abdikadirkosara@gmail.com`
 
@@ -277,6 +279,17 @@ OK
 
 ---
 
+## 👥 Kooxda Wada-shaqeynta Mashruuca (Project Collaborators & Team)
+
+Mashruucan waxaa si wada-jir ah u dhisay oo iska kaashaday kooxda:
+
+| Xubin (Member) | Doorka (Role) | Shaqada uu Qabtay (Contributions) | GitHub Profile |
+|---|---|---|---|
+| **Abdikadir Kosar** | **Lead Full-Stack Engineer** | Backend Architecture, Django MVT, Payment Engine (Zaad/e-Dahab), Admin Panel & Security | [@Abdikadirkosar](https://github.com/Abdikadirkosar) |
+| **Xamse Maxamed** | **Frontend & UI/UX Contributor** | UI/UX Components, Course Catalog Cards, Responsive Video Integration, Testing & Docs | [@xamse-maxamed](https://github.com/xamse-maxamed) |
+
+---
+
 ## 📞 Xiriirka & Taageerada
 
 - **Email**: `contact@aqoonplus.so` / `Abdikadirkosara@gmail.com`
@@ -285,5 +298,5 @@ OK
 - **GitHub**: [https://github.com/Abdikadirkosar/django-elearning](https://github.com/Abdikadirkosar/django-elearning)
 
 <div align="center">
-  <sub>Xuquuqda oo dhan waxay u dhowrsan tahay © 2026 <strong>AQOONPLUS Academy</strong>. Waxaa dhisay oo maamula Eng. Abdikadir Kosar.</sub>
+  <sub>Xuquuqda oo dhan waxay u dhowrsan tahay © 2026 <strong>AQOONPLUS Academy</strong>. Waxaa dhisay oo wada maamula Eng. Abdikadir Kosar & Xamse Maxamed.</sub>
 </div>
